@@ -11,6 +11,7 @@ import { UsPageComponent } from './pages/us-page/us-page.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FooterComponent } from './components/footer/footer.component';
     UsPageComponent,
     ContactPageComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LayoutPageComponent
   ],
   imports: [
     BrowserModule,

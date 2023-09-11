@@ -6,9 +6,10 @@ import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.compo
 import { FavoritesPageComponent } from './pages/favorites-page/favorites-page.component';
 import { UsPageComponent } from './pages/us-page/us-page.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
+import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 
 const routes: Routes = [
-  {path:'SimplementeFlow',
+  {path:'SimplementeFlow',component:LayoutPageComponent,
   children:[
     {path:'Home',component:HomePageComponent},
     {path:'NewUser',component:NewUserPageComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
     {path:'Products',loadChildren:()=>import('./products/products.module').then(m=>m.ProductsModule)},
     {path:'**',redirectTo:'Home'},
   ]},
+  {path:'Admin',loadChildren:()=>import('./admin/admin.module').then(m=>m.AdminModule)},
   {path:'**',redirectTo:'SimplementeFlow'}
 ];
 
