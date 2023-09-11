@@ -3,10 +3,26 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { NewUserPageComponent } from './pages/new-user-page/new-user-page.component';
+import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
+import { FavoritesPageComponent } from './pages/favorites-page/favorites-page.component';
+import { UsPageComponent } from './pages/us-page/us-page.component';
+import { ContactPageComponent } from './pages/contact-page/contact-page.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomePageComponent,
+    NewUserPageComponent,
+    CheckoutPageComponent,
+    FavoritesPageComponent,
+    UsPageComponent,
+    ContactPageComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
