@@ -6,8 +6,10 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
 import { ProductsPageComponent } from './pages/products-page/products-page.component';
 import { CategoriesPageComponent } from './pages/categories-page/categories-page.component';
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
 
 const routes: Routes = [
+  {path:'login',component:LoginPageComponent},
   {path:'',component:AdminlayoutPageComponent,children:[
     {path:'dashboard',component:DashboardPageComponent},
     {path:'Products',component:ProductsPageComponent},

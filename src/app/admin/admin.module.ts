@@ -7,6 +7,9 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
 import { ProductsPageComponent } from './pages/products-page/products-page.component';
 import { CategoriesPageComponent } from './pages/categories-page/categories-page.component';
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { PrimeModule } from '../prime/prime.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,11 +18,14 @@ import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
     DashboardPageComponent,
     ProductsPageComponent,
     CategoriesPageComponent,
-    OrdersPageComponent
+    OrdersPageComponent,
+    LoginPageComponent
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    PrimeModule,
+    FormsModule
   ]
 })
 export class AdminModule { }

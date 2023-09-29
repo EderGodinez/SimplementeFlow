@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
+import { AppLayoutModule } from './layout/app.layout.module';
+
+import {HttpClientModule} from '@angular/common/http'
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { NewUserPageComponent } from './pages/new-user-page/new-user-page.component';
@@ -12,6 +14,9 @@ import { ContactPageComponent } from './pages/contact-page/contact-page.componen
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
+import { VerifyAccountComponent } from './pages/verify-account/verify-account.component';
+import { SuccessPageComponent } from './pages/success-page/success-page.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,11 +29,16 @@ import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
     ContactPageComponent,
     HeaderComponent,
     FooterComponent,
-    LayoutPageComponent
+    LayoutPageComponent,
+    VerifyAccountComponent,
+    SuccessPageComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    AppLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
