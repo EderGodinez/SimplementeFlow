@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LoginService } from './login.service';
-
+import { Router } from '@angular/router';
 @Component({
   templateUrl: './login-page.component.html',
   styles: [`
@@ -13,10 +13,13 @@ import { LoginService } from './login.service';
 `]
 })
 export class LoginPageComponent {
-  valCheck: string[] = ['remember'];
+  constructor(private LoginService: LoginService,
+    private Router:Router) { }
 
-  password!: string;
 
-  constructor(public LoginService: LoginService) { }
-
+    password!: string;
+    email !:string;
+    login(){
+      this.Router.navigateByUrl('Admin/dashboard');
+    }
 }
