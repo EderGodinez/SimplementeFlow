@@ -1,2 +1,7 @@
-<p>adminlayout-page works!</p>
-<router-outlet/>
+
+<admin-sidenav (onToggleSideNav)="onToggleSideNav($event)"></admin-sidenav>
+<app-body
+[collapsed]="isSideNavCollapsed"
+[screenWidth]="screenWidth">
+</app-body>
+

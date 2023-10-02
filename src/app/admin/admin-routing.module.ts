@@ -12,9 +12,9 @@ const routes: Routes = [
   {path:'login',component:LoginPageComponent},
   {path:'',component:AdminlayoutPageComponent,children:[
     {path:'dashboard',component:DashboardPageComponent},
-    {path:'Products',component:ProductsPageComponent},
-    {path:'Categories',component:CategoriesPageComponent},
-    {path:'Orders',component:OrdersPageComponent},
+    {path:'products',component:ProductsPageComponent},
+    {path:'categories',component:CategoriesPageComponent},
+    {path:'orders',component:OrdersPageComponent},
     {path:'**',redirectTo:'dashboard'}
   ]}
 

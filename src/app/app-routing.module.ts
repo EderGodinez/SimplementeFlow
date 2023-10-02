@@ -9,6 +9,7 @@ import { ContactPageComponent } from './pages/contact-page/contact-page.componen
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { VerifyAccountComponent } from './pages/verify-account/verify-account.component';
 import { SuccessPageComponent } from './pages/success-page/success-page.component';
+import { ErrorPageComponent } from './pages/error-page/error-page.component';
 
 const routes: Routes = [
   {path:'SimplementeFlow',component:LayoutPageComponent,
@@ -30,7 +31,7 @@ const routes: Routes = [
     {path:'**',redirectTo:'Home'},
   ]},
   {path:'Admin',loadChildren:()=>import('./admin/admin.module').then(m=>m.AdminModule)},
-  {path:'**',redirectTo:'SimplementeFlow'}
+  {path:'**',component:ErrorPageComponent}
 
 ];
 

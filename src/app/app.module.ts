@@ -16,6 +16,8 @@ import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { VerifyAccountComponent } from './pages/verify-account/verify-account.component';
 import { SuccessPageComponent } from './pages/success-page/success-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ErrorPageComponent } from './pages/error-page/error-page.component';
+import { PrimeModule } from './prime/prime.module';
 
 @NgModule({
   declarations: [
@@ -30,13 +32,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FooterComponent,
     LayoutPageComponent,
     VerifyAccountComponent,
-    SuccessPageComponent
+    SuccessPageComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    PrimeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
