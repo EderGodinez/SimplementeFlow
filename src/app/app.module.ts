@@ -18,6 +18,8 @@ import { SuccessPageComponent } from './pages/success-page/success-page.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { PrimeModule } from './prime/prime.module';
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -33,14 +35,16 @@ import { PrimeModule } from './prime/prime.module';
     LayoutPageComponent,
     VerifyAccountComponent,
     SuccessPageComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    RegisterPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    PrimeModule
+    PrimeModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

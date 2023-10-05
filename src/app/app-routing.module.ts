@@ -10,15 +10,17 @@ import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { VerifyAccountComponent } from './pages/verify-account/verify-account.component';
 import { SuccessPageComponent } from './pages/success-page/success-page.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
 
 const routes: Routes = [
   {path:'SimplementeFlow',component:LayoutPageComponent,
   children:[
     {path:'Home',component:HomePageComponent},
     {path:'NewUser',component:NewUserPageComponent,
-          children:[{path:'VerifyAccount',component:VerifyAccountComponent},
+          children:[{path:'register',component:RegisterPageComponent},
+                    {path:'VerifyAccount',component:VerifyAccountComponent},
                     {path:'Success',component:SuccessPageComponent},
-                    {path:'**',redirectTo:''}]},
+                    {path:'**',redirectTo:'Success'}]},
     {path:'Checkout',component:CheckoutPageComponent,
           children:[{path:'OrderSuccess',component:SuccessPageComponent},
                     {path:'**',redirectTo:''}]},
