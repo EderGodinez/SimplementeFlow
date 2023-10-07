@@ -1,5 +1,5 @@
 <!-- Este es el contenido del header menu -->
-<div class="surface-900 w-full h-5rem flex align-items-center gap-2 ">
+<div class="surface-900 w-screen h-5rem flex align-items-center gap-2">
   <img src="assets/images/logo_blanco.png" alt="Logo" class="h-3rem ml-2">
   <p-button (click)="sidebarVisible = true"  [style]="{ 'background-color': 'white', 'color': 'black' ,'border': 'none' }" styleClass="p-button-rounded" icon="pi pi-align-justify" class="ml-2" label="MENU"></p-button>
     <span class="w-9 ml-5 p-input-icon-right">
@@ -7,17 +7,45 @@
       <input type="text" placeholder="Serch products" pInputText [(ngModel)]="value" class="w-full" style="border-radius: 35px;"/>
     </span>
     <div class="flex gap-5 absolute"style="right: 40px;">
-      <a href="" class="pi pi-user p-2" style="font-size: 1.75rem;color: white;"></a>
-      <a href="" class="pi pi-heart-fill p-2" style="font-size: 1.75rem;color: white;"></a>
-      <a href="" class="pi pi-shopping-cart p-2" style="font-size: 1.75rem;color: white;"></a>
+      <a class="pi pi-user p-0 cursor-pointer " style="font-size: 1.75rem;color: white;" (click)="op.toggle($event)"></a>
+      <a routerLink="Favorites" class="pi pi-heart-fill p-0 cursor-pointer" style="font-size: 1.75rem;color: white;"></a>
+      <a routerLink="Checkout" class="pi pi-shopping-cart p-0 cursor-pointer" style="font-size: 1.75rem;color: white;"></a>
     </div>
-
 </div>
 <!-- Este es el contendo de el SideBar -->
 <p-sidebar [(visible)]="sidebarVisible">
-  <h3>Sidebar</h3>
-  <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  </p>
+  <ng-template pTemplate="header"><img src="assets//images/simplemente_flow_logo.png"  class="w-3rem" alt=""><h2 class="text-center pt-4">Simplemente Flow</h2></ng-template>
+  <hr>
+  <ng-template pTemplate="content">
+  <ul class="flex list-none flex-column gap-3 p-0">
+    <li class="hover:text-blue-600 cursor-pointer" (click)="Home()">Home</li>
+    <li class="hover:text-blue-600 cursor-pointer" routerLink="SocialResposability" >social responsibility policy</li>
+    <li class="hover:text-blue-600 cursor-pointer" (click)="selectOption(option)" *ngFor="let option of Categories">{{option}}</li>
+  </ul>
+</ng-template>
+  <ng-template pTemplate="footer">
+    <ul class="flex list-none w-full justify-content-between">
+      <li class="w-3rem" *ngFor="let media of socialMedia"><a [href]="media.url" target="_blank" rel="noopener noreferrer"><i class="{{media.logo}} hover:text-blue-600"style="font-size: 1.5rem; color:black;"></i></a></li>
+    </ul>
+  </ng-template>
 </p-sidebar>
+<!-- contenido de panel emergente de usuario -->
+<p-overlayPanel #op [style]="{'background-color':'rbg(236,236,236)'}">
+  <div class="w-20rem flex align-content-center justify-content-between p-0 m-0 surface-300">
+    <div class="flex align-content-center gap-2">
+      <a class="underline m-2 cursor-pointer text-600 text-lg hover:text-blue-600" routerLink="login">Sing in</a><span class="m-2">|</span>
+      <a class="underline m-2 cursor-pointer text-600 text-lg hover:text-blue-600" routerLink="NewUser">Sing up</a>
+    </div>
+    <p-button icon="pi pi-times" styleClass="p-button-rounded p-button-text" [style]="{'padding': '0' ,'color':'grey'}" (click)="op.toggle($event)"></p-button>
+  </div>
+  <hr class="m-0">
+  <div class="text-2xl">
+    <ul class="flex list-none flex-column gap-3 p-2 m-1">
+      <li *ngFor="let user of OptionsU" class=" flex hover:text-blue-600 cursor-pointer" style="font-size: 16px;">
+        <i class="{{user.icon}} p-2" [routerLink]="user.url"></i>
+        <p class="mt-2 ml-2 text-lg">{{user.label}}</p>
+      </li>
+    </ul>
+  </div>
+</p-overlayPanel>
+

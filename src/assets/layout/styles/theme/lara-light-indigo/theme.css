@@ -4521,10 +4521,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 .p-overlaypanel .p-overlaypanel-content {
-  padding: 1.25rem;
+  padding: 0;
 }
 .p-overlaypanel .p-overlaypanel-close {
-  background: #6366F1;
+  background: rgb(236, 236, 236);
   color: #ffffff;
   width: 2rem;
   height: 2rem;

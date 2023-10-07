@@ -20,6 +20,10 @@ import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { PrimeModule } from './prime/prime.module';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { FormsModule } from '@angular/forms';
+import { SocialResposabilityComponent } from './pages/social-resposability/social-resposability.component';
+import { WhatsappComponent } from './components/whatsapp/whatsapp.component';
+import { AngularMaterialModule } from './angular-material/angular-material.module';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,10 @@ import { FormsModule } from '@angular/forms';
     VerifyAccountComponent,
     SuccessPageComponent,
     ErrorPageComponent,
-    RegisterPageComponent
+    RegisterPageComponent,
+    SocialResposabilityComponent,
+    WhatsappComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +51,8 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     BrowserAnimationsModule,
     PrimeModule,
-    FormsModule
+    FormsModule,
+    AngularMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

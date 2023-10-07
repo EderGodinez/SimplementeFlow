@@ -1,1 +1,54 @@
-<p>register-page works!</p>
+
+<div class="surface-ground flex align-items-start justify-content-center min-h-screen min-w-screen overflow-hidden">
+  <div class="flex flex-column align-items-center justify-content-center p-5">
+      <div style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, grey 10%, rgba(33, 150, 243, 0) 30%);">
+          <div class="surface-card py-5 px-3 sm:px-8" style="border-radius:53px;width: 90rem;">
+              <div class="text-center mb-5">
+                  <div class="text-900 text-3xl font-medium mb-3">Welcome</div>
+                  <span class="text-600 font-medium">Create Account</span>
+              </div>
+              <div class="flex flex-column">
+                  <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
+                  <input id="email1" type="text" placeholder="Email address" pInputText class="w-full mb-3" style="padding:1rem">
+                  <div class="flex gap-4 justify-content-start w-full">
+                    <div class="w-6">
+                      <label for="name" class="block text-900 text-xl font-medium mb-2">Name(s)</label>
+                      <input id="nane" type="text" placeholder="Names" pInputText class="w-full mb-3" style="padding:1rem">
+                    </div>
+                    <div class="w-6">
+                      <label for="lastname" class="block text-900 text-xl font-medium mb-2">Lastname's</label>
+                      <input id="lastname" type="text" placeholder="Lastnames" pInputText class="w-full  mb-3" style="padding:1rem">
+                    </div>
+                  </div>
+                  <div class="p-grid">
+                    <div class="p-col-4">
+                      <label for="gender" class="block text-900 text-xl font-medium mb-2">Gender</label>
+                      <input id="gender" type="text" placeholder="Customer gender" pInputText class="w-full mb-3" style="padding: 1rem;">
+                    </div>
+                    <div class="p-col-4">
+                      <label for="phone" class="block text-900 text-xl font-medium mb-2">Phone</label>
+                      <input id="phone" type="text" placeholder="Phone number" pInputText class="w-full mb-3" style="padding: 1rem;">
+                    </div>
+                  </div>
+
+
+<div class="w-full flex gap-2 justify-content-center">
+                <div class="w-3">
+                  <label for="birthdate" class="block text-900 text-xl font-medium mb-2">Birthdate</label>
+                  <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
+                </div>
+                <div class="w-4">
+                  <label for="gender" class="block text-900 text-xl font-medium mb-2">Gender</label>
+                  <input id="gender" type="text" placeholder="Customer gender" pInputText class="w-full  mb-3" style="padding:1rem">
+                </div>
+                <div class="w-5">
+                  <label for="phone" class="block text-900 text-xl font-medium mb-2">Phone</label>
+                  <input id="phone" type="text" placeholder="Phone number" pInputText class="w-full  mb-3" style="padding:1rem">
+                </div>
+              </div>
+                  <button pButton pRipple label="Register" class="w-full p-3 text-xl align-self-center" (click)="VerifyAccount()"></button>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

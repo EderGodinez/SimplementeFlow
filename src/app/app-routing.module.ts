@@ -11,22 +11,26 @@ import { VerifyAccountComponent } from './pages/verify-account/verify-account.co
 import { SuccessPageComponent } from './pages/success-page/success-page.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { SocialResposabilityComponent } from './pages/social-resposability/social-resposability.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
 
 const routes: Routes = [
   {path:'SimplementeFlow',component:LayoutPageComponent,
   children:[
     {path:'Home',component:HomePageComponent},
+    {path:'login',component:LoginPageComponent},
     {path:'NewUser',component:NewUserPageComponent,
           children:[{path:'register',component:RegisterPageComponent},
                     {path:'VerifyAccount',component:VerifyAccountComponent},
                     {path:'Success',component:SuccessPageComponent},
-                    {path:'**',redirectTo:'Success'}]},
+                    {path:'**',redirectTo:'register'}]},
     {path:'Checkout',component:CheckoutPageComponent,
           children:[{path:'OrderSuccess',component:SuccessPageComponent},
                     {path:'**',redirectTo:''}]},
     {path:'Favorites',component:FavoritesPageComponent},
     {path:'Us',component:UsPageComponent},
     {path:'Contact',component:ContactPageComponent},
+    {path:'SocialResposability',component:SocialResposabilityComponent},
     {path:'Orders',loadChildren:() => import('./orders/orders.module').then(m => m.OrdersModule)},
     {path:'Account',loadChildren:()=> import('./account/account.module').then(m=>m.AccountModule)},
     {path:'Products',loadChildren:()=>import('./products/products.module').then(m=>m.ProductsModule)},
