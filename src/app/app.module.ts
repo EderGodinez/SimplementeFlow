@@ -24,6 +24,8 @@ import { SocialResposabilityComponent } from './pages/social-resposability/socia
 import { WhatsappComponent } from './components/whatsapp/whatsapp.component';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { ReturnPageComponent } from './pages/return-page/return-page.component';
+import { LegalNoticePageComponent } from './pages/legal-notice-page/legal-notice-page.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
     RegisterPageComponent,
     SocialResposabilityComponent,
     WhatsappComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    ReturnPageComponent,
+    LegalNoticePageComponent
   ],
   imports: [
     BrowserModule,

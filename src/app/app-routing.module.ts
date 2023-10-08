@@ -13,6 +13,8 @@ import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { SocialResposabilityComponent } from './pages/social-resposability/social-resposability.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { ReturnPageComponent } from './pages/return-page/return-page.component';
+import { LegalNoticePageComponent } from './pages/legal-notice-page/legal-notice-page.component';
 
 const routes: Routes = [
   {path:'SimplementeFlow',component:LayoutPageComponent,
@@ -34,6 +36,8 @@ const routes: Routes = [
     {path:'Orders',loadChildren:() => import('./orders/orders.module').then(m => m.OrdersModule)},
     {path:'Account',loadChildren:()=> import('./account/account.module').then(m=>m.AccountModule)},
     {path:'Products',loadChildren:()=>import('./products/products.module').then(m=>m.ProductsModule)},
+    {path:'Return-policity',component:ReturnPageComponent},
+    {path:'legal-notice',component:LegalNoticePageComponent},
     {path:'**',redirectTo:'Home'},
   ]},
   {path:'Admin',loadChildren:()=>import('./admin/admin.module').then(m=>m.AdminModule)},

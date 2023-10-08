@@ -10,6 +10,9 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
 import { StepsModule } from 'primeng/steps';
+import { MessagesModule } from 'primeng/messages';
+import { ImageModule } from 'primeng/image';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -25,7 +28,9 @@ import { StepsModule } from 'primeng/steps';
     OverlayPanelModule,
     ToastModule,
     CalendarModule,
-    StepsModule
+    StepsModule,
+    MessagesModule,
+    ImageModule
   ]
 })
 export class PrimeModule { }
