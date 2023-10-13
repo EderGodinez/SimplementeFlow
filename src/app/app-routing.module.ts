@@ -15,6 +15,7 @@ import { SocialResposabilityComponent } from './pages/social-resposability/socia
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { ReturnPageComponent } from './pages/return-page/return-page.component';
 import { LegalNoticePageComponent } from './pages/legal-notice-page/legal-notice-page.component';
+import { FindUsPageComponent } from './pages/find-us-page/find-us-page.component';
 
 const routes: Routes = [
   {path:'SimplementeFlow',component:LayoutPageComponent,
@@ -38,6 +39,7 @@ const routes: Routes = [
     {path:'Products',loadChildren:()=>import('./products/products.module').then(m=>m.ProductsModule)},
     {path:'Return-policity',component:ReturnPageComponent},
     {path:'legal-notice',component:LegalNoticePageComponent},
+    {path:'FindUs',component:FindUsPageComponent},
     {path:'**',redirectTo:'Home'},
   ]},
   {path:'Admin',loadChildren:()=>import('./admin/admin.module').then(m=>m.AdminModule)},

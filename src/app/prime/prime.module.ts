@@ -12,7 +12,21 @@ import { CalendarModule } from 'primeng/calendar';
 import { StepsModule } from 'primeng/steps';
 import { MessagesModule } from 'primeng/messages';
 import { ImageModule } from 'primeng/image';
-
+import { CarouselModule } from 'primeng/carousel';
+import { TableModule } from 'primeng/table';
+import { ChartModule } from 'primeng/chart';
+import { MenuModule } from 'primeng/menu';
+import { StyleClassModule } from 'primeng/styleclass';
+import { PanelMenuModule } from 'primeng/panelmenu';
+import { FileUploadModule } from 'primeng/fileupload';
+import { RippleModule } from 'primeng/ripple';
+import { ToolbarModule } from 'primeng/toolbar';
+import { RatingModule } from 'primeng/rating';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DropdownModule } from 'primeng/dropdown';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { DialogModule } from 'primeng/dialog';
 @NgModule({
   declarations: [],
   imports: [
@@ -30,7 +44,22 @@ import { ImageModule } from 'primeng/image';
     CalendarModule,
     StepsModule,
     MessagesModule,
-    ImageModule
+    ImageModule,
+    CarouselModule,
+    TableModule,
+    ChartModule,
+    MenuModule,
+    StyleClassModule,
+    PanelMenuModule,
+    FileUploadModule,
+    RippleModule,
+    InputTextareaModule,
+    ToolbarModule,
+    RatingModule,
+    DialogModule,
+    DropdownModule,
+    RadioButtonModule,
+    InputNumberModule
   ]
 })
 export class PrimeModule { }

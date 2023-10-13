@@ -4,11 +4,15 @@ import { CommonModule } from '@angular/common';
 import { ProductsRoutingModule } from './products-routing.module';
 import { SearchPageComponent } from './pages/category-page/category-page.component';
 import { SharedModule } from '../shared/shared.module';
+import { ProductCardComponent } from './components/product-card/product-card.component';
+import { ProductCarrucelComponent } from './components/product-carrucel/product-carrucel.component';
 
 
 @NgModule({
   declarations: [
-    SearchPageComponent
+    SearchPageComponent,
+    ProductCardComponent,
+    ProductCarrucelComponent
   ],
   imports: [
     CommonModule,

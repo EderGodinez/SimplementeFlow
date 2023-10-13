@@ -26,6 +26,7 @@ import { AngularMaterialModule } from './angular-material/angular-material.modul
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { ReturnPageComponent } from './pages/return-page/return-page.component';
 import { LegalNoticePageComponent } from './pages/legal-notice-page/legal-notice-page.component';
+import { FindUsPageComponent } from './pages/find-us-page/find-us-page.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { LegalNoticePageComponent } from './pages/legal-notice-page/legal-notice
     WhatsappComponent,
     LoginPageComponent,
     ReturnPageComponent,
-    LegalNoticePageComponent
+    LegalNoticePageComponent,
+    FindUsPageComponent
   ],
   imports: [
     BrowserModule,

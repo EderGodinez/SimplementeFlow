@@ -10,11 +10,6 @@ export const navOptions=[
   label:'Products'
 },
 {
-  routeLink:'categories',
-  icon:'pi pi-server',
-  label:'Categories'
-},
-{
   routeLink:'orders',
   icon:'pi pi-box',
   label:'Orders'

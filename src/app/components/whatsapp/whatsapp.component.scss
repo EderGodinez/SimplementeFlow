@@ -1,11 +1,12 @@
 .whatsapp_button{
   line-height: 3rem;
   background: transparent;
-  color:black;
+  color:rgb(133, 133, 133);
   border-radius: 50px;
   text-align: center;
   font-size: 30px;
   position: fixed;
   right: 2vh;
-  bottom: 20vh;
+  bottom: 15vh;
+  z-index: 4;
 }
