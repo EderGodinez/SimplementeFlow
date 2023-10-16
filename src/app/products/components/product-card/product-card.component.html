@@ -1,1 +1,18 @@
-<p>product-card works!</p>
+<div style="width: 32vw;">
+  <div class="flex flex-row-reverse justify-content-around m-3">
+    <like-button  (checkboxChanged)="handleCheckboxChange($event,Product)"></like-button>
+    <p></p></div>
+  <a href='SimplementeFlow/Products/Search/{{Product.General.age}}/{{Product._id.$oid}}'>
+    <p-image src="{{Product.images[0]}}" [preview]="true" alt="Image" width="450" [imageStyle]="{'object-fit':'cover'}">
+      <ng-template pTemplate="indicator" class="flex justify-items-space border-none">
+        <span class="sizes">{{Min}}</span>
+        <span class="sizes">Al</span>
+        <span class="sizes">{{Max}}</span>
+      </ng-template>
+    </p-image>
+  </a>
+  <h4 class="m-0">{{Product.General.patent}}</h4>
+  <h4 class="m-0">{{Product.ProductName}}</h4>
+  <h4 class="m-0">{{Product.price| currency: 'USD'}}</h4>
+</div>
+

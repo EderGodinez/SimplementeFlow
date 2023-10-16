@@ -1,0 +1,39 @@
+:host ::ng-deep{
+  .card{
+    border: none;
+  }
+.p-galleria .p-galleria-thumbnail-container{
+  background-color: #fff;
+  padding: 0;
+}
+}
+select{
+  padding-right: 50px;
+   margin-left: 50px;
+    width: 100px;
+   height: 30px;
+   border: none;
+   font-size: 1.2rem;
+}
+li{
+  padding-top: 15px;
+  font-size: large;
+  vertical-align: middle;
+  text-align: center;
+  list-style: none;
+  width: 8rem;
+  height: 4rem;
+  background-color: gray;
+  border-radius: 10px;
+  border: gray 1px ;
+  cursor: pointer;
+}
+input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+li input[type="radio"]:checked + label {
+  background-color: #007bff;
+  color: #fff;
+}
+

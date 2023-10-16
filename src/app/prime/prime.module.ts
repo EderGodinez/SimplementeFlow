@@ -27,6 +27,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
+import { TabViewModule } from 'primeng/tabview';
+import { GalleriaModule } from 'primeng/galleria';
 @NgModule({
   declarations: [],
   imports: [
@@ -59,7 +61,9 @@ import { DialogModule } from 'primeng/dialog';
     DialogModule,
     DropdownModule,
     RadioButtonModule,
-    InputNumberModule
+    InputNumberModule,
+    TabViewModule,
+    GalleriaModule
   ]
 })
 export class PrimeModule { }

@@ -43,8 +43,8 @@ const routes: Routes = [
     {path:'**',redirectTo:'Home'},
   ]},
   {path:'Admin',loadChildren:()=>import('./admin/admin.module').then(m=>m.AdminModule)},
-  {path:'**',component:ErrorPageComponent}
-
+  {path:'Error',component:ErrorPageComponent},
+  {path:'**',redirectTo:"SimplementeFlow"},
 ];
 
 @NgModule({

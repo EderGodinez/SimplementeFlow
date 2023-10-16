@@ -1,1 +1,8 @@
-<p>product-carrucel works!</p>
+<p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [circular]="true">
+  <ng-template pTemplate="header">
+    <h2 class="pl-6">{{Title}}</h2>
+</ng-template>
+  <ng-template let-product pTemplate="item">
+    <product-card (mensajeEnviado)="mensajeEnviado.emit($event)" [Product]="product"></product-card>
+  </ng-template>
+</p-carousel>

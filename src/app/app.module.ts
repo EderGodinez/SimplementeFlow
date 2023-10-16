@@ -27,6 +27,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { ReturnPageComponent } from './pages/return-page/return-page.component';
 import { LegalNoticePageComponent } from './pages/legal-notice-page/legal-notice-page.component';
 import { FindUsPageComponent } from './pages/find-us-page/find-us-page.component';
+import { ProductsModule } from './products/products.module';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { FindUsPageComponent } from './pages/find-us-page/find-us-page.component
     BrowserAnimationsModule,
     PrimeModule,
     FormsModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    ProductsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
