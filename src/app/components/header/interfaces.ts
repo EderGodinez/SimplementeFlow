@@ -28,22 +28,22 @@ export const social:socialMedia[]=[
 export const UserOp:UserOptions[]=[
   {
     icon:'bi bi-person-circle',
-    url:'https://www.facebook.com/',
+    url:'Account',
     label:'Account'
   },
   {
     icon:'bi bi-box2',
-    url:'https://www.instagram.com/',
+    url:'Orders',
     label:'My Orders'
   },
   {
     icon:'bi bi-question',
-    url:'https://www.twitter.com/',
-    label:'info'
+    url:'Return-policity',
+    label:'Returns'
   },
   {
     icon:'bi bi-chat-left-dots',
-    url:'https://www.youtube.com/',
-    label:'Contact Us'
+    url:'Contact',
+    label:'Contact'
   }
 ]

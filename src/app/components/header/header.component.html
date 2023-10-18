@@ -20,7 +20,7 @@
   <ul class="flex list-none flex-column gap-3 p-0">
     <li class="hover:text-blue-600 cursor-pointer" (click)="Home()">Home</li>
     <li class="hover:text-blue-600 cursor-pointer" routerLink="SocialResposability" >social responsibility policy</li>
-    <li class="hover:text-blue-600 cursor-pointer" (click)="selectOption(option)" *ngFor="let option of Categories">{{option}}</li>
+    <li class="hover:text-blue-600 cursor-pointer" (click)="selectOption(option)" *ngFor="let option of Categories" routerLink="Products/Search/{{option}}">{{option}}</li>
   </ul>
 </ng-template>
   <ng-template pTemplate="footer">
@@ -41,8 +41,8 @@
   <hr class="m-0">
   <div class="text-2xl">
     <ul class="flex list-none flex-column gap-3 p-2 m-1">
-      <li *ngFor="let user of OptionsU" class=" flex hover:text-blue-600 cursor-pointer" style="font-size: 16px;">
-        <i class="{{user.icon}} p-2" [routerLink]="user.url"></i>
+      <li *ngFor="let user of OptionsU" class=" flex hover:text-blue-600 cursor-pointer" style="font-size: 16px;" routerLink="{{user.url}}">
+        <i class="{{user.icon}} p-2"></i>
         <p class="mt-2 ml-2 text-lg">{{user.label}}</p>
       </li>
     </ul>

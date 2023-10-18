@@ -41,9 +41,6 @@ export interface General {
   E_Material: string
   I_Material: string
   Shoe_sole: string
-  _id: Id2
 }
 
-export interface Id2 {
-  $oid: string
-}
+

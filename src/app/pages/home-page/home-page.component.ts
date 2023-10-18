@@ -3,6 +3,7 @@ import { adverticers,advertice } from './advertices';
 import { Product } from 'src/app/products/interfaces/product.interface';
 import { Toast } from 'src/app/products/interfaces';
 import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './home-page.component.html',
@@ -10,7 +11,7 @@ import { MessageService } from 'primeng/api';
   providers: [MessageService]
 })
 export class HomePageComponent {
-  constructor(private messageService: MessageService){
+  constructor(private messageService: MessageService,private router:Router){
   }
   @Input()
   Products:Product[]=[]
@@ -29,6 +30,8 @@ this.messageService.add({summary,data});
     catch{
       throw new Error('Este es un error de ejemplo');
     }
-
+  }
+  NavigateFav(){
+    this.router.navigate(['SimplementeFlow/Favorites'])
   }
 }

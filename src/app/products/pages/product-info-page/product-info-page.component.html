@@ -1,4 +1,39 @@
-<div class="grid">
+<p-toast position="top-left" [baseZIndex]="5000" [life]=2500 [style]="{'background': 'linear-gradient(0deg, rgba(97,99,99,1) 0%, rgba(191,188,181,1) 60%)','color': 'white','border-radius':'15px','width':'250px'}">
+  <ng-template let-message pTemplate="message" style="padding: 0;">
+      <div class="flex flex-column justify-content-center" style="flex: 1 ;" *ngIf="message.summary.includes('favoritos')||message.summary.includes('removido')">
+          <div class="text-center text-base justify-items-center" style="width: 100%;" >
+              <h4>{{message.summary}}</h4>
+              <p>{{message.data[1]}}</p>
+              <p>{{message.data[2]|currency:'USD'}}</p>
+              <img src="{{message.data[0]}}" alt="" style="object-fit: cover; width: 120px;">
+          </div>
+          <div class="grid p-fluid">
+              <div class="col-12" *ngIf="!message.summary.includes('removido')">
+                  <button type="button" pButton  label="See favorites" (click)="Navigate('Favorites')" severity="secondary"></button>
+              </div>
+          </div>
+      </div>
+      <div class="text-base" *ngIf="!message.summary.includes('favoritos')&&message.summary.includes('Please')">
+        {{message.summary}}
+      </div>
+      <div>
+        <div class="flex flex-column justify-content-center" style="flex: 1 ;" *ngIf="message.summary.includes('shopping car')">
+          <div class="text-center text-base justify-items-center" style="width: 100%;" >
+              <h4>{{message.summary|addProducts}}</h4>
+              <p>{{message.data[1]}}</p>
+              <p>{{message.data[2]|currency:'USD'}}</p>
+              <img src="{{message.data[0]}}" alt="" style="object-fit: cover; width: 120px;">
+          </div>
+          <div class="grid p-fluid">
+              <div class="col-12" *ngIf="!message.summary.includes('removido')">
+                  <button type="button" pButton  label="See shopping car" (click)="Navigate('Checkout')" severity="secondary"></button>
+              </div>
+          </div>
+      </div>
+      </div>
+  </ng-template>
+  </p-toast>
+<div class="grid m-3">
     <div class="col-6">
       <p-galleria [value]="Product.images" [thumbnailsPosition]="'left'" [responsiveOptions]="responsiveOptions" [numVisible]="5">
             <ng-template pTemplate="item" let-item>
@@ -12,24 +47,63 @@
         </p-galleria>
     </div>
     <div class="col-6">
+      <form autocomplete="off" [formGroup]="productForm" (ngSubmit)="addShoppingCar()">
       <div class="flex w-full justify-content-between my-3" id="infoP">
         <h1 class="">{{Product.ProductName}}</h1>
-        <h1>Precio: <br> {{Product.price|currency:"USD"}}</h1>
-        <like-button class="mr-8"></like-button>
+        <h1>Price: <br> {{Product.price|currency:"USD"}}</h1>
+        <like-button class="mr-8" (checkboxChanged)="mostrarToast($event)"></like-button>
       </div>
       <div class="" id="sizes">
-        <ul class="flex gap-4 p-0 flex-wrap justify-content-center text-center vertical-align-middle">
-          <li *ngFor="let item of Product.sizes | keyvalue" class="m-1"><input type="radio" value="{{item.key}}" name="size"(change)="print(item.key)">{{item.key}}</li>
+        <ul class="flex gap-4 p-0 flex-wrap justify-content-start text-center vertical-align-middle">
+          <li *ngFor="let item of Product.sizes | keyvalue" class="m-1 size" [ngClass]="{'active':item.key === productForm.get('size')?.value}"><input type="radio" formControlName="size" value="{{item.key}}" name="size">{{item.key}}</li>
         </ul>
       </div>
       <div class="flex justify-content-between mt-4">
-        <label for="quantity"><h2>Cantidad:</h2></label>
-        <select name="quantity"><option *ngFor="let option of Quantity" [value]="option">{{option}}</option></select>
+        <label for="quantity"><h2>Quantity:</h2></label>
+        <select name="quantity" #quantity formControlName="quantity"><option *ngFor="let option of Quantity" [value]="option">{{option}}</option></select>
         <p></p>
       </div>
-      <h2 class="m-2">Descripcion:</h2>
+      <h2 class="m-2">Description:</h2>
       <h3 class="m-2">{{Product.description}}</h3>
-      <p-button [style]="{'width':'50%','background-color':'black','border':'none','border-radius':'10px','margin-top':'50px'}" label="Añadir a carrito" class="flex justify-content-center"><i class="bi bi-bag-plus" style="font-size: 1.5rem;"></i></p-button>
+      <p-button type="submit" [style]="{'width':'50%','background-color':'black','border':'none','border-radius':'10px','margin-top':'50px'}" label="Añadir a carrito" class="flex justify-content-center"><i class="bi bi-bag-plus" style="font-size: 1.5rem;"></i></p-button>
+    </form>
+    </div>
+    <h2 class="text-center mx-8 mt-2 px-8">Each of our products is original and unique but like everything it has its pros and cons, that is why we recommend that our users review the observations made by our experts and based on this make the best decision for their purchase.</h2>
+  <div class="col-6">
+    <p-table [value]="[Product.General]" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template pTemplate="header">
+          <tr class="text-right">
+            <th class="text-right">Details</th>
+            <th></th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product>
+        <tr *ngFor="let item of product | keyvalue; let i = index;let even=even;"[ngStyle]="{'background-color': even ? 'rgb(245, 245, 245)' : ''}">
+          <ng-container *ngIf="item.key !== '_id'">
+                <td>{{ item.key | generalDetails  }}</td>
+                <td>{{  item.value  | generalDetails}}</td>
+          </ng-container>
+        </tr>
+      </ng-template>
+  </p-table>
+  </div>
+  <div class="col-6">
+    <p-table [value]="[Product]" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '50rem'}">
+      <ng-template pTemplate="header">
+          <tr>
+              <th>Adventages</th>
+              <th>Disadventages</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product>
+        <tr *ngFor="let item of product.adventages; let i = index;let even=even;"[ngStyle]="{'background-color': even ? 'rgb(245, 245, 245)' : ''}" style="height: 98px;">
+          <ng-container>
+                <td>{{ item|titlecase }}</td>
+                <td>{{ product.disadventages[i]|titlecase }}</td>
+          </ng-container>
+        </tr>
+      </ng-template>
+  </p-table>
   </div>
   </div>
-<product-carrucel [Title]="titleCarrousel"></product-carrucel>
+<product-carrucel [Title]="titleCarrousel" (mensajeEnviado)="showMessage($event)" ></product-carrucel>

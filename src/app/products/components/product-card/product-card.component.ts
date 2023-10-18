@@ -47,9 +47,6 @@ export class ProductCardComponent {
     E_Material: " ",
     I_Material: " ",
     Shoe_sole: " ",
-    _id: {
-      $oid: ""
-    }
   },
   adventages: [],
   disadventages: [],
@@ -59,7 +56,6 @@ export class ProductCardComponent {
 mensajeEnviado= new EventEmitter<Toast>();
 Max:number;
 Min:number;
-isLike:boolean=false;
 handleCheckboxChange(isChecked: boolean,Product:Product) {
   const {ProductName,price,images}=Product;
   let Toast:Toast={
@@ -68,12 +64,12 @@ handleCheckboxChange(isChecked: boolean,Product:Product) {
 }
   if (isChecked) {
      Toast={
-      summary:ProductName+" añadido",
-      data:[`assets/images/Products/${images[0]}`,ProductName,price]}
+      summary:ProductName+" añadido a favoritos",
+      data:[`${images[0]}`,ProductName,price]}
   } else {
     Toast={
       summary:ProductName+" removido de tu lista",
-      data:[`assets/images/Products/${images[0]}`,ProductName,price]}
+      data:[`${images[0]}`,ProductName,price]}
   }
   this.mensajeEnviado.emit(Toast);
 }

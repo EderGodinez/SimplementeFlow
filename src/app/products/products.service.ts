@@ -43,17 +43,20 @@ export class ProductsService {
         E_Material: "leather",
         I_Material: "mesh",
         Shoe_sole: "rubber",
-        _id: {
-          $oid: "650d06dec05b64891b463af3"
-        }
       },
       adventages: [
         "ventaja",
-        "ventaja2"
+        "ventaja2",
+        "ventaja3",
+        "ventaja4",
+        "ventaja5",
       ],
       disadventages: [
-        "desventaja,desventaja",
-        "desventaja2"
+        "desventaja",
+        "desventaja2",
+        "desventaja3",
+        "desventaja4",
+        "desventaja5"
       ],
       __v: 0 },
     {
@@ -94,17 +97,20 @@ export class ProductsService {
         E_Material: "leather",
         I_Material: "mesh",
         Shoe_sole: "rubber",
-        _id: {
-          $oid: "650d06dec05b64891b463af3"
-        }
       },
       adventages: [
         "ventaja",
-        "ventaja2"
+        "ventaja2",
+        "ventaja3",
+        "ventaja4",
+        "ventaja5",
       ],
       disadventages: [
-        "desventaja,desventaja",
-        "desventaja2"
+        "desventaja",
+        "desventaja2",
+        "desventaja3",
+        "desventaja4",
+        "desventaja5"
       ],
       __v: 0 },
     {
@@ -145,17 +151,20 @@ export class ProductsService {
         E_Material: "leather",
         I_Material: "mesh",
         Shoe_sole: "rubber",
-        _id: {
-          $oid: "650d06dec05b64891b463af3"
-        }
       },
       adventages: [
         "ventaja",
-        "ventaja2"
+        "ventaja2",
+        "ventaja3",
+        "ventaja4",
+        "ventaja5",
       ],
       disadventages: [
-        "desventaja,desventaja",
-        "desventaja2"
+        "desventaja",
+        "desventaja2",
+        "desventaja3",
+        "desventaja4",
+        "desventaja5"
       ],
       __v: 0  },
     {
@@ -196,17 +205,20 @@ export class ProductsService {
         E_Material: "leather",
         I_Material: "mesh",
         Shoe_sole: "rubber",
-        _id: {
-          $oid: "650d06dec05b64891b463af3"
-        }
       },
       adventages: [
         "ventaja",
-        "ventaja2"
+        "ventaja2",
+        "ventaja3",
+        "ventaja4",
+        "ventaja5",
       ],
       disadventages: [
-        "desventaja,desventaja",
-        "desventaja2"
+        "desventaja",
+        "desventaja2",
+        "desventaja3",
+        "desventaja4",
+        "desventaja5"
       ],
       __v: 0 },
     {
@@ -247,17 +259,20 @@ export class ProductsService {
         E_Material: "leather",
         I_Material: "mesh",
         Shoe_sole: "rubber",
-        _id: {
-          $oid: "650d06dec05b64891b463af3"
-        }
       },
       adventages: [
         "ventaja",
-        "ventaja2"
+        "ventaja2",
+        "ventaja3",
+        "ventaja4",
+        "ventaja5",
       ],
       disadventages: [
-        "desventaja,desventaja",
-        "desventaja2"
+        "desventaja",
+        "desventaja2",
+        "desventaja3",
+        "desventaja4",
+        "desventaja5"
       ],
       __v: 0},
     {
@@ -298,17 +313,20 @@ export class ProductsService {
         E_Material: "leather",
         I_Material: "mesh",
         Shoe_sole: "rubber",
-        _id: {
-          $oid: "650d06dec05b64891b463af3"
-        }
       },
       adventages: [
         "ventaja",
-        "ventaja2"
+        "ventaja2",
+        "ventaja3",
+        "ventaja4",
+        "ventaja5",
       ],
       disadventages: [
-        "desventaja,desventaja",
-        "desventaja2"
+        "desventaja",
+        "desventaja2",
+        "desventaja3",
+        "desventaja4",
+        "desventaja5"
       ],
       __v: 0},
     {
@@ -349,17 +367,20 @@ export class ProductsService {
         E_Material: "leather",
         I_Material: "mesh",
         Shoe_sole: "rubber",
-        _id: {
-          $oid: "650d06dec05b64891b463af3"
-        }
       },
       adventages: [
         "ventaja",
-        "ventaja2"
+        "ventaja2",
+        "ventaja3",
+        "ventaja4",
+        "ventaja5",
       ],
       disadventages: [
-        "desventaja,desventaja",
-        "desventaja2"
+        "desventaja",
+        "desventaja2",
+        "desventaja3",
+        "desventaja4",
+        "desventaja5"
       ],
       __v: 0},
     {
@@ -400,17 +421,20 @@ export class ProductsService {
         E_Material: "leather",
         I_Material: "mesh",
         Shoe_sole: "rubber",
-        _id: {
-          $oid: "650d06dec05b64891b463af3"
-        }
       },
       adventages: [
         "ventaja",
-        "ventaja2"
+        "ventaja2",
+        "ventaja3",
+        "ventaja4",
+        "ventaja5",
       ],
       disadventages: [
-        "desventaja1",
-        "desventaja2"
+        "desventaja",
+        "desventaja2",
+        "desventaja3",
+        "desventaja4",
+        "desventaja5"
       ],
       __v: 0}
   ]
@@ -419,5 +443,8 @@ export class ProductsService {
  }
  GetProductById(id:string):Product{
   return this.Products.filter(product=>product._id.$oid===id)[0]
+ }
+ GetProductsByCategory():Product[]{
+ return this.Products
  }
 }

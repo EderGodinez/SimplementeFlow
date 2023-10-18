@@ -11,13 +11,13 @@
           </div>
           <div class="grid p-fluid">
               <div class="col-12" *ngIf="!message.summary.includes('removido')">
-                  <button type="button" pButton  label="See favorites" severity="secondary"></button>
+                  <button type="button" pButton  label="See favorites" (click)="NavigateFav()" severity="secondary"></button>
               </div>
           </div>
       </div>
   </ng-template>
   </p-toast>
-<p-carousel [value]="adverticers" [numVisible]="1" [numScroll]="1" [circular]="true"  [indicatorStyleClass]="'border-circle'" [indicatorStyle]="{'width':'15px','height': '15px'}" class="m-0 p-0">
+<p-carousel [value]="adverticers" [numVisible]="1" [numScroll]="1" [circular]="true"  [indicatorStyleClass]="'border-circle'" [indicatorStyle]="{'width':'15px','height': '15px'}" class="m-0 p-0" [autoplayInterval]="4000">
   <ng-template let-advertice pTemplate="item">
       <div class="text-center py-3" style="height: 600px;" >
         <a href="{{advertice.url}}">
