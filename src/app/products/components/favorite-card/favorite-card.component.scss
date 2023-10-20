@@ -1,0 +1,15 @@
+:host ::ng-deep{
+  .p-button{
+    margin-right: 40px;
+    border-radius: 20px;
+    background-color:#b7b7b7;
+    color: white;
+    font-size: 1.3rem;
+    border-color:#c1c1c1;
+  }
+  .p-button:hover{
+    background-color: darkgrey;
+    border-color: darkgrey;
+    color: black;
+  }
+}

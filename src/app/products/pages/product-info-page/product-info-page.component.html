@@ -68,7 +68,9 @@
       <p-button type="submit" [style]="{'width':'50%','background-color':'black','border':'none','border-radius':'10px','margin-top':'50px'}" label="Añadir a carrito" class="flex justify-content-center"><i class="bi bi-bag-plus" style="font-size: 1.5rem;"></i></p-button>
     </form>
     </div>
-    <h2 class="text-center mx-8 mt-2 px-8">Each of our products is original and unique but like everything it has its pros and cons, that is why we recommend that our users review the observations made by our experts and based on this make the best decision for their purchase.</h2>
+    <hr>
+    <h2 class="text-center mx-8 my-8 px-8">Each of our products is original and unique but like everything it has its pros and cons, that is why we recommend that our users review the observations made by our experts and based on this make the best decision for their purchase.</h2>
+    <hr>
   <div class="col-6">
     <p-table [value]="[Product.General]" [tableStyle]="{ 'min-width': '50rem' }">
       <ng-template pTemplate="header">
@@ -106,4 +108,5 @@
   </p-table>
   </div>
   </div>
+  <hr>
 <product-carrucel [Title]="titleCarrousel" (mensajeEnviado)="showMessage($event)" ></product-carrucel>

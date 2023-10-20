@@ -1,0 +1,14 @@
+<div style="width: 32vw;">
+  <div class="flex justify-content-end m-3">
+    <!-- trashbutton -->
+    <p-button icon="bi bi-trash" (onClick)="deleteProduct.emit(Product._id.$oid)"></p-button>
+  </div>
+  <a href='SimplementeFlow/Products/Search/{{Product.General.age}}/{{Product._id.$oid}}'>
+    <img src="{{Product.images[0]}}" alt="{{Product.ProductName}}" width="100%" style="object-fit: cover;">
+  </a>
+  <div class="flex flex-column justify-items-start">
+    <h4 class="m-0">{{Product.General.patent}}</h4>
+    <h4 class="m-0">{{Product.ProductName}}</h4>
+    <h4 class="m-0">{{Product.price| currency: 'USD'}}</h4>
+  </div>
+</div>

@@ -11,7 +11,10 @@ import { ProductInfoPageComponent } from './pages/product-info-page/product-info
 import { GeneralDetailsPipe } from './pipes/general-details.pipe';
 import { AddProductsPipe } from './pipes/add-products.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ProductListComponent } from './components/product-list/product-list.component'; // Importa ReactiveFormsModule
+import { ProductListComponent } from './components/product-list/product-list.component';
+import { FavoriteCardComponent } from './components/favorite-card/favorite-card.component';
+import { CheckoutCardComponent } from './components/checkout-card/checkout-card.component';
+
 
 @NgModule({
   declarations: [
@@ -23,6 +26,8 @@ import { ProductListComponent } from './components/product-list/product-list.com
     GeneralDetailsPipe,
     AddProductsPipe,
     ProductListComponent,
+    FavoriteCardComponent,
+    CheckoutCardComponent,
 
   ],
   imports: [
@@ -35,6 +40,8 @@ import { ProductListComponent } from './components/product-list/product-list.com
     SearchPageComponent,
     ProductCardComponent,
     ProductCarrucelComponent,
+    FavoriteCardComponent,
+    CheckoutCardComponent,
   ]
 })
 export class ProductsModule { }
