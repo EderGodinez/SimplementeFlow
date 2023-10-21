@@ -1,4 +1,4 @@
-<div class="flex my-3 text-lg">
+<div class="flex my-3 text-lg justify-content-around"*ngIf="productCheckout.Amount>0">
   <div style="width: 33%;">
     <a href="SimplementeFlow/Products/Search/{{productCheckout.age}}/{{productCheckout.id}}">
   <img [src]="productCheckout.Image" [alt]="productCheckout.productName" width="100%" height="100%"  style="object-fit: cover;"></a>
@@ -10,12 +10,14 @@
   <p>{{productCheckout.Price|currency}}</p>
 </div>
 <div class="flex flex-column">
-  <label for="quantity">quantity: <select name="quantity" class="w-50 h-2rem border-none">
-<option value="{{productCheckout.Amount}}" class="text-right">{{productCheckout.Amount}}</option>
-  </select> </label>
+  <p class="flex justify-content-between"><span>Quantity</span>
+    <button class="btn_quantity"  (click)="Descreaseproduct(productCheckout.id!)">-</button>
+    {{productCheckout.Amount}}
+    <button class="btn_quantity"  (click)="IncreaseProduct(productCheckout.id!)">+</button>
+  </p>
   <label for="size">size:
-    <select name="size" id="" class="w-50 h-2rem border-none" style="margin-left: 2.2rem;">
-      <option value="{{productCheckout.Size}}" class="text-right">{{productCheckout.Size}}</option>
+    <select name="size" class="w-50 h-2rem border-none" style="margin-left: 2.2rem;">
+      <option *ngFor="let size of AllowSizesObject | keyvalue" class="text-right" value="{{size.value[0]}}" [attr.selected]="CompareSizes(size.value[0],productCheckout.Size) ? true : null">{{size.value[0]}}</option>
     </select>
   </label>
 </div>

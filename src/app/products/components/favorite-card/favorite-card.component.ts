@@ -36,7 +36,7 @@ export class FavoriteCardComponent {
   General: {
     patent: " ",
     model: " ",
-    Gender: " ",
+    Category: " ",
     age: " ",
     width_type: " ",
     fit_type: " ",

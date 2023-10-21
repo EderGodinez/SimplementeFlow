@@ -33,7 +33,7 @@ export interface Sizes {
 export interface General {
   patent: string
   model: string
-  Gender: string
+  Category: string
   age: string
   width_type: string
   fit_type: string

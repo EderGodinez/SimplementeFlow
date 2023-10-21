@@ -4,7 +4,7 @@
   <p-button (click)="sidebarVisible = true"  [style]="{ 'background-color': 'white', 'color': 'black' ,'border': 'none' }" styleClass="p-button-rounded" icon="pi pi-align-justify" class="ml-2" label="MENU"></p-button>
     <span class="w-9 ml-5 p-input-icon-right">
       <i class="pi pi-search"></i>
-      <input type="text" placeholder="Search products" pInputText [(ngModel)]="value" class="w-full" style="border-radius: 35px;"/>
+      <input type="text" placeholder="Search products" pInputText [(ngModel)]="value" class="w-full" style="border-radius: 35px;" (keyup)="onKeyUp($event)"/>
     </span>
     <div class="flex gap-5 absolute"style="right: 40px;">
       <a class="pi pi-user p-0 cursor-pointer " style="font-size: 1.75rem;color: white;" (click)="op.toggle($event)"></a>

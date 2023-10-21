@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Product } from 'src/app/products/interfaces';
 import { ProductsService } from 'src/app/products/products.service';
 interface option{
@@ -10,7 +11,7 @@ interface option{
   styleUrls: ['./favorites-page.component.scss']
 })
 export class FavoritesPageComponent {
-  constructor(private ProductService:ProductsService){}
+  constructor(private ProductService:ProductsService,private Router:Router){}
   filterSelected:string=""
   filterOptions:option[]=[]
   shoppingCarProductsCode:string[]=[]
@@ -39,5 +40,8 @@ AddCar(id:string){
 }
 SearchSimilar(id:string,productName:string){
   this.Delete(id)
+  const productNameAtt=productName.split(' ')
+  const similar=`${productNameAtt[0]} ${productNameAtt[1]}`
+  this.Router.navigateByUrl(`SimplementeFlow/Products/Search/${similar}`);
 }
 }

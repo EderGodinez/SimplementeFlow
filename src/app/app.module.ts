@@ -21,7 +21,6 @@ import { PrimeModule } from './prime/prime.module';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { FormsModule } from '@angular/forms';
 import { SocialResposabilityComponent } from './pages/social-resposability/social-resposability.component';
-import { WhatsappComponent } from './components/whatsapp/whatsapp.component';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { ReturnPageComponent } from './pages/return-page/return-page.component';
@@ -46,7 +45,6 @@ import { ProductsModule } from './products/products.module';
     ErrorPageComponent,
     RegisterPageComponent,
     SocialResposabilityComponent,
-    WhatsappComponent,
     LoginPageComponent,
     ReturnPageComponent,
     LegalNoticePageComponent,

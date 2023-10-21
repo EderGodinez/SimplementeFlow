@@ -38,4 +38,14 @@ export class HeaderComponent {
     }
     this.sidebarVisible=false
   }
+  onKeyUp(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      // Realiza la acción que deseas cuando se presiona "Enter"
+      console.log('Se presionó Enter');
+      console.log(`SimplementeFlow/Products/Search/${this.value}`)
+      this.router.navigateByUrl(`SimplementeFlow/Products/Search/${this.value}`)
+      this.value="";
+
+    }
+  }
 }

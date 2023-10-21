@@ -13,7 +13,7 @@ export class ProductsService {
       description: "Sneakers marca Jordan en colaboracion con cantante Travis Scott",
       price: 2099.99,
       sizes: {
-        20: 980,
+        20: 0,
         21: 1000,
         22: 1000,
         23: 1000,
@@ -35,7 +35,7 @@ export class ProductsService {
       General: {
         patent: "Nike",
         model: "Jordan 1",
-        Gender: "Unisex",
+        Category: "Unisex",
         age: "EveryOne",
         width_type: "Narrow",
         fit_type: "Laces",
@@ -89,7 +89,7 @@ export class ProductsService {
       General: {
         patent: "Nike",
         model: "Jordan 1",
-        Gender: "Unisex",
+        Category: "Unisex",
         age: "EveryOne",
         width_type: "Narrow",
         fit_type: "Laces",
@@ -143,7 +143,7 @@ export class ProductsService {
       General: {
         patent: "Nike",
         model: "Jordan 1",
-        Gender: "Unisex",
+        Category: "Unisex",
         age: "EveryOne",
         width_type: "Narrow",
         fit_type: "Laces",
@@ -197,7 +197,7 @@ export class ProductsService {
       General: {
         patent: "Nike",
         model: "Jordan 1",
-        Gender: "Unisex",
+        Category: "Unisex",
         age: "EveryOne",
         width_type: "Narrow",
         fit_type: "Laces",
@@ -251,7 +251,7 @@ export class ProductsService {
       General: {
         patent: "Nike",
         model: "Jordan 1",
-        Gender: "Unisex",
+        Category: "Unisex",
         age: "EveryOne",
         width_type: "Narrow",
         fit_type: "Laces",
@@ -305,7 +305,7 @@ export class ProductsService {
       General: {
         patent: "Nike",
         model: "Jordan 1",
-        Gender: "Unisex",
+        Category: "Unisex",
         age: "EveryOne",
         width_type: "Narrow",
         fit_type: "Laces",
@@ -359,7 +359,7 @@ export class ProductsService {
       General: {
         patent: "Nike",
         model: "Jordan 1",
-        Gender: "Unisex",
+        Category: "Unisex",
         age: "EveryOne",
         width_type: "Narrow",
         fit_type: "Laces",
@@ -413,7 +413,7 @@ export class ProductsService {
       General: {
         patent: "Nike",
         model: "Jordan 1",
-        Gender: "Unisex",
+        Category: "Unisex",
         age: "EveryOne",
         width_type: "Narrow",
         fit_type: "Laces",
@@ -447,4 +447,5 @@ export class ProductsService {
  GetProductsByCategory():Product[]{
  return this.Products
  }
+
 }
