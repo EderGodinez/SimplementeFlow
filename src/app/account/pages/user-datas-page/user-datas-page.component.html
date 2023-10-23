@@ -1,1 +1,111 @@
-<p>user-datas-page works!</p>
+<div class="flex flex-column h-full w-full mt-4 ml-8">
+  <!-- personal data -->
+    <h1>Personal Datas</h1>
+    <hr>
+    <form [formGroup]="UserDataForm">
+      <!-- names  and lastnames  -->
+      <div class="formgrid grid">
+        <div class="field col">
+          <div class="flex flex-column gap-2">
+            <label htmlFor="username">Name's</label>
+            <input pInputText id="username" aria-describedby="username-help" formControlName="names" />
+            <small id="username-help">Enter your name's.</small>
+            <small *ngIf="UserDataForm.controls['names'].getError('required')&&UserDataForm.controls['names'].touched" class="text-danger font-medium">This field its required</small>
+            <small *ngIf="UserDataForm.controls['names'].getError('pattern')&&UserDataForm.controls['names'].touched" class="text-danger font-medium">This field have to have one or two valid names</small>
+        </div>
+        </div>
+        <div class="field col">
+          <div class="flex flex-column gap-2">
+            <label htmlFor="username">Lastname's</label>
+            <input pInputText id="username" aria-describedby="username-help" formControlName="lastnames" />
+            <small id="username-help">Enter your username.</small>
+            <small *ngIf="UserDataForm.controls['lastnames'].getError('required')&&UserDataForm.controls['lastnames'].touched" class="text-danger font-medium">This field its required</small>
+            <small *ngIf="UserDataForm.controls['lastnames'].getError('pattern')&&UserDataForm.controls['lastnames'].touched" class="text-danger font-medium">This field have to have one or two valid lastnames</small>
+        </div>
+        </div>
+      </div>
+      <!-- phone and email -->
+      <div class="formgrid grid">
+        <div class="field col">
+          <div class="flex flex-column gap-2">
+            <label htmlFor="username">Phone number</label>
+            <p-inputMask mask="(999) 999-9999" placeholder="(999) 999-9999" [ngClass]="{'ng-invalid ng-dirty':UserDataForm.controls['phone'].hasError}" formControlName="phone"  [style]="{'width':'100%'}" ></p-inputMask>
+            <small id="username-help">Enter your phone.</small>
+            <small *ngIf="UserDataForm.controls['phone'].getError('required')&&UserDataForm.controls['phone'].touched" class="text-danger font-medium">This field its required</small>
+        </div>
+        </div>
+        <div class="field col">
+          <div class="flex flex-column gap-2">
+            <label htmlFor="username">Email</label>
+            <input type="text" pinputtext="" [placeholder]="UserDataForm.controls['email'].value"  class="p-inputtext p-component p-element" [disabled]="true" >
+            <small id="username-help">In case you want to remember</small>
+        </div>
+        </div>
+      </div>
+
+
+  <!-- shipping data -->
+  <div>
+    <h1>Shipping Data</h1>
+    <hr>
+    <div class="formgrid grid">
+      <div class="field col">
+        <div class="flex flex-column gap-2">
+          <label htmlFor="Street">Street</label>
+          <input pInputText aria-describedby="username-help" formControlName="Street" />
+          <small id="street-help">Enter that we are going to send your packages</small>
+          <small *ngIf="UserDataForm.controls['Street'].getError('required')&&UserDataForm.controls['Street'].touched" class="text-danger font-medium">This field its required</small>
+          <small *ngIf="UserDataForm.controls['Street'].getError('pattern')&&UserDataForm.controls['Street'].touched" class="text-danger font-medium">This street its not valid</small>
+      </div>
+      </div>
+      <div class="field col">
+        <div class="flex flex-column gap-2">
+          <label htmlFor="Number">Number</label>
+          <input pInputText aria-describedby="Number-help" formControlName="number" />
+          <small id="username-help">Number and extention in case its neccesary</small>
+          <small *ngIf="UserDataForm.controls['number'].getError('required')&&UserDataForm.controls['number'].touched" class="text-danger font-medium">This field its required</small>
+      </div>
+      </div>
+      <div class="field col">
+        <div class="flex flex-column gap-2">
+          <label htmlFor="PostalCode">Postal code</label>
+          <input pInputText aria-describedby="PostalCode-help" formControlName="postal_Code" />
+          <small id="username-help">Postal Code <a href="https://www.correosdemexico.gob.mx/SSLServicios/ConsultaCP/Descarga.aspx" target="_blank" rel="noopener noreferrer">search yours</a></small>
+          <small *ngIf="UserDataForm.controls['postal_Code'].getError('required')&&UserDataForm.controls['postal_Code'].touched" class="text-danger font-medium">This field its required</small>
+          <small *ngIf="UserDataForm.controls['postal_Code'].getError('minlength')&&UserDataForm.controls['postal_Code'].touched" class="text-danger font-medium">This field have to minimun {{UserDataForm.controls['postal_Code'].value.length}}-5 characters</small>
+      </div>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col">
+        <div class="flex flex-column gap-2">
+          <label htmlFor="Cologne">Cologne</label>
+          <input pInputText id="Cologne" aria-describedby="Cologne-help" formControlName="Cologne" />
+          <small id="Cologne-help">Enter your name's.</small>
+          <small *ngIf="UserDataForm.controls['Cologne'].getError('required')&&UserDataForm.controls['Cologne'].touched" class="text-danger font-medium">This field its required</small>
+          <small *ngIf="UserDataForm.controls['Street'].getError('pattern')&&UserDataForm.controls['Street'].touched" class="text-danger font-medium">This cologne its not valid</small>
+      </div>
+      </div>
+      <div class="field col">
+        <div class="flex flex-column gap-2">
+          <label htmlFor="State">State</label>
+          <input pInputText id="State" aria-describedby="State-help" formControlName="State" />
+          <small id="State-help">Enter your name's.</small>
+          <small *ngIf="UserDataForm.controls['State'].getError('required')&&UserDataForm.controls['State'].touched" class="text-danger font-medium">This field its required</small>
+      </div>
+      </div>
+      <div class="field col">
+    <div class="flex flex-column gap-2">
+      <label htmlFor="State">City</label>
+      <input pInputText id="City" aria-describedby="City-help" formControlName="City" />
+      <small id="City-help">Enter your name's.</small>
+      <small *ngIf="UserDataForm.controls['City'].getError('required')&&UserDataForm.controls['City'].touched" class="text-danger font-medium">This field its required</small>
+  </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-row-reverse">
+    <p-button (onClick)="UpdateUserData()">Save</p-button>
+  </div>
+</form>
+</div>

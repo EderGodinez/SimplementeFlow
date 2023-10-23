@@ -4,16 +4,24 @@ import { CommonModule } from '@angular/common';
 import { AccountRoutingModule } from './account-routing.module';
 import { PasswordPageComponent } from './pages/password-page/password-page.component';
 import { UserDatasPageComponent } from './pages/user-datas-page/user-datas-page.component';
+import { UserLayoutPageComponent } from './layouts/user-layout-page/user-layout-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { PrimeModule } from '../prime/prime.module';
+import { ValidatorService } from '../validators/validator.service';
 
 
 @NgModule({
+  providers:[ValidatorService],
   declarations: [
     PasswordPageComponent,
-    UserDatasPageComponent
+    UserDatasPageComponent,
+    UserLayoutPageComponent
   ],
   imports: [
     CommonModule,
-    AccountRoutingModule
+    AccountRoutingModule,
+    ReactiveFormsModule,
+    PrimeModule
   ]
 })
 export class AccountModule { }

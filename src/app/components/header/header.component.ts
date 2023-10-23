@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { socialMedia,social,UserOptions,UserOp } from './interfaces';
+import { socialMedia,social,UserOptions,UserOp } from '../../interfaces/index.interface';
 import { NavigationEnd, Router } from '@angular/router';
 
 @Component({

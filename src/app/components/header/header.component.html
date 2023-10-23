@@ -41,7 +41,7 @@
   <hr class="m-0">
   <div class="text-2xl">
     <ul class="flex list-none flex-column gap-3 p-2 m-1">
-      <li *ngFor="let user of OptionsU" class=" flex hover:text-blue-600 cursor-pointer" style="font-size: 16px;" routerLink="{{user.url}}">
+      <li *ngFor="let user of OptionsU" class=" flex hover:text-blue-600 cursor-pointer" style="font-size: 16px;" (click)="op.toggle($event)" routerLink="{{user.url}}">
         <i class="{{user.icon}} p-2"></i>
         <p class="mt-2 ml-2 text-lg">{{user.label}}</p>
       </li>

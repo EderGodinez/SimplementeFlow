@@ -1,1 +1,48 @@
-<p>contact-page works!</p>
+<div class="w-full my-2" style="height: 30vh;">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14961.520974309164!2d-102.79010791284178!3d20.36720620000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!
+  1s0x842ed8e58578fd5f%3A0x8aede267aa4978ec!2sPlaza%20San%20Felipe!5e0!3m2!1ses!2smx!4v1684650007504!5m2!1ses!2smx" width="100%" height="100%" style="border:0;" allowfullscreen=""
+  loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+<div class="flex flex-wrap w-full gap-4 mx-1 mt-8 justify-content-evenly" >
+  <div  class="flex flex-column h-20rem align-items-center surface-200 border-1 border-300 py-8" style="min-width: 500px;border-radius: 20PX;">
+    <i class="bi bi-telephone-fill" style="font-size: 25px;"></i>
+  <h2>Phone</h2>
+  <span>3921067869</span>
+  </div>
+  <div  class="flex flex-column align-items-center surface-200 border-1 border-300 py-8" style="min-width: 500px;border-radius: 20PX;">
+    <i class="bi bi-geo-alt-fill" style="font-size: 25px;"></i>
+  <h2>Our Shop</h2>
+  <span>Av Universidad near to CUCI</span>
+  </div>
+  <div  class="flex flex-column align-items-center surface-200 border-1 border-300 py-8" style="min-width: 500px;border-radius: 20PX;">
+    <i class="bi bi-envelope"style="font-size: 25px;"></i>
+  <h2>Email</h2>
+  <span>SimplementeFlow@gmail.com</span>
+  </div>
+</div>
+<div class="w-full" style="height: 500px; padding: 60px;">
+  <form (ngSubmit)="onSubmit()" [formGroup]="MessageForm">
+    <div class="formgrid grid">
+      <div class="field col-6 md:col-6">
+          <label for="firstname6" class="font-medium text-indigo-400">Name</label>
+          <input id="firstname6" type="text" formControlName="Name" [ngClass]="{'invalid-form':!MessageForm.controls['Name'].hasError}" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+          <small id="NewPassword-help" class="text-danger" *ngIf="MessageForm.controls['Name'].getError('required')&&MessageForm.controls['Name'].touched"><br>This field is required</small>
+      </div>
+      <div class="field col-6 md:col-6">
+          <label for="lastname6" class="font-medium text-indigo-400">Email</label>
+          <input id="lastname6" type="text" formControlName="Email" [ngClass]="{'invalid-form':!MessageForm.controls['Email'].valid}" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+          <small id="NewPassword-help" class="text-danger" *ngIf="MessageForm.controls['Email'].getError('required')&&MessageForm.controls['Email'].touched"><br>This field is required</small>
+      </div>
+      <div class="field col-12">
+          <label for="address" class="font-medium text-indigo-400">Message</label>
+          <textarea id="address" type="text" formControlName="Message" [ngClass]="{'invalid-form':!MessageForm.controls['Message'].valid}" rows="7" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+          <small id="NewPassword-help" class="text-danger" *ngIf="MessageForm.controls['Message'].getError('required')&&MessageForm.controls['Message'].touched"><br>This field is required</small>
+          <small id="NewPassword-help" class="text-danger" *ngIf="MessageForm.controls['Message'].getError('maxlength')&&MessageForm.controls['Message'].touched"><br>The limit that you cant sent a email its 200 characters</small>
+      </div>
+    </div>
+    <div class="flex flex-row-reverse">
+      <p-button type="submit" [disabled]="!MessageForm.valid">Send</p-button>
+    </div>
+  </form>
+</div>
+

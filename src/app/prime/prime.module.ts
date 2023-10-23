@@ -29,6 +29,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { TabViewModule } from 'primeng/tabview';
 import { GalleriaModule } from 'primeng/galleria';
+import { InputMaskModule } from 'primeng/inputmask';
 @NgModule({
   declarations: [],
   imports: [
@@ -63,7 +64,8 @@ import { GalleriaModule } from 'primeng/galleria';
     RadioButtonModule,
     InputNumberModule,
     TabViewModule,
-    GalleriaModule
+    GalleriaModule,
+    InputMaskModule
   ]
 })
 export class PrimeModule { }
