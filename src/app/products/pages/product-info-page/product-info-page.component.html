@@ -58,11 +58,13 @@
           <li *ngFor="let item of Product.sizes | keyvalue" class="m-1 size" [ngClass]="{'active':item.key === productForm.get('size')?.value}"><input type="radio" formControlName="size" value="{{item.key}}" name="size">{{item.key}}</li>
         </ul>
       </div>
-      <div class="flex justify-content-between mt-4">
-        <label for="quantity"><h2>Quantity:</h2></label>
-        <select name="quantity" #quantity formControlName="quantity"><option *ngFor="let option of Quantity" [value]="option">{{option}}</option></select>
-        <p></p>
-      </div>
+
+        <p class="flex justify-content-between"><span>Quantity</span>
+          <button class="btn_quantity" type="button"  (click)="decrementQuantity()">-</button>
+          {{productForm.controls['quantity'].value}}
+          <button class="btn_quantity" type="button" (click)="incrementQuantity()">+</button>
+        </p>
+
       <h2 class="m-2">Description:</h2>
       <h3 class="m-2">{{Product.description}}</h3>
       <p-button type="submit" [style]="{'width':'50%','background-color':'black','border':'none','border-radius':'10px','margin-top':'50px'}" label="Añadir a carrito" class="flex justify-content-center"><i class="bi bi-bag-plus" style="font-size: 1.5rem;"></i></p-button>

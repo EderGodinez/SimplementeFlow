@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DataAddress } from 'src/app/interfaces/user.interfaces';
-import {AccountService} from 'src/app/account/Account.service'
+import {AccountService} from 'src/app/account/services/Account.service'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ValidatorService } from 'src/app/validators/validator.service';
 interface UserData{

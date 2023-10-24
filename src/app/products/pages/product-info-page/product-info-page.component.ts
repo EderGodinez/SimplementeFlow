@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../products.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product, Toast } from '../../interfaces';
@@ -9,8 +9,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./product-info-page.component.scss'],
   providers: [MessageService]
 })
-export class ProductInfoPageComponent {
-  constructor(private ProductsService:ProductsService,private route: ActivatedRoute,private messageService: MessageService,private formBuilder: FormBuilder,private router:Router){}
+export class ProductInfoPageComponent implements OnInit {
+  constructor(private ProductsService:ProductsService,
+    private route: ActivatedRoute,
+    private messageService: MessageService,
+    private formBuilder: FormBuilder,
+    private router:Router){}
   ngOnInit() {
     // Recoge el valor del parámetro 'id' de la URL
     this.route.params.subscribe(params => {
@@ -18,9 +22,10 @@ export class ProductInfoPageComponent {
       this.ProductById(id)
     });
   }
+
   public productForm: FormGroup=this.formBuilder.group({
     size:['',[Validators.required]],
-    quantity:['',[Validators.required,Validators.min(0)]]
+    quantity:[1,[Validators.required,Validators.min(1)]]
   })
 mensajeToast:Toast={
   data:[],
@@ -30,7 +35,6 @@ mensajeToast:Toast={
 isSelect:boolean=false
 selectedSize: string=""
 titleCarrousel:string="Other products"
-Quantity:number[]=[0,1,2,3,4,5,6,7,8,9,10]
 Product:Product={
   _id: {
     $oid: "0"
@@ -138,5 +142,15 @@ addShoppingCar(){
 Navigate(url:string){
   this.router.navigate([`SimplementeFlow/${url}`])
 }
+incrementQuantity() {
+  const currentQuantity = this.productForm.get('quantity')!.value;
+  this.productForm.get('quantity')!.setValue(currentQuantity + 1);
+}
 
+decrementQuantity() {
+  const currentQuantity = this.productForm.get('quantity')!.value;
+  if (currentQuantity > 1) {
+    this.productForm.get('quantity')!.setValue(currentQuantity - 1);
+  }
+}
 }

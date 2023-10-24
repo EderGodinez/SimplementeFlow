@@ -1,6 +1,6 @@
 <div class="flex flex-column h-full w-full mt-4 ml-8">
   <!-- personal data -->
-    <h1>Personal Datas</h1>
+    <h1>Personal Data</h1>
     <hr>
     <form [formGroup]="UserDataForm">
       <!-- names  and lastnames  -->
@@ -18,7 +18,7 @@
           <div class="flex flex-column gap-2">
             <label htmlFor="username">Lastname's</label>
             <input pInputText id="username" aria-describedby="username-help" formControlName="lastnames" />
-            <small id="username-help">Enter your username.</small>
+            <small id="username-help">Enter your lastname's.</small>
             <small *ngIf="UserDataForm.controls['lastnames'].getError('required')&&UserDataForm.controls['lastnames'].touched" class="text-danger font-medium">This field its required</small>
             <small *ngIf="UserDataForm.controls['lastnames'].getError('pattern')&&UserDataForm.controls['lastnames'].touched" class="text-danger font-medium">This field have to have one or two valid lastnames</small>
         </div>
@@ -81,7 +81,7 @@
         <div class="flex flex-column gap-2">
           <label htmlFor="Cologne">Cologne</label>
           <input pInputText id="Cologne" aria-describedby="Cologne-help" formControlName="Cologne" />
-          <small id="Cologne-help">Enter your name's.</small>
+          <small id="Cologne-help">Enter you cologne that you live.</small>
           <small *ngIf="UserDataForm.controls['Cologne'].getError('required')&&UserDataForm.controls['Cologne'].touched" class="text-danger font-medium">This field its required</small>
           <small *ngIf="UserDataForm.controls['Street'].getError('pattern')&&UserDataForm.controls['Street'].touched" class="text-danger font-medium">This cologne its not valid</small>
       </div>
@@ -90,7 +90,7 @@
         <div class="flex flex-column gap-2">
           <label htmlFor="State">State</label>
           <input pInputText id="State" aria-describedby="State-help" formControlName="State" />
-          <small id="State-help">Enter your name's.</small>
+          <small id="State-help">Enter state.</small>
           <small *ngIf="UserDataForm.controls['State'].getError('required')&&UserDataForm.controls['State'].touched" class="text-danger font-medium">This field its required</small>
       </div>
       </div>
@@ -98,7 +98,7 @@
     <div class="flex flex-column gap-2">
       <label htmlFor="State">City</label>
       <input pInputText id="City" aria-describedby="City-help" formControlName="City" />
-      <small id="City-help">Enter your name's.</small>
+      <small id="City-help">Enter your city or town you live.</small>
       <small *ngIf="UserDataForm.controls['City'].getError('required')&&UserDataForm.controls['City'].touched" class="text-danger font-medium">This field its required</small>
   </div>
       </div>

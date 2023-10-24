@@ -14,8 +14,9 @@ public passForm:FormGroup=this.FormBuilder.group({
   ConfirmNewPassword:["",[Validators.required,]]
 },{
   validators:[
-    this.ValidatorService.AreFieldsEquals('NewPassword','ConfirmNewPassword'),
-    this.ValidatorService.FieldsDiferents('Password','NewPassword')
+    //this.ValidatorService.AreFieldsEquals('NewPassword','ConfirmNewPassword'),
+    //this.ValidatorService.FieldsDiferents('Password','NewPassword'),
+    this.ValidatorService.passwordsMatch,
   ]
   });
 ChangePassword(){
@@ -24,6 +25,7 @@ ChangePassword(){
     console.log(this.passForm.status)
     return
   }
+  console.log("PASSWORD CHANGED")
   this.passForm.reset()
 }
 HasUpper(cadena:string) {

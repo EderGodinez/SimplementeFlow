@@ -19,6 +19,7 @@ export class ContactPageComponent {
       this.MessageForm.reset()
       return
     }
+    this.MessageForm.reset()
     console.log("Message sent")
   }
 }

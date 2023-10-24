@@ -1,1 +1,63 @@
-<p>order-details-page works!</p>
+
+<div class="flex flex-column flex-wrap  p-5 h-full w-full">
+  <h1>ORDER DETAILS #{{OrderInfo.numOrder}}</h1>
+  <hr>
+    ORDER INFORMATION
+    <hr>
+    <div class="w-50 flex flex-wrap ml-5 my-4 gap-6">
+    <div class="flex flex-column">
+      <label for="name" class="font-bold">Name</label>
+      <label for="name" class="font-bold">Lastname</label>
+      <label for="name" class="font-bold">Email</label>
+    </div>
+    <div class="flex flex-column">
+      <span class="mb-2">{{UserInfo.names}}</span>
+      <span class="mb-2">{{UserInfo.lastnames}}</span>
+      <span class="mb-2">{{UserInfo.email}}</span>
+    </div>
+    </div>
+    <h3>SHIPPING INFORMATION</h3>
+    <hr>
+    <div class="w-50 flex gap-6 flex-wrap ml-5 my-4">
+      <div class="flex flex-column">
+        <label for="name" class="font-bold">Street and Number</label>
+        <label for="name" class="font-bold">Postal Code</label>
+        <label for="name" class="font-bold">Cologne</label>
+        <label for="name" class="font-bold">State</label>
+        <label for="name" class="font-bold">City</label>
+        <label for="name" class="font-bold">Phone</label>
+      </div>
+      <div class="flex flex-column" >
+        <span class="mb-2">{{UserInfo.data_Address!.Street+"  #"+UserInfo.data_Address!.number}}</span>
+        <span class="mb-2">{{UserInfo.data_Address!.postal_Code}}</span>
+        <span class="mb-2">{{UserInfo.data_Address!.Cologne}}</span>
+        <span class="mb-2">{{UserInfo.data_Address!.State}}</span>
+        <span class="mb-2">{{UserInfo.data_Address!.City}}</span>
+        <span class="mb-2">{{UserInfo.phone}}</span>
+    </div>
+    </div>
+    <h3>PRODUCTS</h3>
+    <div>
+      <table class="my-table">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Unit price</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of OrderInfo.Details">
+            <td><a href="SimplementeFlow/Products/Search/EveryOne/{{order.id}}"><img src="{{order.Image}}" alt="{{order.productName}}" width="" style="object-fit: cover;"></a></td>
+            <td>{{ order.productDescription}}</td>
+            <td>{{ order.Amount}}</td>
+            <td>{{ order.Price|currency }}</td>
+            <td>{{ order.Price*order.Amount|currency }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+

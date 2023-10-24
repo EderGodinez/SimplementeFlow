@@ -3,11 +3,9 @@ import { ProductsService } from 'src/app/products/products.service';
 import { checkoutList } from './checkout.interface';
 import { Router } from '@angular/router';
 import { Sizes } from 'src/app/products/interfaces';
-interface shppingCard{
-  ProductId:string
-  quantity:number
-  size:number
-}
+import { ShoppingCar } from 'src/app/interfaces/user.interfaces';
+
+
 @Component({
   templateUrl: './checkout-page.component.html',
   styleUrls: ['./checkout-page.component.scss']
@@ -40,7 +38,7 @@ Checkoutlist:checkoutList[]=[]
 totalPay: number = 0;
 
 //Representa el carrito de compras del usuario
-shoppingCard:shppingCard[]=[
+shoppingCard:ShoppingCar[]=[
   {ProductId:'1',quantity:2,size:22},
   {ProductId:'2',quantity:4,size:26},
   {ProductId:'4',quantity:1,size:27}

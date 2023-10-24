@@ -1,1 +1,35 @@
-<p>orderlist-page works!</p>
+<div *ngIf="Orders.length>0;else NoOrders" class="p-8">
+<h1>MY ORDERS</h1>
+<hr>
+<!-- order table -->
+<div style="height: 60vh;">
+  <table class="my-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>DATE</th>
+        <th>TOTAL</th>
+        <th>METHOD</th>
+        <th>OPTIONS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of Orders">
+        <td>{{ order.numOrder }}</td>
+        <td>{{ order.date |date}}</td>
+        <td>{{ order.total |currency}}</td>
+        <td>{{ order.method }}</td>
+        <td>
+          <p-button (click)="ShowDetails(order.numOrder)" class="border-none" [style]="{'background-color':'grey','border':'none'}">Details</p-button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+<ng-template #NoOrders>
+  <div class="w-full h-full flex flex-column flex-wrap align-items-center my-5">
+    <h1>You don't have orders yet</h1>
+    <img src="assets/images/Empty.png"  alt="No orders" style="height: 70vh;width: 50vw;">
+  </div>
+</ng-template>

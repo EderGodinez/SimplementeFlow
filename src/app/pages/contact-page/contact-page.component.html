@@ -25,17 +25,17 @@
     <div class="formgrid grid">
       <div class="field col-6 md:col-6">
           <label for="firstname6" class="font-medium text-indigo-400">Name</label>
-          <input id="firstname6" type="text" formControlName="Name" [ngClass]="{'invalid-form':!MessageForm.controls['Name'].hasError}" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+          <input id="firstname6" type="text" formControlName="Name" [ngClass]="{'invalid-form':!MessageForm.controls['Name'].valid&&MessageForm.controls['Name'].touched}" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
           <small id="NewPassword-help" class="text-danger" *ngIf="MessageForm.controls['Name'].getError('required')&&MessageForm.controls['Name'].touched"><br>This field is required</small>
       </div>
       <div class="field col-6 md:col-6">
           <label for="lastname6" class="font-medium text-indigo-400">Email</label>
-          <input id="lastname6" type="text" formControlName="Email" [ngClass]="{'invalid-form':!MessageForm.controls['Email'].valid}" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+          <input id="lastname6" type="text" formControlName="Email" [ngClass]="{'invalid-form':!MessageForm.controls['Email'].valid&&MessageForm.controls['Email'].touched}" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
           <small id="NewPassword-help" class="text-danger" *ngIf="MessageForm.controls['Email'].getError('required')&&MessageForm.controls['Email'].touched"><br>This field is required</small>
       </div>
       <div class="field col-12">
           <label for="address" class="font-medium text-indigo-400">Message</label>
-          <textarea id="address" type="text" formControlName="Message" [ngClass]="{'invalid-form':!MessageForm.controls['Message'].valid}" rows="7" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+          <textarea id="address" type="text" formControlName="Message" [ngClass]="{'invalid-form':!MessageForm.controls['Message'].valid&&MessageForm.controls['Message'].touched}" rows="7" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
           <small id="NewPassword-help" class="text-danger" *ngIf="MessageForm.controls['Message'].getError('required')&&MessageForm.controls['Message'].touched"><br>This field is required</small>
           <small id="NewPassword-help" class="text-danger" *ngIf="MessageForm.controls['Message'].getError('maxlength')&&MessageForm.controls['Message'].touched"><br>The limit that you cant sent a email its 200 characters</small>
       </div>
@@ -45,4 +45,3 @@
     </div>
   </form>
 </div>
-

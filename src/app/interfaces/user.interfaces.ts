@@ -1,5 +1,6 @@
+
 export interface User {
-  _id: Id
+  _id?: Id
   email: string
   names: string
   lastnames: string
@@ -10,9 +11,9 @@ export interface User {
   isActive: boolean
   UserRole: string
   likes: string[]
-  shopping_car: [{id:string,size:number,quantity:number}]
-  data_Address: DataAddress
-  __v: number
+  shopping_car: []
+  data_Address?: DataAddress
+  __v?: number
 }
 
 export interface Id {
@@ -26,4 +27,9 @@ export interface DataAddress {
   Cologne: string
   State: string
   City: string
+}
+export interface ShoppingCar{
+  ProductId:string,
+  size:number,
+  quantity:number
 }
