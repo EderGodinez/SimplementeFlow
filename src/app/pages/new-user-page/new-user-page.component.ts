@@ -14,15 +14,15 @@ export class NewUserPageComponent implements OnInit {
   ngOnInit() {
       this.items = [
           {
-              label: 'Register',
+              label: 'Informacion de registro',
               routerLink: 'register'
           },
           {
-              label: 'Confirm email',
+              label: 'Confirmar correo',
               routerLink: 'VerifyAccount'
           },
           {
-              label: 'Account created',
+              label: 'Cuenta creada',
               routerLink: 'Success'
           },
       ];

@@ -19,6 +19,6 @@ SingIn(){
   this.Router.navigateByUrl('SimplementeFlow/Home')
 }
 showSuccessToast() {
-  this.messageService.add({ key: 'bc', severity: 'success', summary: 'Account created', detail: 'Thanks for your register' });
+  this.messageService.add({ key: 'bc', severity: 'success', summary: 'Cuenta creada exitosamente', detail: 'Gracias por tu registro' });
 }
 }

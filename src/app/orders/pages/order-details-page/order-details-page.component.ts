@@ -35,4 +35,7 @@ constructor(private ActivatedRoute:ActivatedRoute,private OrdersService:OrdersSe
   OrderById(id:string){
      return this.OrderInfo=this.OrdersService.GetOrderById(parseInt(id))
   }
+  get Totalpay(){
+     return this.OrderInfo.TotalPay;
+  }
 }

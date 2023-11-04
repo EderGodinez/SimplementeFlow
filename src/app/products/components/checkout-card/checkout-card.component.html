@@ -7,15 +7,15 @@
   <strong ><p>{{productCheckout.patent}}</p></strong>
 <div class="flex justify-content-around my-3">
   <p>{{productCheckout.productName}}</p>
-  <p>{{productCheckout.Price|currency}}</p>
+  <p>{{productCheckout.Price|currency:'MXN'}}</p>
 </div>
 <div class="flex flex-column">
-  <p class="flex justify-content-between"><span>Quantity</span>
+  <p class="flex justify-content-between"><span>Cantidad</span>
     <button class="btn_quantity"  (click)="Descreaseproduct(productCheckout.id!)">-</button>
     {{productCheckout.Amount}}
     <button class="btn_quantity"  (click)="IncreaseProduct(productCheckout.id!)">+</button>
   </p>
-  <label for="size">size:
+  <label for="size">Talla:
     <select name="size" class="w-50 h-2rem border-none" style="margin-left: 2.2rem;">
       <option *ngFor="let size of AllowSizesObject | keyvalue" class="text-right" value="{{size.value[0]}}" [attr.selected]="CompareSizes(size.value[0],productCheckout.Size) ? true : null">{{size.value[0]}}</option>
     </select>

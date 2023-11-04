@@ -8,7 +8,7 @@ import { ProductsPageComponent } from './pages/products-page/products-page.compo
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { PrimeModule } from '../prime/prime.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { BodyComponent } from './components/body/body.component';
@@ -29,7 +29,8 @@ import { BodyComponent } from './components/body/body.component';
     AdminRoutingModule,
     PrimeModule,
     AngularMaterialModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminModule { }

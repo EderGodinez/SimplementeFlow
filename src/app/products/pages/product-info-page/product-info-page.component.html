@@ -4,16 +4,16 @@
           <div class="text-center text-base justify-items-center" style="width: 100%;" >
               <h4>{{message.summary}}</h4>
               <p>{{message.data[1]}}</p>
-              <p>{{message.data[2]|currency:'USD'}}</p>
+              <p>{{message.data[2]|currency:'MXN'}}</p>
               <img src="{{message.data[0]}}" alt="" style="object-fit: cover; width: 120px;">
           </div>
           <div class="grid p-fluid">
               <div class="col-12" *ngIf="!message.summary.includes('removido')">
-                  <button type="button" pButton  label="See favorites" (click)="Navigate('Favorites')" severity="secondary"></button>
+                  <button type="button" pButton  label="Ver favoritos" (click)="Navigate('Favorites')" severity="secondary"></button>
               </div>
           </div>
       </div>
-      <div class="text-base" *ngIf="!message.summary.includes('favoritos')&&message.summary.includes('Please')">
+      <div class="text-base" *ngIf="!message.summary.includes('favoritos')&&message.summary.includes('Por favor')">
         {{message.summary}}
       </div>
       <div>
@@ -21,12 +21,12 @@
           <div class="text-center text-base justify-items-center" style="width: 100%;" >
               <h4>{{message.summary|addProducts}}</h4>
               <p>{{message.data[1]}}</p>
-              <p>{{message.data[2]|currency:'USD'}}</p>
+              <p>{{message.data[2]|currency:'MXN'}}</p>
               <img src="{{message.data[0]}}" alt="" style="object-fit: cover; width: 120px;">
           </div>
           <div class="grid p-fluid">
               <div class="col-12" *ngIf="!message.summary.includes('removido')">
-                  <button type="button" pButton  label="See shopping car" (click)="Navigate('Checkout')" severity="secondary"></button>
+                  <button type="button" pButton  label="Ver carrito" (click)="Navigate('Checkout')" severity="secondary"></button>
               </div>
           </div>
       </div>
@@ -50,7 +50,7 @@
       <form autocomplete="off" [formGroup]="productForm" (ngSubmit)="addShoppingCar()">
       <div class="flex w-full justify-content-between my-3" id="infoP">
         <h1 class="">{{Product.ProductName}}</h1>
-        <h1>Price: <br> {{Product.price|currency:"USD"}}</h1>
+        <h1>Precio: <br> {{Product.price|currency:"MXN"}}</h1>
         <like-button class="mr-8" (checkboxChanged)="mostrarToast($event)"></like-button>
       </div>
       <div class="" id="sizes">
@@ -65,19 +65,19 @@
           <button class="btn_quantity" type="button" (click)="incrementQuantity()">+</button>
         </p>
 
-      <h2 class="m-2">Description:</h2>
+      <h2 class="m-2">Descripcion:</h2>
       <h3 class="m-2">{{Product.description}}</h3>
       <p-button type="submit" [style]="{'width':'50%','background-color':'black','border':'none','border-radius':'10px','margin-top':'50px'}" label="Añadir a carrito" class="flex justify-content-center"><i class="bi bi-bag-plus" style="font-size: 1.5rem;"></i></p-button>
     </form>
     </div>
     <hr>
-    <h2 class="text-center mx-8 my-8 px-8">Each of our products is original and unique but like everything it has its pros and cons, that is why we recommend that our users review the observations made by our experts and based on this make the best decision for their purchase.</h2>
+    <h2 class="text-center mx-8 my-8 px-8">Cada uno de nuestros productos es original y único pero como todo tiene sus pros y sus contras, es por eso que recomendamos a nuestros usuarios revisar las observaciones realizadas por nuestros expertos y en base a ello tomar la mejor decisión para su compra.</h2>
     <hr>
   <div class="col-6">
     <p-table [value]="[Product.General]" [tableStyle]="{ 'min-width': '50rem' }">
       <ng-template pTemplate="header">
           <tr class="text-right">
-            <th class="text-right">Details</th>
+            <th class="text-right pr-8">Details</th>
             <th></th>
           </tr>
       </ng-template>

@@ -9,15 +9,15 @@ export class UserLayoutPageComponent {
   constructor(private Router:Router){}
 userOptions:UserOptions[]=[
     {
-        label:"Account Info",
+        label:"Informacion de cuenta",
         icon:"bi bi-person-gear",
         url:"UserDatas"
     },{
-        label:"Change password",
+        label:"Cambiar comtraseña",
         icon:"bi bi-incognito",
         url:"ChangePassword"
     },{
-        label:"Logout",
+        label:"Cerrar sesion",
         icon:"bi bi-box-arrow-in-left",
         url:"/SimplementeFlow/Home"
     }

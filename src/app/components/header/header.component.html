@@ -4,7 +4,7 @@
   <p-button (click)="sidebarVisible = true"  [style]="{ 'background-color': 'white', 'color': 'black' ,'border': 'none' }" styleClass="p-button-rounded" icon="pi pi-align-justify" class="ml-2" label="MENU"></p-button>
     <span class="w-9 ml-5 p-input-icon-right">
       <i class="pi pi-search"></i>
-      <input type="text" placeholder="Search products" pInputText [(ngModel)]="value" class="w-full" style="border-radius: 35px;" (keyup)="onKeyUp($event)"/>
+      <input type="text" placeholder="Buscar productos" pInputText [(ngModel)]="value" class="w-full" style="border-radius: 35px;" (keyup)="onKeyUp($event)"/>
     </span>
     <div class="flex gap-5 absolute"style="right: 40px;">
       <a class="pi pi-user p-0 cursor-pointer " style="font-size: 1.75rem;color: white;" (click)="op.toggle($event)"></a>
@@ -18,8 +18,8 @@
   <hr>
   <ng-template pTemplate="content">
   <ul class="flex list-none flex-column gap-3 p-0">
-    <li class="hover:text-blue-600 cursor-pointer" (click)="Home()">Home</li>
-    <li class="hover:text-blue-600 cursor-pointer" routerLink="SocialResposability" >social responsibility policy</li>
+    <li class="hover:text-blue-600 cursor-pointer" (click)="Home()">Inicio</li>
+    <li class="hover:text-blue-600 cursor-pointer" routerLink="SocialResposability" >Politica de responsabilidad social</li>
     <li class="hover:text-blue-600 cursor-pointer" (click)="selectOption(option)" *ngFor="let option of Categories" routerLink="Products/Search/{{option}}">{{option}}</li>
   </ul>
 </ng-template>
@@ -33,8 +33,8 @@
 <p-overlayPanel #op [style]="{'background-color':'rbg(236,236,236)'}">
   <div class="w-20rem flex align-content-center justify-content-between p-0 m-0 surface-300">
     <div class="flex align-content-center gap-2">
-      <a class="underline m-2 cursor-pointer text-600 text-lg hover:text-blue-600" (click)="op.toggle($event)" routerLink="login">Sing in</a><span class="m-2">|</span>
-      <a class="underline m-2 cursor-pointer text-600 text-lg hover:text-blue-600"  (click)="op.toggle($event)" routerLink="NewUser">Sing up</a>
+      <a class="underline m-2 cursor-pointer text-600 text-sm hover:text-blue-600" (click)="op.toggle($event)" routerLink="login">Iniciar Sesion</a><span class="m-2">|</span>
+      <a class="underline m-2 cursor-pointer text-600 text-sm hover:text-blue-600"  (click)="op.toggle($event)" routerLink="NewUser">Registrarte</a>
     </div>
     <p-button icon="pi pi-times" styleClass="p-button-rounded p-button-text" [style]="{'padding': '0' ,'color':'grey'}" (click)="op.toggle($event)"></p-button>
   </div>

@@ -63,4 +63,29 @@ export class ValidatorService {
     }
     return null;
   }
+  HasUpper(cadena:string):boolean {
+    for (var i = 0; i < cadena.length; i++) {
+      if (cadena[i] >= 'A' && cadena[i] <= 'Z') {
+        return true;
+      }
+    }
+    return false;
+  }
+  HasNumber(cadena:string):boolean {
+  const numbers:string[]=["1","2","3","4","5","6","7","8","9","0"]
+  for (const number of numbers) {
+    if(cadena.includes(number)){
+      return true
+    }
+  }
+  return false
+  }
+  HasLower(cadena:string):boolean {
+    for (var i = 0; i < cadena.length; i++) {
+      if (cadena[i] >= 'a' && cadena[i] <= 'z') {
+        return true;
+      }
+    }
+    return false;
+  }
 }

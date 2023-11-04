@@ -23,7 +23,7 @@ export class HeaderComponent {
   CategorieSelected:string=""
   sidebarVisible: boolean = false;
   value: string ='';
-  Categories:string[]=["Woman","Men","Kids","News","Offers"]
+  Categories:string[]=["Mujer","Hombre","Niños","Nuevos productos","Ofertas"]
   OptionsU:UserOptions[]=UserOp;
   socialMedia:socialMedia[]=social;
   selectOption(option: string): void {

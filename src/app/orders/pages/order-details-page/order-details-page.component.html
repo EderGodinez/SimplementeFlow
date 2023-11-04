@@ -1,14 +1,14 @@
 
 <div class="flex flex-column flex-wrap  p-5 h-full w-full">
-  <h1>ORDER DETAILS #{{OrderInfo.numOrder}}</h1>
+  <h1>Detalles de pedido #{{OrderInfo.numOrder}}</h1>
   <hr>
-    ORDER INFORMATION
+    Informacion de usuario
     <hr>
     <div class="w-50 flex flex-wrap ml-5 my-4 gap-6">
     <div class="flex flex-column">
-      <label for="name" class="font-bold">Name</label>
-      <label for="name" class="font-bold">Lastname</label>
-      <label for="name" class="font-bold">Email</label>
+      <label for="name" class="font-bold">Nombre</label>
+      <label for="name" class="font-bold">Apellidos</label>
+      <label for="name" class="font-bold">Correo</label>
     </div>
     <div class="flex flex-column">
       <span class="mb-2">{{UserInfo.names}}</span>
@@ -16,16 +16,16 @@
       <span class="mb-2">{{UserInfo.email}}</span>
     </div>
     </div>
-    <h3>SHIPPING INFORMATION</h3>
+    <h3>INFORMACION DE ENVIO</h3>
     <hr>
     <div class="w-50 flex gap-6 flex-wrap ml-5 my-4">
       <div class="flex flex-column">
-        <label for="name" class="font-bold">Street and Number</label>
-        <label for="name" class="font-bold">Postal Code</label>
-        <label for="name" class="font-bold">Cologne</label>
-        <label for="name" class="font-bold">State</label>
-        <label for="name" class="font-bold">City</label>
-        <label for="name" class="font-bold">Phone</label>
+        <label for="name" class="font-bold">Calle y numero</label>
+        <label for="name" class="font-bold">Codigo postal</label>
+        <label for="name" class="font-bold">Colonia</label>
+        <label for="name" class="font-bold">Estado</label>
+        <label for="name" class="font-bold">Ciudad</label>
+        <label for="name" class="font-bold">Telefono</label>
       </div>
       <div class="flex flex-column" >
         <span class="mb-2">{{UserInfo.data_Address!.Street+"  #"+UserInfo.data_Address!.number}}</span>
@@ -36,15 +36,15 @@
         <span class="mb-2">{{UserInfo.phone}}</span>
     </div>
     </div>
-    <h3>PRODUCTS</h3>
+    <h3>PRODUCTOS</h3>
     <div>
       <table class="my-table">
         <thead>
           <tr>
-            <th>Image</th>
-            <th>Description</th>
-            <th>Quantity</th>
-            <th>Unit price</th>
+            <th>Imagen</th>
+            <th>Descripcion</th>
+            <th>Cantidad</th>
+            <th>Precio unitario</th>
             <th>Total</th>
           </tr>
         </thead>
@@ -53,11 +53,17 @@
             <td><a href="SimplementeFlow/Products/Search/EveryOne/{{order.id}}"><img src="{{order.Image}}" alt="{{order.productName}}" width="" style="object-fit: cover;"></a></td>
             <td>{{ order.productDescription}}</td>
             <td>{{ order.Amount}}</td>
-            <td>{{ order.Price|currency }}</td>
-            <td>{{ order.Price*order.Amount|currency }}</td>
+            <td>{{ order.Price|currency:'MXN' }}</td>
+            <td>{{ order.Price*order.Amount|currency:'MXN' }}</td>
           </tr>
         </tbody>
       </table>
+      <div class="flex flex-column border-1 border-300 border-round w-25 h-25 mt-5 p-5 surface-200 " style="margin-left: 6.5rem;">
+        <div class="flex justify-content-between font-bold text-lg text-primary">
+          <span>TOTAL PAGADO</span>
+          <span>{{Totalpay|currency:'MXN'}}</span>
+        </div>
+      </div>
     </div>
 </div>
 

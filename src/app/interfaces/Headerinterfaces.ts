@@ -29,21 +29,21 @@ export const UserOp:UserOptions[]=[
   {
     icon:'bi bi-person-circle',
     url:'Account',
-    label:'Account'
+    label:'Mi cuenta'
   },
   {
     icon:'bi bi-box2',
     url:'Orders',
-    label:'My Orders'
+    label:'Mis pedidos'
   },
   {
     icon:'bi bi-question',
     url:'Return-policity',
-    label:'Returns'
+    label:'Devoluciones'
   },
   {
     icon:'bi bi-chat-left-dots',
     url:'Contact',
-    label:'Contact'
+    label:'Contacto'
   }
 ]

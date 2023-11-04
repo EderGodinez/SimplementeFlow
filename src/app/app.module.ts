@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -28,8 +28,11 @@ import { LegalNoticePageComponent } from './pages/legal-notice-page/legal-notice
 import { FindUsPageComponent } from './pages/find-us-page/find-us-page.component';
 import { ProductsModule } from './products/products.module';
 import { ValidatorService } from './validators/validator.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 
+//cambiar idioma por defecto
+import localeEsMx from '@angular/common/locales/es-MX';
+registerLocaleData(localeEsMx)
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +67,9 @@ import { CommonModule } from '@angular/common';
     AngularMaterialModule,
     ProductsModule
   ],
-  providers: [ValidatorService],
+  providers: [ValidatorService,
+      {provide:LOCALE_ID,useValue:'es-MX'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

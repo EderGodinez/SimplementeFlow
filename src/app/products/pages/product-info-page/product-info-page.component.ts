@@ -34,7 +34,7 @@ mensajeToast:Toast={
 
 isSelect:boolean=false
 selectedSize: string=""
-titleCarrousel:string="Other products"
+titleCarrousel:string="Otros productos"
 Product:Product={
   _id: {
     $oid: "0"
@@ -125,7 +125,7 @@ addShoppingCar(){
   if(this.productForm.valid){
     this.mensajeToast={
       data:[`${this.Product.images[0]}`,this.Product.ProductName,this.Product.price],
-      summary:`${this.productForm.get('quantity')?.value} ${this.Product.ProductName} added at shopping car"`
+      summary:`${this.productForm.get('quantity')?.value} ${this.Product.ProductName} añadido a carrito"`
     }
     this.showMessage(this.mensajeToast)
     this.productForm.reset()
@@ -133,7 +133,7 @@ addShoppingCar(){
   else{
     this.mensajeToast={
       data:[],
-      summary:"Please select a size and a quantity before add a product"
+      summary:"Por favor seleccionar una talla y cantidad del producto antes de añadirlo a tu carrito"
     }
     this.productForm.reset()
     this.showMessage(this.mensajeToast)
