@@ -1,0 +1,7 @@
+ :host::ng-deep {
+  .p-fileupload-buttonbar{
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+ }

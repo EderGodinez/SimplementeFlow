@@ -1,15 +1,18 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
+import { Product } from 'src/app/products/interfaces';
 
 @Component({
   templateUrl: './dashboard-page.component.html',
   styleUrls: ['./dashboard-page.component.scss']
 })
 export class DashboardPageComponent {
+
   items!: MenuItem[];
 
-  products!: any[];
+  products!: Product[];
 
   chartData: any;
 
@@ -17,10 +20,13 @@ export class DashboardPageComponent {
 
   subscription!: Subscription;
 
-  constructor() {};
+  constructor(private Router:Router) {
 
+  }
 
   ngOnInit() {
+      this.initChart();
+     // this.productService.getProductsSmall().then(data => this.products = data);
 
       this.items = [
           { label: 'Add New', icon: 'pi pi-fw pi-plus' },
@@ -35,10 +41,10 @@ export class DashboardPageComponent {
       const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
       this.chartData = {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+          labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
           datasets: [
               {
-                  label: 'First Dataset',
+                  label: 'Usuarios registrados',
                   data: [65, 59, 80, 81, 56, 55, 40],
                   fill: false,
                   backgroundColor: documentStyle.getPropertyValue('--bluegray-700'),
@@ -46,7 +52,7 @@ export class DashboardPageComponent {
                   tension: .4
               },
               {
-                  label: 'Second Dataset',
+                  label: 'Ventas',
                   data: [28, 48, 40, 19, 86, 27, 90],
                   fill: false,
                   backgroundColor: documentStyle.getPropertyValue('--green-600'),
@@ -85,6 +91,9 @@ export class DashboardPageComponent {
               }
           }
       };
+  }
+  viewProduct(){
+    this.Router.navigate(['products'])
   }
 
   ngOnDestroy() {

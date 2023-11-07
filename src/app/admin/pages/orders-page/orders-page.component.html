@@ -1,1 +1,151 @@
-<p>admin-orders-page works!</p>
+<p-table #dt [value]="Orders" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['numOrder', 'UserId', 'OrderDate', 'TotalPay', 'PayMethod','delivery_status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Mostrando desde {first} a {last} de {totalRecords} productos" selectionMode="multiple" [rowHover]="true">
+  <ng-template pTemplate="caption">
+      <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+          <h2 class="m-0">Administrar ordenes</h2>
+          <span class="block mt-2 md:mt-0 p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..."  class="w-full sm:w-auto"/>
+          </span>
+      </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+      <tr>
+          <th pSortableColumn="numOrder">Numero de pedido <p-sortIcon field="numOrder"></p-sortIcon></th>
+          <th pSortableColumn="UserId">Nombre cliente<p-sortIcon field="UserId"></p-sortIcon></th>
+          <th pSortableColumn="OrderDate">Fecha de pedido<p-sortIcon field="OrderDate"></p-sortIcon></th>
+          <th >Imagen</th>
+          <th pSortableColumn="TotalPay">Total pagado<p-sortIcon field="TotalPay"></p-sortIcon></th>
+          <th pSortableColumn="PayMethod">Metodo de pago<p-sortIcon field="PayMethod"></p-sortIcon></th>
+          <th pSortableColumn="delivery_status">Status <p-sortIcon field="delivery_status"></p-sortIcon></th>
+          <th></th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-order>
+      <tr>
+          <td style="width:14%; min-width:10rem;">
+              {{order.numOrder}}
+          </td>
+          <td style="width:14%; min-width:10rem;">
+              <span class="p-column-title">Nombre</span>
+              {{order.UserId|clientName}}
+          </td>
+          <td style="width:14%; min-width:10rem;">
+            <span class="p-column-title">Fecha de pedido</span>
+            {{order.OrderDate|date:'longDate'}}
+        </td>
+          <td style="width:14%; min-width:10rem;">
+              <img [src]="order.Details[0].Image" [alt]="order.ProductName" width="100" class="shadow-4" />
+          </td>
+          <td style="width:14%; min-width:8rem;">
+              <span class="p-column-title">Total</span>
+              {{order.TotalPay | currency:'MXN'}}
+          </td>
+          <td style="width:14%; min-width:10rem;">
+              {{order.PayMethod}}
+          </td>
+          <td style="width:14%; min-width: 10rem;">
+              <span [class]="'product-badge status-' + (order.delivery_status ? order.delivery_status.toLowerCase() : '')" >{{order.delivery_status|delivery|titlecase}}</span>
+          </td>
+          <td>
+                  <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-success mr-2" (click)="showDialog(order,'OrderCompleteDialog')" [disabled]="order.delivery_status==='cancel'||order.delivery_status==='shipped'"></button>
+                  <button pButton pRipple icon="pi pi-times" class="p-button-rounded p-button-warning mr-2" (click)="showDialog(order,'OrderCancelDialog')" [disabled]="order.delivery_status==='cancel'"></button>
+                  <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-primary" (click)="ViewOrderDitails(order)"></button>
+          </td>
+      </tr>
+  </ng-template>
+</p-table>
+<!-- DIALOG DE DETALLES -->
+<p-dialog [(visible)]="ViewDetailsDailog" header="Detalles de pedido" [modal]="true" [style]="{width:'800px'}">
+  <div class="flex flex-column flex-wrap h-full w-full">
+    <h1 class="m-0">Pedido #{{order.numOrder}}</h1>
+    <hr>
+      Informacion de usuario
+      <hr>
+      <div class="w-50 flex flex-wrap ml-5 my-4 gap-6">
+      <div class="flex flex-column">
+        <label for="name" class="font-bold">Nombre</label>
+        <label for="name" class="font-bold">Apellidos</label>
+        <label for="name" class="font-bold">Correo</label>
+      </div>
+      <div class="flex flex-column">
+        <span class="mb-2">{{clientInfo.names}}</span>
+        <span class="mb-2">{{clientInfo.lastnames}}</span>
+        <span class="mb-2">{{clientInfo.email}}</span>
+      </div>
+      </div>
+      <h3>INFORMACION DE ENVIO</h3>
+    <hr>
+    <div class="w-50 flex gap-6 flex-wrap ml-5 my-4">
+      <div class="flex flex-column">
+        <label for="name" class="font-bold mb-2">Calle y numero</label>
+        <label for="name" class="font-bold mb-2">Codigo postal</label>
+        <label for="name" class="font-bold mb-2">Colonia</label>
+        <label for="name" class="font-bold mb-2">Estado</label>
+        <label for="name" class="font-bold mb-2">Ciudad</label>
+        <label for="name" class="font-bold mb-2">Telefono</label>
+      </div>
+      <div class="flex flex-column" >
+        <span class="mb-2">{{clientInfo.data_Address!.Street+"  #"+clientInfo.data_Address!.number}}</span>
+        <span class="mb-2">{{clientInfo.data_Address!.postal_Code}}</span>
+        <span class="mb-2">{{clientInfo.data_Address!.Cologne}}</span>
+        <span class="mb-2">{{clientInfo.data_Address!.State}}</span>
+        <span class="mb-2">{{clientInfo.data_Address!.City}}</span>
+        <span class="mb-2">{{clientInfo.phone}}</span>
+    </div>
+    </div>
+  <h3>PRODUCTOS</h3>
+    <div>
+      <table class="my-table">
+        <thead>
+          <tr>
+            <th>Imagen</th>
+            <th>Descripcion</th>
+            <th>Cantidad</th>
+            <th>Precio unitario</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let orderdetail of order.Details">
+            <td><img src="{{orderdetail.Image}}" alt="{{orderdetail.productName}}" width="50%" style="object-fit: cover;"></td>
+            <td>{{ orderdetail.productDescription}}</td>
+            <td>{{ orderdetail.Amount}}</td>
+            <td>{{ orderdetail.Price|currency:'MXN' }}</td>
+            <td>{{ orderdetail.Price*orderdetail.Amount|currency:'MXN'}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="flex flex-column border-1 border-300 border-round w-25 h-25 mt-5 p-3 surface-200 ">
+        <div class="flex justify-content-between font-bold text-lg text-primary">
+          <span>TOTAL PAGADO</span>
+           <span>{{order.TotalPay|currency:'MXN'}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple icon="pi pi-arrow-left" class="p-button-text" label="Regresar" (click)="ViewDetailsDailog = false"></button>
+</ng-template>
+</p-dialog>
+<!-- DIALOG DE CONFIRMACION DE CANCELACION DE Pedido -->
+<p-dialog [(visible)]="OrderCancelDialog" header="Confirmar cancelacion de pedido" [modal]="true" [style]="{width:'450px'}">
+  <div class="flex flex-column gap-3 align-items-center justify-content-center">
+      <i class="pi pi-exclamation-triangle mr-3" style="font-size: 3rem;color:red;"></i>
+      <span>¿Estas seguro de cancelar el pedido?<br></span>
+      <span class="text-red-600">Este mismo ya no sera modificable</span>
+  </div>
+  <ng-template pTemplate="footer">
+      <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="OrderCancelDialog = false"></button>
+      <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Si" (click)="ChangesOrderStatus('cancel')"></button>
+  </ng-template>
+</p-dialog>
+<!-- DIALOG DE CONFIRMACION DE PEIDOD ENVIADO -->
+<p-dialog [(visible)]="OrderCompleteDialog" header="Confirmar el pedido enviado" [modal]="true" [style]="{width:'450px'}">
+  <div class="flex align-items-center text-center justify-content-center">
+      <span>¿El pedido se ah enviado a lo que es el cliente correspondiente?</span>
+  </div>
+  <ng-template pTemplate="footer">
+      <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="OrderCompleteDialog = false"></button>
+      <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Si" (click)="ChangesOrderStatus('shipped')"></button>
+  </ng-template>
+</p-dialog>

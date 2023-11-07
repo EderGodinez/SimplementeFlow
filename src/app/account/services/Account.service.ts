@@ -70,4 +70,9 @@ getUserFromCokkies(){
 getUserById(id:string):User{
   return this.Users.filter((user)=>user._id?.$oid===id)[0]
 }
+getUsernamebyId(id:string){
+  const user=this.getUserById(id)
+  const {names,lastnames}=user;
+  return names+' '+lastnames;
+}
 }

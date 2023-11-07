@@ -12,6 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { BodyComponent } from './components/body/body.component';
+import { DeliveryPipe } from './pages/orders-page/pipes/delivery.pipe';
+import { ClientNamePipe } from './pages/orders-page/pipes/client-name.pipe';
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import { BodyComponent } from './components/body/body.component';
     OrdersPageComponent,
     LoginPageComponent,
     SidenavComponent,
-    BodyComponent
+    BodyComponent,
+    DeliveryPipe,
+    ClientNamePipe
   ],
   imports: [
     CommonModule,
@@ -30,7 +34,8 @@ import { BodyComponent } from './components/body/body.component';
     PrimeModule,
     AngularMaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
   ]
 })
 export class AdminModule { }
