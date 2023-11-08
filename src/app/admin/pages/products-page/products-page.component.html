@@ -18,10 +18,10 @@
           <p-table #dt [value]="products" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Mostrando desde {first} a {last} de {totalRecords} productos" [(selection)]="selectedProducts" selectionMode="multiple" [rowHover]="true" dataKey="id">
               <ng-template pTemplate="caption">
                   <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                      <h5 class="m-0">Administrar productos</h5>
+                      <h3 class="m-0">Administrar productos</h3>
                       <span class="block mt-2 md:mt-0 p-input-icon-left">
                           <i class="pi pi-search"></i>
-                          <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..."  class="w-full sm:w-auto"/>
+                          <input pInputText type="text" autocomplete="off" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..."  class="w-full sm:w-auto"/>
                       </span>
                   </div>
               </ng-template>
@@ -80,19 +80,20 @@
           </p-table>
       </div>
 <form action=""[formGroup]="ProductMainForm" (ngSubmit)="saveProduct('productDialog')">
-      <p-dialog [(visible)]="productDialog" [style]="{width: '50%'}" header="Detalles de producto" [modal]="true" class="p-fluid" formGroupName="ProductInfoForm">
+      <p-dialog [(visible)]="productDialog" [style]="{width: '50%'}" header="Detalles de producto" [modal]="true" class="p-fluid" [formGroup]="ProductInfoForm">
+        <p-toast key="sizes"></p-toast>
           <ng-template pTemplate="content">
-              <img [src]="'assets/demo/images/product/' + product.image" [alt]="product.image" width="150" class="mt-0 mx-auto mb-5 block shadow-2" *ngIf="product.image">
+              <img [src]="product.images[0]" [alt]="product.ProductName" width="150" class="mt-0 mx-auto mb-5 block shadow-2" *ngIf="product.images">
               <div class="field">
-                  <label for="name">Nombre</label>
-                  <input type="text" pInputText id="name" autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.name}"/>
-                  <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small>
+                  <label for="name">Nombre de producto</label>
+                  <input type="text" pInputText id="name" autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.ProductName}" autocomplete="off" formControlName="ProductName"/>
+                  <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.ProductName">Name is required.</small>
               </div>
               <div class="field">
                   <label for="description">Descripcion</label>
-                  <textarea id="description" pInputTextarea  required rows="3" cols="20" style="resize: none;"></textarea>
+                  <textarea id="description" pInputTextarea  required rows="3" cols="20" style="resize: none;"formControlName="ProductDescription"></textarea>
               </div>
-              <div class="field" *ngIf="product.id">
+              <div class="field" *ngIf="EditProduct">
                 <label for="status">Status de inventario</label>
                 <p-dropdown  inputId="inventoryStatus" optionValue="label" [options]="statuses" placeholder="Selecciona estado de producto">
                     <ng-template pTemplate="selectedItem">
@@ -107,29 +108,33 @@
               <div class="formgrid grid">
                   <div class="field col">
                       <label for="price">Precio</label>
-                      <p-inputNumber id="price"  mode="currency" currency="MXN" locale="es-MX"></p-inputNumber>
+                      <p-inputNumber id="price"  mode="currency" currency="MXN" locale="es-MX" formControlName="ProductPrice"></p-inputNumber>
                   </div>
                   <div class="field col">
                       <label for="Descuento">Descuento</label>
-                      <p-inputNumber id="quantity" inputId="percent" prefix="%" ></p-inputNumber>
+                      <p-inputNumber id="quantity" inputId="percent" prefix="%" formControlName="ProductDiscount" ></p-inputNumber>
                   </div>
                 </div>
-                <p-card header="Tallas">
-                  <div class="formgrid grid" *ngFor="let size of ProductSizes;let i=index;">
-                    <div class="field col">
-                        <label for="size">Talla</label>
-                        <p-inputNumber id="size"  [min]="8" [max]="30" mode="decimal" [minFractionDigits]="1" locale="en-US" [maxFractionDigits]="1" (onBlur)="updateSize(size, i)"></p-inputNumber>
-                        {{size.size}}{{i}}
+                  <!-- Otros campos del formulario -->
+                  <p-card header="Tallas">
+                    <div class="formgrid grid" formArrayName="Sizes">
+                      <div *ngFor="let size of sizes.controls; let i = index">
+                          <div class="field col" [formGroupName]="i">
+                            <label for="size">Talla</label>
+                            <input type="text" id="size" formControlName="size">
+                          </div>
+                          <div class="field col" [formGroupName]="i">
+                            <label for="quantity">Cantidad</label>
+                            <input type="text" id="quantity" formControlName="quantity">
+                          </div>
+
+                      </div>
                     </div>
-                    <div class="field col">
-                        <label for="quantity">Cantidad</label>
-                        <p-inputNumber id="quantity" [min]="0" [max]="1000" [maxlength]="4" locale="en-US">{{size.quantity}}</p-inputNumber>
-                    </div>
-                </div>
-                <ng-template pTemplate="footer">
-                  <p-button label="Añadir otra" icon="pi pi-plus" [style]="{'width':'auto'}" (onClick)="addOtherOne('ProductSizes')"></p-button>
-              </ng-template>
-                </p-card>
+                    <ng-template pTemplate="footer">
+                      <p-button label="Añadir otra" icon="pi pi-plus" [style]="{'width':'auto'}" (click)="addOtherOne('ProductSizes')"></p-button>
+                    </ng-template>
+                  </p-card>
+
 
               <p-fileUpload name="demo[]" method="post" url="https://www.primefaces.org/cdn/api/upload.php" chooseLabel="Seleccione imagenes de producto" uploadLabel="Subir" cancelLabel="cancelar" [fileLimit]=5 invalidFileLimitMessageDetail="Maximo de documentos son 5"
               invalidFileLimitMessageSummary="Limite de 5 documentos excedido" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" [maxFileSize]="15000000" invalidFileTypeMessageDetail="Unicamente se acepta formatos de imagen" invalidFileTypeMessageSummary="Formato invalido">
@@ -156,21 +161,23 @@
      <p-dialog [(visible)]="AdventageDialog" [style]="{width: '30%'}" header="Ventajas y desventajas" [modal]="true" class="p-fluid" formGroupName="AdventagesForm">
       <ng-template pTemplate="content">
             <p-card header="Ventajas">
-              <div class="formgrid grid" *ngFor="let adventage of adventages;let i=index;">
-                <div class="field col">
-                    <label for="size">Ventaja #{{i+1}}</label>
-                    <p-inputNumber id="price" >{{adventage}}</p-inputNumber>
+              <div formArrayName="Adventages">
+                <div class="formgrid grid" *ngFor="let adventage of ProductMainForm.get('AdventagesForm.Adventages')!.value; let i = index;">
+                  <div class="field col">
+                    <label for="adventages">Ventaja #{{ i + 1 }}</label>
+                    <input type="text" [formControlName]="i" pInputText id="adventages" autofocus [ngClass]="{'ng-invalid ng-dirty': submitted && adventage.invalid}" autocomplete="off" />
+                  </div>
                 </div>
-            </div>
+              </div>
             <ng-template pTemplate="footer">
               <p-button label="Añadir otra" icon="pi pi-plus" [style]="{'width':'auto'}" (onClick)="addOtherOne('adventages')"></p-button>
           </ng-template>
             </p-card>
             <p-card header="Desventajas">
-              <div class="formgrid grid" *ngFor="let disaventage of disaventages;let i=index">
+              <div class="formgrid grid" *ngFor="let disaventage of ProductMainForm.get('AdventagesForm.Disaventages')!.value;let i=index">
                 <div class="field col">
-                    <label for="size">Desventaja #{{i+1}}</label>
-                    <p-inputNumber id="price" >{{disaventage}}</p-inputNumber>
+                    <label for="size">Desventaja #{{i+1}}</label>{{disaventage.value}}
+                    <input type="text" pInputText id="disadventages" autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && disaventage.invalid}" autocomplete="off"/>
                 </div>
             </div>
             <ng-template pTemplate="footer">
@@ -190,13 +197,13 @@
     <ng-template pTemplate="content">
       <div class="field">
         <label for="name">Marca</label>
-        <input type="text" pInputText id="name"  autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.name}"/>
-        <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small>
+        <input type="text" pInputText id="name" autocomplete="off" autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.ProductName}"/>
+        <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.ProductName">Name is required.</small>
     </div>
     <div class="field">
       <label for="name">Modelo</label>
-      <input type="text" pInputText id="name"  autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.name}"/>
-      <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.name">Name is required.</small>
+      <input type="text" pInputText id="name" autocomplete="off" autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.ProductName}"/>
+      <small class="ng-dirty ng-invalid" *ngIf="submitted && !product.ProductName">Name is required.</small>
     </div>
     <div class="field">
         <label class="mb-3">Categoria</label>
@@ -266,7 +273,7 @@
       <p-dialog [(visible)]="deleteProductDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
           <div class="flex align-items-center justify-content-center">
               <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-              <span *ngIf="product">¿Estas seguro de eliminar <b>{{product.name}}?</b>?</span>
+              <span *ngIf="product">¿Estas seguro de eliminar <b>{{product.ProductName}}?</b>?</span>
           </div>
           <ng-template pTemplate="footer">
               <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteProductDialog = false"></button>

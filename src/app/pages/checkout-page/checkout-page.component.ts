@@ -15,12 +15,12 @@ constructor(private productService:ProductsService,private Router:Router){}
   ngOnInit(): void {
     //SE obtiene la informacion de los productos en basea su id
     this.shoppingCard.forEach(product => {
-    const result=(this.productService.GetProductById(product.ProductId))
+    const result=this.productService.GetProductById(product.ProductId)
     const {ProductName,description,images,price,General,_id,sizes}=result;
     const dataCheckout:checkoutList={
-      age:General.age,
-      id:_id.$oid,
-      patent:General.patent,
+      age:General!.age,
+      id:_id!.$oid,
+      patent:General!.patent,
       productName: ProductName, // Descripción del producto
       productDescription:description,
       Image: images[0],

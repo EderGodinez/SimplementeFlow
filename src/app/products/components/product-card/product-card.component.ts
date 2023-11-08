@@ -50,6 +50,8 @@ export class ProductCardComponent {
   },
   adventages: [],
   disadventages: [],
+  Discount:0,
+  inventoryStatus:"",
   __v: 0
 }
 @Output()

@@ -8,6 +8,8 @@ export interface Product {
   General: General
   adventages: string[]
   disadventages: string[]
+  Discount:number;
+  inventoryStatus:string
   __v: number
 }
 

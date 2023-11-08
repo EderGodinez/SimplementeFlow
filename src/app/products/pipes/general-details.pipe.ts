@@ -8,18 +8,26 @@ export class GeneralDetailsPipe implements PipeTransform {
     let valueString=new String(value)
     valueString=valueString.charAt(0).toLocaleUpperCase()+valueString.slice(1)
   switch(value){
+    case 'Category':
+    return 'Categoria'
+    case 'age':
+    return 'Publico dirigido'
+    case 'model':
+    return 'Modelo'
+    case 'patent':
+     return 'Marca'
     case 'width_type':
-    return 'Width type'
+    return 'Tipo de ancho'
     case 'fit_type':
-    return 'Fit type'
+    return 'Tipo de ajuste'
     case 'class_shoes':
-    return 'Class shoes'
+    return 'Clase de zapato'
     case 'I_Material':
-    return 'Internal material'
+    return 'Material interno'
     case 'E_Material':
-    return 'External material'
+    return 'Material exterior'
     case 'Shoe_sole':
-    return 'Shoe sole'
+    return 'Suela de zapato'
     default:
     return valueString
   }

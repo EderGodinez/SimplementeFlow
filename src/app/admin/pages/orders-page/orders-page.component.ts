@@ -6,13 +6,14 @@ import { AdminOrdersService } from './services/orders.service';
 import { User } from '../../../interfaces/user.interfaces';
 import { AccountService } from '../../../account/services/Account.service';
 import { SortEvent } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './orders-page.component.html',
   styleUrls: ['./orders-page.component.scss']
 })
 export class OrdersPageComponent implements OnInit {
-  constructor(private OrdersService:AdminOrdersService,private AccountService:AccountService){
+  constructor(private OrdersService:AdminOrdersService,private AccountService:AccountService,private Router:Router){
     this.Orders=this.OrdersService.GetAllOrders()
   }
   ngOnInit(): void {
@@ -58,8 +59,7 @@ export class OrdersPageComponent implements OnInit {
   cols: any[] = [];
   onGlobalFilter(table: Table, event: Event) {
     const searchText = (event.target as HTMLInputElement).value;
-  console.log('Texto de búsqueda:', searchText);
-    table.filterGlobal(searchText, 'equals');
+    table.filterGlobal(searchText, 'contains');
 }
 ChangesOrderStatus(statusValue:string){
   this.Orders.map(order=>{
@@ -83,5 +83,7 @@ showDialog(order:Order,dialog:string){
   else
   this.OrderCancelDialog=true
 }
-
+GoHome(){
+  this.Router.navigate(['Home'])
+  }
 }

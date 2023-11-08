@@ -1,18 +1,12 @@
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { ProductService } from './services/product.service';
 import { Table } from 'primeng/table';
 import { FileUploadEvent } from 'primeng/fileupload';
-import { FileService } from './services/file.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-interface sizes{
-  size:number
-  quantity:number
-}
-class sizes implements sizes{
-  size=0;
-  quantity=0;
-}
+import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
+import { FileService } from '../../services/file.service';
+import { AdminProductService } from '../../services/Adminproduct.service';
+import { Product, Sizes } from '../../../products/interfaces/product.interface';
+import { ProductValidatorService } from '../../services/validator.service';
 @Component({
   templateUrl: './products-page.component.html',
   styleUrls: ['./products-page.component.scss'],
@@ -20,16 +14,41 @@ class sizes implements sizes{
 })
 
 export class ProductsPageComponent {
+  constructor( private messageService: MessageService,private fileService:FileService,private FB:FormBuilder,private productService:AdminProductService,private Validator:ProductValidatorService) {
+    const array=this.ProductInfoForm.get('Sizes') as FormArray
+    console.log(array.length)
+  }
   productDialog: boolean = false;
   AdventageDialog:boolean=false
   deleteProductDialog: boolean = false;
   CaracteristicsDialog:boolean=false
-
   deleteProductsDialog: boolean = false;
-
-  products: any[] = [];
-
-  product: any = {};
+  products: Product[] = [];
+  product: Product = {
+    _id: {$oid:""},
+    ProductName: "",
+    description: "",
+    price: 0,
+    sizes: {},
+    images: [],
+    General: {
+    patent: "",
+    model: "",
+    Category: "",
+    age: "",
+    width_type: "",
+    fit_type: "",
+    class_shoes: "",
+    E_Material: "",
+    I_Material: "",
+    Shoe_sole: ""
+    },
+    adventages: [""],
+    disadventages: [""],
+    Discount:0,
+    inventoryStatus:"",
+    __v: 0
+  };
 
   selectedProducts: any[] = [];
 
@@ -38,56 +57,53 @@ export class ProductsPageComponent {
   cols: any[] = [];
 
   statuses: any[] = [];
-
+  EditProduct:boolean=false;
   rowsPerPageOptions = [5, 10, 20];
-
   uploadedFiles: any[] = [];
-
-  ProductSizes:sizes[]=[
-    {
-      size:0,
-      quantity:0
-    }
-  ]
-  adventages:string[]=[""]
-  disaventages:string[]=[""]
-
-  constructor( private messageService: MessageService,private fileService:FileService,private FB:FormBuilder) {
-
-  }
   // Crea un FormGroup para cada par de tamaño y cantidad
-  sizeQuantityControls = this.ProductSizes.map(item => {
+  sizeArray: { key: number; value: number }[] = Object.entries(this.product.sizes).map(([key, value]) => ({
+    key: Number(key),
+    value: value,
+  }));
+
+  // Ahora puedes usar 'map' en el array sizeArray
+  sizeQuantityControls = this.sizeArray.map(item => {
     return this.FB.group({
-      size: item.size,
-      quantity: item.quantity
+      size: [item.key, Validators.required],
+      quantity: [item.value, Validators.required]
     });
   });
-  public ProductMainForm:FormGroup=this.FB.group({
-    ProductInfoForm:[this.FB.group({
-      ProductName:[[Validators.required]],
-      ProductDescription:[[Validators.required]],
-      ProductStatus:[[Validators.required]],
-      ProductPrice:[[Validators.required]],
-      ProductDiscount:[[Validators.required,Validators.min(0),Validators.max(100)]],
-      Sizes:this.FB.array(this.sizeQuantityControls,[Validators.required,Validators.minLength(1),Validators.maxLength(5)])
-    }),[Validators.required]],
-    AdventagesForm:[this.FB.group({
-      Adventages:this.FB.array(this.adventages,[Validators.required,Validators.minLength(1),Validators.maxLength(5)]),
-      Disaventages:this.FB.array(this.disaventages,[Validators.required,Validators.minLength(1),Validators.maxLength(5)])
-    }),[Validators.required]],
-    CaracteristicsForm:[this.FB.group({
-      Pattent:[[Validators.required]],
-      Model:[[Validators.required]],
-      Category:[[Validators.required]],
-      age:[[Validators.required]],
-      width_type:[[Validators.required]],
-      fit_type:[[Validators.required]],
-      class_shoes:[[Validators.required]],
-      E_Material:[[Validators.required]],
-      I_Material:[[Validators.required]],
-      Shoe_sole:[[Validators.required]],
-    }),[Validators.required]]
+  public ProductInfoForm:FormGroup=this.FB.group({
+    ProductName:[this.product.ProductName,[Validators.required]],
+    ProductDescription:[this.product.description,[Validators.required]],
+    ProductStatus:[this.product.inventoryStatus,[Validators.required]],
+    ProductPrice:[this.product.price,[Validators.required]],
+    ProductDiscount:[this.product.Discount,[Validators.required,Validators.min(0),Validators.max(100)]],
+    Sizes:this.FB.array(this.sizeQuantityControls,[Validators.required,Validators.minLength(1),Validators.maxLength(5)])
   })
+  public AdventagesForm:FormGroup= this.FB.group({
+    Adventages: this.FB.array([this.createAdvantageControl()], [Validators.required]),
+    Disaventages: this.FB.array([this.createAdvantageControl()], [Validators.required])
+  }, { validators: [this.Validator.atLeastOneValidInArrays] })
+  public CaracteristicsForm:FormGroup=this.FB.group({
+    Pattent:[[Validators.required]],
+    Model:[[Validators.required]],
+    Category:[[Validators.required]],
+    age:[[Validators.required]],
+    width_type:[[Validators.required]],
+    fit_type:[[Validators.required]],
+    class_shoes:[[Validators.required]],
+    E_Material:[[Validators.required]],
+    I_Material:[[Validators.required]],
+    Shoe_sole:[[Validators.required]],
+  })
+  //Main
+  public ProductMainForm:FormGroup=this.FB.group({
+    ProductInfoForm:[this.ProductInfoForm,[Validators.required]],
+    AdventagesForm: [this.AdventagesForm,[Validators.required]],
+    CaracteristicsForm:[this.CaracteristicsForm,[Validators.required]]
+  })
+
   ngOnInit() {
       //this.productService.getProducts().then(data => this.products = data);
 
@@ -105,9 +121,28 @@ export class ProductsPageComponent {
           { label: 'Sin stock', value: 'outofstock' }
       ];
   }
+  createSizeFormGroup(sizeValue: string, quantityValue: number): FormGroup {
+    return this.FB.group({
+      size: [sizeValue, Validators.required],
+      quantity: [quantityValue, Validators.required],
+    });
+  }
 
+  addSize() {
+    const sizesArray = this.ProductInfoForm.get('Sizes') as FormArray;
+    if (sizesArray.length<20) {
+      sizesArray.push(this.createSizeFormGroup('', 0)); // Puedes proporcionar valores iniciales
+    }
+    else{
+      this.messageService.add({key:'sizes' ,severity: 'error', summary: 'Limite de tallas', detail: 'Limite de tallas alcanzado' })
+    }
+  }
+
+  createAdvantageControl(): FormControl {
+    return this.FB.control('', Validators.required);
+  }
   openNew() {
-      this.product = {};
+    this.ResetProduct()
       this.submitted = false;
       this.productDialog = true;
   }
@@ -116,12 +151,12 @@ export class ProductsPageComponent {
       this.deleteProductsDialog = true;
   }
 
-  editProduct(product: any) {
+  editProduct(product: Product) {
       this.product = { ...product };
       this.productDialog = true;
   }
 
-  deleteProduct(product: any) {
+  deleteProduct(product: Product) {
       this.deleteProductDialog = true;
       this.product = { ...product };
   }
@@ -135,9 +170,9 @@ export class ProductsPageComponent {
 
   confirmDelete() {
       this.deleteProductDialog = false;
-      this.products = this.products.filter(val => val.id !== this.product.id);
+      this.products = this.products.filter(val => val._id?.$oid !== this.product._id?.$oid);
       this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-      this.product = {};
+      this.ResetProduct()
   }
 
   hideDialog(dialog:string) {
@@ -149,7 +184,11 @@ export class ProductsPageComponent {
           this.AdventageDialog = false;
           break;
           case 'CaracteristicsDialog':
-          this.CaracteristicsDialog = false;
+            if (this.ProductMainForm.get('CaracteristicsForm')!.valid) {
+              this.CaracteristicsDialog = false;
+              return
+            }
+            this.messageService.add({ severity: 'danger', summary: 'Error', detail: 'El formulario de ventajas debe de contener una de cada campo', life: 2000 });
           break;
 
       default:
@@ -161,23 +200,22 @@ export class ProductsPageComponent {
   saveProduct(dialog:string) {
       this.submitted = true;
 
-      if (this.product.name?.trim()) {
-          if (this.product.id) {
+      if (this.product.ProductName?.trim()) {
+          if (this.product._id?.$oid) {
               // @ts-ignore
               this.product.inventoryStatus = this.product.inventoryStatus.value ? this.product.inventoryStatus.value : this.product.inventoryStatus;
-              this.products[this.findIndexById(this.product.id)] = this.product;
+              this.products[this.findIndexById(this.product._id.$oid)] = this.product;
               this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Producto actulizado', life: 3000 });
           } else {
-              this.product.id = this.createId();
-              this.product.code = this.createId();
-              this.product.image = 'product-placeholder.svg';
+              this.product._id!.$oid = this.createId();
+              this.product.images[0] = 'product-placeholder.svg';
               // @ts-ignore
               if (this.product.inventoryStatus) {
                 this.product.inventoryStatus = this.product.inventoryStatus
               }
               else{
 
-                this.product.inventoryStatus.value= 'Disponibilidad';
+                this.product.inventoryStatus= 'Disponibilidad';
               }
               this.products.push(this.product);
               this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Productio creado', life: 3000 });
@@ -185,14 +223,14 @@ export class ProductsPageComponent {
 
           this.products = [...this.products];
           this.productDialog = false;
-          this.product = {};
+          this.ResetProduct()//Limpiamos los campos de producto
       }
   }
 
   findIndexById(id: string): number {
       let index = -1;
       for (let i = 0; i < this.products.length; i++) {
-          if (this.products[i].id === id) {
+          if (this.products[i]._id?.$oid === id) {
               index = i;
               break;
           }
@@ -225,16 +263,17 @@ await this.fileService.uploadFiles(files,'Producto');
 addOtherOne(field:string){
   switch (field) {
     case 'ProductSizes':
-      this.ProductSizes.push(new sizes())
+      console.log('se agrega size')
+      this.addSize()
     break;
     case 'adventages':
-      if (this.adventages.length!=5) {
-        this.adventages.push("")
+      if (this.product.adventages.length<5) {
+        this.product.adventages.push("")
       }
     break;
     case 'disaventages':
-      if(this.disaventages.length!=5)
-    this.disaventages.push("")
+      if(this.product.disadventages.length!=5)
+    this.product.disadventages.push("")
     break;
   }
 }
@@ -252,11 +291,40 @@ valorCercano(numero:number) {
     return decimalCercano;
   }
 }
-updateSize(size: any, index: number) {
-  // Realiza cualquier validación o ajustes necesarios aquí
-  // Por ejemplo, llamar a la función valorCercano y actualizar el valor
-  size.size = this.valorCercano(size.size);
-  // Actualiza el arreglo ProductSizes si es necesario
-  this.ProductSizes[index] = size;
+
+ResetProduct(){
+  this.product = {
+    _id: {$oid:""},
+    ProductName: "",
+    description: "",
+    price: 0,
+    sizes: [],
+    images: [],
+    General: {
+    patent: "",
+    model: "",
+    Category: "",
+    age: "",
+    width_type: "",
+    fit_type: "",
+    class_shoes: "",
+    E_Material: "",
+    I_Material: "",
+    Shoe_sole: ""
+    },
+    adventages: [],
+    disadventages: [],
+    Discount:0,
+    inventoryStatus:"",
+    __v: 0
+  };
 }
+get sizes(){
+return this.ProductInfoForm.get('Sizes') as FormArray;
+}
+isvalidFieldInArray(formArray:FormArray,index:number){
+  return formArray.controls[index].errors &&
+    formArray.controls[index].touched;
+}
+
 }

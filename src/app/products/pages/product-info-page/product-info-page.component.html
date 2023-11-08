@@ -1,4 +1,4 @@
-<p-toast position="top-left" [baseZIndex]="5000" [life]=2500 [style]="{'background': 'linear-gradient(0deg, rgba(97,99,99,1) 0%, rgba(191,188,181,1) 60%)','color': 'white','border-radius':'15px','width':'250px'}">
+<p-toast position="top-left" [baseZIndex]="5000"  [life]=10000 [style]="{'background': 'linear-gradient(0deg, rgba(97,99,99,1) 0%, rgba(191,188,181,1) 60%)','color': 'white','border-radius':'15px','width':'250px'}">
   <ng-template let-message pTemplate="message" style="padding: 0;">
       <div class="flex flex-column justify-content-center" style="flex: 1 ;" *ngIf="message.summary.includes('favoritos')||message.summary.includes('removido')">
           <div class="text-center text-base justify-items-center" style="width: 100%;" >
@@ -17,7 +17,7 @@
         {{message.summary}}
       </div>
       <div>
-        <div class="flex flex-column justify-content-center" style="flex: 1 ;" *ngIf="message.summary.includes('shopping car')">
+        <div class="flex flex-column justify-content-center" style="flex: 1 ;" *ngIf="message.summary.includes('añadido a carrito')">
           <div class="text-center text-base justify-items-center" style="width: 100%;" >
               <h4>{{message.summary|addProducts}}</h4>
               <p>{{message.data[1]}}</p>
@@ -59,7 +59,7 @@
         </ul>
       </div>
 
-        <p class="flex justify-content-between"><span>Quantity</span>
+        <p class="flex justify-content-between"><span>Cantidad</span>
           <button class="btn_quantity" type="button"  (click)="decrementQuantity()">-</button>
           {{productForm.controls['quantity'].value}}
           <button class="btn_quantity" type="button" (click)="incrementQuantity()">+</button>
@@ -70,14 +70,11 @@
       <p-button type="submit" [style]="{'width':'50%','background-color':'black','border':'none','border-radius':'10px','margin-top':'50px'}" label="Añadir a carrito" class="flex justify-content-center"><i class="bi bi-bag-plus" style="font-size: 1.5rem;"></i></p-button>
     </form>
     </div>
-    <hr>
-    <h2 class="text-center mx-8 my-8 px-8">Cada uno de nuestros productos es original y único pero como todo tiene sus pros y sus contras, es por eso que recomendamos a nuestros usuarios revisar las observaciones realizadas por nuestros expertos y en base a ello tomar la mejor decisión para su compra.</h2>
-    <hr>
   <div class="col-6">
     <p-table [value]="[Product.General]" [tableStyle]="{ 'min-width': '50rem' }">
       <ng-template pTemplate="header">
           <tr class="text-right">
-            <th class="text-right pr-8">Details</th>
+            <th class="text-right pr-8">Detalles</th>
             <th></th>
           </tr>
       </ng-template>
@@ -95,8 +92,8 @@
     <p-table [value]="[Product]" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '50rem'}">
       <ng-template pTemplate="header">
           <tr>
-              <th>Adventages</th>
-              <th>Disadventages</th>
+              <th>Ventajas</th>
+              <th>Desventajas</th>
           </tr>
       </ng-template>
       <ng-template pTemplate="body" let-product>
@@ -108,7 +105,11 @@
         </tr>
       </ng-template>
   </p-table>
+
   </div>
   </div>
+  <hr>
+    <h2 class="text-center mx-8 my-8 px-8">Cada uno de nuestros productos es original y único pero como todo tiene sus pros y sus contras, es por eso que recomendamos a nuestros usuarios revisar las observaciones realizadas por nuestros expertos y en base a ello tomar la mejor decisión para su compra.</h2>
+    <hr>
   <hr>
 <product-carrucel [Title]="titleCarrousel" (mensajeEnviado)="showMessage($event)" ></product-carrucel>

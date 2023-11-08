@@ -46,7 +46,8 @@ export class FavoriteCardComponent {
     Shoe_sole: " ",
   },
   adventages: [],
-  disadventages: [],
+  disadventages: [],Discount:0,
+  inventoryStatus:"",
   __v: 0
 }
 

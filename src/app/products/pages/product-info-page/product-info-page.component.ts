@@ -70,6 +70,8 @@ Product:Product={
   },
   adventages: [],
   disadventages: [],
+  Discount:0,
+  inventoryStatus:"",
   __v: 0
 }
 responsiveOptions: any[] = [
@@ -112,7 +114,6 @@ mostrarToast(isLike:boolean) {
     }
     showMessage(mensaje: Toast) {
       const {summary,data}=mensaje;
-      console.log(mensaje)
   try{
     this.messageService.add({summary,data});
   }
@@ -125,9 +126,10 @@ addShoppingCar(){
   if(this.productForm.valid){
     this.mensajeToast={
       data:[`${this.Product.images[0]}`,this.Product.ProductName,this.Product.price],
-      summary:`${this.productForm.get('quantity')?.value} ${this.Product.ProductName} añadido a carrito"`
+      summary:`${this.productForm.get('quantity')!.value} ${this.Product.ProductName} añadido a carrito"`
     }
-    this.showMessage(this.mensajeToast)
+    console.log(this.mensajeToast)
+    this.messageService.add(this.mensajeToast)
     this.productForm.reset()
   }
   else{
@@ -136,7 +138,7 @@ addShoppingCar(){
       summary:"Por favor seleccionar una talla y cantidad del producto antes de añadirlo a tu carrito"
     }
     this.productForm.reset()
-    this.showMessage(this.mensajeToast)
+    this.messageService.add(this.mensajeToast)
   }
 }
 Navigate(url:string){

@@ -72,7 +72,7 @@ Orders:Order[]=[
       tax_exempt: "xempt",
       tax_ids: []
     },
-    TotalPay: 119.98,
+    TotalPay: 239.96,
     payment_status: "paid",
     delivery_status: "shipped",
     OrderDate: new Date()

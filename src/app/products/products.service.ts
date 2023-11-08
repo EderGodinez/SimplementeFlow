@@ -58,6 +58,8 @@ export class ProductsService {
         "desventaja4",
         "desventaja5"
       ],
+      Discount:0,
+    inventoryStatus:"",
       __v: 0 },
     {
       _id: {
@@ -112,6 +114,8 @@ export class ProductsService {
         "desventaja4",
         "desventaja5"
       ],
+      Discount:0,
+    inventoryStatus:"",
       __v: 0 },
     {
       _id: {
@@ -166,6 +170,8 @@ export class ProductsService {
         "desventaja4",
         "desventaja5"
       ],
+      Discount:0,
+    inventoryStatus:"",
       __v: 0  },
     {
       _id: {
@@ -220,6 +226,8 @@ export class ProductsService {
         "desventaja4",
         "desventaja5"
       ],
+      Discount:0,
+    inventoryStatus:"",
       __v: 0 },
     {
       _id: {
@@ -274,6 +282,8 @@ export class ProductsService {
         "desventaja4",
         "desventaja5"
       ],
+      Discount:0,
+    inventoryStatus:"",
       __v: 0},
     {
       _id: {
@@ -328,6 +338,8 @@ export class ProductsService {
         "desventaja4",
         "desventaja5"
       ],
+      Discount:0,
+    inventoryStatus:"",
       __v: 0},
     {
       _id: {
@@ -382,6 +394,8 @@ export class ProductsService {
         "desventaja4",
         "desventaja5"
       ],
+      Discount:0,
+    inventoryStatus:"",
       __v: 0},
     {
       _id: {
@@ -436,13 +450,15 @@ export class ProductsService {
         "desventaja4",
         "desventaja5"
       ],
+      Discount:0,
+    inventoryStatus:"",
       __v: 0}
   ]
  Getproducts():Product[]{
   return this.Products
  }
  GetProductById(id:string):Product{
-  return this.Products.filter(product=>product._id.$oid===id)[0]
+  return this.Products.filter(product=>product._id!.$oid===id)[0]
  }
  GetProductsByCategory():Product[]{
  return this.Products

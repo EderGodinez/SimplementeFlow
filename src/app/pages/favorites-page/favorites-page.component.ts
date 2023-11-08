@@ -33,7 +33,7 @@ return 3
 }
 ProductDelete:string="";
 Delete(id:string){
-  this.Products=this.Products.filter(item => item._id.$oid !== id);
+  this.Products=this.Products.filter(item => item._id!.$oid !== id);
 }
 AddCar(id:string){
   this.Delete(id)
@@ -44,4 +44,7 @@ SearchSimilar(id:string,productName:string){
   const similar=`${productNameAtt[0]} ${productNameAtt[1]}`
   this.Router.navigateByUrl(`SimplementeFlow/Products/Search/${similar}`);
 }
+GoHome(){
+  this.Router.navigate(['Home'])
+  }
 }
