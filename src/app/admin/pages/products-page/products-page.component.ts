@@ -139,17 +139,17 @@ ResetProduct(){
 }
 async SaveProduct(info:SaveProduct){
 const {closeDialog,product}=info
-console.log(product._id)
-console.log(this.product._id)
   if (!product._id) {
     //Todo conectar a backpara crear producto
    this.AJAX$=await this.productService.RegisterNewProduct(product)
     .subscribe({
+      next:(Response)=>{
+        this.products.push(Response.product)
+        this.messageService.add({ severity: 'success', summary: 'Creado', detail: Response.message, life: 5000 });
+      },
       error:(err)=>{this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error.message, life: 5000 });},
       complete:()=>{
-        this.messageService.add({ severity: 'success', summary: 'Creado', detail: 'Producto creado con exito', life: 5000 });
         this.productDialog=closeDialog
-        this.products.push(product)
         this.ResetProduct()
         return
       }
@@ -182,17 +182,13 @@ async InitProductList(){
       this.messageService.add({ severity: 'error', summary: 'Error', detail: err.message, life: 5000 });
     },
     complete:()=>{
-      this.messageService.add({ severity: 'success', summary: 'Bienvenido administrador', life: 5000 });
+      this.messageService.add({ severity: 'success', summary: 'Listado de productos cargada de manera exitosa', life: 3000});
     }
   })
 }
 AreObjectEquals(product1:Product,product2:Product):boolean{
-  console.log(product2._id)
   const keys = Object.keys(product1);
   const key2 = Object.keys(product2);
-  console.log(keys.sort())
-  console.log(key2.sort())
-
   const Values1=Object.values(product1).sort()
   const Values2=Object.values(product2).sort()
   //Se cuenta lo que son el numero de propiedades para ver si son difentes
@@ -208,7 +204,6 @@ AreObjectEquals(product1:Product,product2:Product):boolean{
       return false
     }
     if (Values1[index]!==Values2[index]) {
-      console.log(Values1[index],Values2[index])
       return false
     }
   }

@@ -7,14 +7,17 @@ interface ProductUpdatedResponse{
   message:string
   product:Product
 }
+interface ProductCreated extends ProductUpdatedResponse{
+  status:number
+}
 @Injectable({
   providedIn: 'root'
 })
 export class AdminProductService {
   constructor(private http: HttpClient) { }
 API_URL:string=environment.APIBaseUrl;
-RegisterNewProduct(Product:Product):Observable<Product> {
-  return this.http.post<Product>(`${this.API_URL}/products`,Product)
+RegisterNewProduct(Product:Product):Observable<ProductCreated> {
+  return this.http.post<ProductCreated>(`${this.API_URL}/products`,Product)
 }
 getProducts():Observable<Product[]> {
       return this.http.get<Product[]>(`${this.API_URL}/products`)

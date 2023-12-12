@@ -15,7 +15,7 @@
         </div>
         <div class="field" *ngIf="product._id">
           <label for="status">Status de inventario</label>
-          <p-dropdown  inputId="inventoryStatus" optionValue="label" [disabled]="true" [options]="statuses" placeholder="Selecciona estado de producto"  formControlName="inventoryStatus">
+          <p-dropdown  inputId="inventoryStatus" optionValue="label" [options]="statuses" placeholder="Selecciona estado de producto"  formControlName="inventoryStatus">
             <ng-template pTemplate="selectedItem">
               <span *ngIf="ProductInfoForm.get('inventoryStatus')?.value" [class]="'product-badge status-' + ProductInfoForm.get('inventoryStatus')?.value.toString().toLowerCase()">{{ProductInfoForm.get('inventoryStatus')?.value}}</span>
             </ng-template>
