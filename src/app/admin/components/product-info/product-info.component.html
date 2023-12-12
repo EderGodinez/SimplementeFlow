@@ -1,0 +1,108 @@
+<p-toast></p-toast>
+<form [formGroup]="ProductInfoForm" (submit)="SubmitProduct()" >
+<p-dialog [(visible)]="productDialog" [style]="{width: '50%'}" header="Detalles de producto" [modal]="true" class="p-fluid" (onHide)="CancelRegister.emit(false)">
+    <ng-template pTemplate="content">
+        <img [src]="apiURL+'/files/'+images.controls[0].value" [alt]="ProductInfoForm.controls['ProductName'].value" width="150" class="mt-0 mx-auto mb-5 block shadow-2" *ngIf="images.controls.length>0">
+        <div class="field">
+            <label for="name">Nombre de producto</label>
+            <input type="text" pInputText id="name" placeholder="Nombre unico de producto"  autocomplete="off" formControlName="ProductName" [ngClass]="{'ng-dirty ng-invalid' :IsValidField(ProductInfoForm,'ProductName')}" />
+            <small class="error" *ngIf="IsValidField(ProductInfoForm,'ProductName')">{{GetErrorMessage(ProductInfoForm,'ProductName')}}</small>
+        </div>
+        <div class="field">
+            <label for="description">Descripcion</label>
+            <textarea id="description" pInputTextarea placeholder="Descripcion de producto"  required rows="3" cols="20" style="resize: none;"formControlName="description"[ngClass]="{'ng-dirty ng-invalid' :IsValidField(ProductInfoForm,'description')}"></textarea>
+            <small class="error" *ngIf="IsValidField(ProductInfoForm,'description')">{{GetErrorMessage(ProductInfoForm,'description')}}</small>
+        </div>
+        <div class="field" *ngIf="product._id">
+          <label for="status">Status de inventario</label>
+          <p-dropdown  inputId="inventoryStatus" optionValue="label" [disabled]="true" [options]="statuses" placeholder="Selecciona estado de producto"  formControlName="inventoryStatus">
+            <ng-template pTemplate="selectedItem">
+              <span *ngIf="ProductInfoForm.get('inventoryStatus')?.value" [class]="'product-badge status-' + ProductInfoForm.get('inventoryStatus')?.value.toString().toLowerCase()">{{ProductInfoForm.get('inventoryStatus')?.value}}</span>
+            </ng-template>
+            <ng-template let-option pTemplate="item">
+              <span [class]="'product-badge status-' + option.value">{{option.label}}</span>
+            </ng-template>
+          </p-dropdown>
+          <small class="error" *ngIf="IsValidField(ProductInfoForm,'inventoryStatus')">{{GetErrorMessage(ProductInfoForm,'inventoryStatus')}}</small>
+      </div>
+
+        <div class="formgrid grid">
+            <div class="field col">
+                <label for="price">Precio</label>
+                <p-inputNumber id="price"  mode="currency" currency="MXN" locale="es-MX"  formControlName="price" [ngClass]="{'ng-dirty ng-invalid' :IsValidField(ProductInfoForm,'price')}"></p-inputNumber>
+                <small class="error" *ngIf="IsValidField(ProductInfoForm,'price')">{{GetErrorMessage(ProductInfoForm,'price')}}</small>
+            </div>
+            <div class="field col">
+                <label for="Descuento">Descuento</label>
+                <p-inputNumber inputId="percent" prefix="%" formControlName="Discount"  [ngClass]="{'ng-dirty ng-invalid' :IsValidField(ProductInfoForm,'Discount')}"></p-inputNumber>
+                <small class="error" *ngIf="IsValidField(ProductInfoForm,'Discount')">{{GetErrorMessage(ProductInfoForm,'Discount')}}</small>
+            </div>
+          </div>
+            <!-- Otros campos del formulario -->
+            <p-card header="Tallas">
+                <div class="flex justify-content-between align-items-center mb-3" *ngIf="EditProduct">
+                  <div>
+                    <label for="size">Talla</label>
+                    <input pInputText id="size" #sizeInput   type="number" autocomplete="off" placeholder="Talla de producto">
+                  </div>
+                  <div>
+                    <label for="quantity">Cantidad</label>
+                    <input pInputText id="quantity" #quantityInput type="number"  autocomplete="off" placeholder="Total de productos">
+                  </div>
+                  <div>
+                    <p></p>
+                    <p-button label="Añadir otra" icon="pi pi-plus" [style]="{'width':'auto'}" (click)="addOtherSize()"></p-button>
+                  </div>
+              </div>
+              <p-table [value]="Sizes.controls" [scrollable]="true" scrollHeight="400px" [tableStyle]="{'min-width': '50rem'}">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Numero</th>
+                        <th>Existencias</th>
+                        <th *ngIf="EditProduct">Opciones</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-size>
+                    <tr>
+                        <td>{{size.value.size}}</td>
+                        <td>{{size.value.quantity}}</td>
+                        <td class="flex gap-2" *ngIf="EditProduct">
+                          <p-inputNumber autocomplete="off" inputId="minmax" mode="decimal" [min]="0" [max]="100" [size]="1" (onInput)="changeValue($event,size.value.size)" placeholder="Ingresa cantidad a surtir"></p-inputNumber>
+                          <p-button icon="pi pi-plus" label="Surtir" (onClick)="supplyStock(size.value.size,size.value.reload)"></p-button>
+                          <p-button icon="pi pi-times" label="Eliminar" (onClick)="DeleteSize(size.value.size)"></p-button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            </p-card>
+
+
+        <p-fileUpload name="files" method="post" url="http://localhost:3000/files/upload" chooseLabel="Seleccione imagenes de producto" uploadLabel="Subir"  [disabled]="images.length>4||!EditProduct" cancelLabel="cancelar" invalidFileLimitMessageDetail="Maximo de documentos son 5"
+        invalidFileLimitMessageSummary="Limite de 5 documentos excedido" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" [maxFileSize]="15000000" [fileLimit]="5" invalidFileTypeMessageDetail="Unicamente se acepta formatos de imagen" invalidFileTypeMessageSummary="Formato invalido">
+        <ng-template pTemplate="content">
+          <ul >
+              <li class="flex justify-content-between align-items-center" *ngFor="let file of images.controls;let i=index">
+                <img width="250px" height="200px" style="object-fit: contain; aspect-ratio: 1/1;" [src]="'http://localhost:3000/files/'+file.value" [alt]="'Imagen'+i">
+                {{ProductInfoForm.controls['ProductName'].value+'_'+i}}
+                {{images.length}}
+                <p-button label="Eliminar" icon="pi pi-times" (onClick)="DeleteImage(file.value)" [disabled]="!EditProduct"></p-button></li>
+          </ul>
+          <div *ngIf="images.controls.length===0" class="text-center"><h2>Ninguna imagen seleccionada para producto</h2></div>
+      </ng-template>
+      </p-fileUpload>
+      <div class="m-3 align-items-center">
+        <p-button label="Caracteristicas" icon="pi pi-info" [style]="{'width':'45%','margin-right':'5%'}"(onClick)="CaracteristicsDialog=true"></p-button>
+        <p-button label="Ventajas y desventajas" icon="pi pi-bookmark-fill" [style]="{'width':'45%'}"(onClick)="AdventageDialog=true" ></p-button>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="CancelRegister.emit(false)"></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"  type="submit" ></button>
+    </ng-template>
+</p-dialog>
+</form>
+<adventagesformComponent [AdventageDialog]="AdventageDialog" [Adventages]="AdventagesForm" [EditProduct]="EditProduct" (AdventageDialogChange)="AdventageDialog=$event"(AdventagesChanges)="AdventagesForm=$event"/>
+  <!-- DIALOG DE INFORMACION DE Caracteristicas -->
+  <generalInfoFormComponent [CaracteristicsDialog]="CaracteristicsDialog" [Carateristics]="CaracteristicsForm" [EditProduct]="EditProduct" (CaracteristicsDialogChanges)="CaracteristicsDialog=$event"(CaracteristicsChanges)="CaracteristicsForm=$event" />
+

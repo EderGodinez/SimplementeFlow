@@ -1,7 +1,7 @@
 <div class="grid" *ngIf="Checkoutlist.length>0;else CardEmpty">
   <div class="col-8" >
     <div *ngFor="let product of Checkoutlist; let i = index">
-      <checkout-card [productCheckout]="product" [AllowSizes]="AllowSizes[i]" (MoreLestProduct)="ModifyQuantity($event)" (deleteProduct)="deleteProduct($event)"></checkout-card>
+      <checkout-card [productCheckout]="product" [AllowSizes]="AllowSizes" (MoreLestProduct)="ModifyQuantity($event)" (deleteProduct)="deleteProduct($event)"></checkout-card>
     </div>
   </div>
   <div class="col-4 my-8 pr-8">

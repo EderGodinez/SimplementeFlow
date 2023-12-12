@@ -32,13 +32,13 @@ get Condition():number{
 return 3
 }
 ProductDelete:string="";
-Delete(id:string){
-  this.Products=this.Products.filter(item => item._id!.$oid !== id);
+Delete(id:string|null){
+  this.Products=this.Products.filter(item => item._id !== id);
 }
-AddCar(id:string){
+AddCar(id:string|null){
   this.Delete(id)
 }
-SearchSimilar(id:string,productName:string){
+SearchSimilar(id:string|null,productName:string){
   this.Delete(id)
   const productNameAtt=productName.split(' ')
   const similar=`${productNameAtt[0]} ${productNameAtt[1]}`

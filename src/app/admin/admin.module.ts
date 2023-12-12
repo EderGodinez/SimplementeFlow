@@ -14,6 +14,10 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { BodyComponent } from './components/body/body.component';
 import { DeliveryPipe } from './pages/orders-page/pipes/delivery.pipe';
 import { ClientNamePipe } from './pages/orders-page/pipes/client-name.pipe';
+import { FilesService } from './services/file.service';
+import { ProductInfoComponent } from './components/product-info/product-info.component';
+import { AdventagesFormComponent } from './components/adventages-form/adventages-form.component';
+import { GeneralInformationFormComponent } from './components/general-information-form/general-information-form.component';
 
 
 @NgModule({
@@ -26,7 +30,10 @@ import { ClientNamePipe } from './pages/orders-page/pipes/client-name.pipe';
     SidenavComponent,
     BodyComponent,
     DeliveryPipe,
-    ClientNamePipe
+    ClientNamePipe,
+    ProductInfoComponent,
+    AdventagesFormComponent,
+    GeneralInformationFormComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +42,8 @@ import { ClientNamePipe } from './pages/orders-page/pipes/client-name.pipe';
     AngularMaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    
-  ]
+
+  ],
+  providers:[FilesService]
 })
 export class AdminModule { }

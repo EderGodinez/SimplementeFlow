@@ -6,7 +6,7 @@
       <i class="pi pi-search"></i>
       <input type="text" placeholder="Buscar productos" pInputText [(ngModel)]="value" class="w-full" style="border-radius: 35px;" (keyup)="onKeyUp($event)"/>
     </span>
-    <div class="flex gap-5 absolute"style="right: 40px;">
+    <div class="flex gap-5 absolute"style="right: 20px;">
       <a class="pi pi-user p-0 cursor-pointer " style="font-size: 1.75rem;color: white;" (click)="op.toggle($event)"></a>
       <a routerLink="Favorites" class="pi pi-heart-fill p-0 cursor-pointer" style="font-size: 1.75rem;color: white;"></a>
       <a routerLink="Checkout" class="pi pi-shopping-cart p-0 cursor-pointer" style="font-size: 1.75rem;color: white;"></a>

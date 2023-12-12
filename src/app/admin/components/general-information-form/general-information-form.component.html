@@ -1,0 +1,61 @@
+<p-toast></p-toast>
+<p-dialog [(visible)]="CaracteristicsDialog" [style]="{width: '40%' ,height:'100%'}" header="Informacion general de producto" [modal]="true" class="p-fluid" [formGroup]="CaracteristicsForm">
+  <ng-template pTemplate="content">
+    <div class="field">
+      <label for="name">Marca</label>
+      <input type="text" formControlName="patent" pInputText id="name" autocomplete="off" autofocus /><!-- [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.ProductName}" -->
+  </div>
+  <div class="field">
+    <label for="name">Modelo</label>
+     <input type="text" pInputText id="name" formControlName="model" autocomplete="off" autofocus /><!--[ngClass]="{'ng-invalid ng-dirty' : submitted && !product.ProductName}" -->
+  </div>
+  <div class="field">
+      <label class="mb-3">Categoria</label>
+      <div class="formgrid grid">
+          <div class="field-radiobutton col-6" *ngFor="let category of Categories">
+              <p-radioButton id="category1" [inputId]="category" formControlName="Category" [value]="category" ></p-radioButton>
+              <label for="category1">{{category}}</label>
+          </div>
+      </div>
+  </div>
+  <div class="field">
+    <label for="status">Edad</label>
+    <p-dropdown  [options]="['Niños','Adolescentes','Adultos']"  placeholder="Edad a la que esta dirigido" formControlName="age"></p-dropdown>
+</div>
+
+  <div class="formgrid grid">
+      <div class="field col">
+          <label for="price">Tipos de ancho</label>
+          <p-dropdown  formControlName="width_type" [options]=" ['Angosto','Estandar','Ancho','Extra ancho']"  placeholder="Tipo de ancho del zapato"></p-dropdown>
+      </div>
+      <div class="field col">
+          <label for="Descuento">Tipo de ajuste</label>
+          <p-dropdown  [options]="" formControlName="fit_type"  [options]="['Cordones','Velcro']" placeholder="Tipo de ajuste"></p-dropdown>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col">
+          <label for="price">Clase de zapato</label>
+          <p-dropdown  [options]="" formControlName="class_shoes"  [options]="['Original','Exclusivo','UA','Top Quality','G5']" placeholder="Clase de zapato"></p-dropdown>
+      </div>
+      <div class="field col">
+        <label for="Descuento">Suela de zapato</label>
+        <p-dropdown  [options]="" formControlName="Shoe_sole" [options]="['Goma']" placeholder="Material de suela"></p-dropdown>
+    </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col">
+          <label for="price">Material interior</label>
+          <p-dropdown  [options]="" formControlName="I_Material" [options]="['Malla','Algodon']"  placeholder="Material del interior"></p-dropdown>
+      </div>
+      <div class="field col">
+        <label for="Descuento">Material exterior</label>
+        <p-dropdown  [options]="['Cuero','Tela','Gamuza']"  formControlName="E_Material" placeholder="Material del exterior"></p-dropdown>
+    </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+      <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="CloseGeneralDialog()"></button>
+  </ng-template>
+</p-dialog>

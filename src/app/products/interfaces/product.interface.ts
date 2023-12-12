@@ -1,22 +1,18 @@
 export interface Product {
-  _id: Id
+  _id: string
   ProductName: string
   description: string
   price: number
-  sizes: Sizes
+  sizes: any
   images: string[]
   General: General
   adventages: string[]
   disadventages: string[]
   Discount:number;
   inventoryStatus:string
+  RegisterDate:Date|''
   __v: number
 }
-
-export interface Id {
-  $oid: string
-}
-
 export interface Sizes {
   [key:number]:number
   // 20: number

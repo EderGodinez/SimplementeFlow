@@ -2,7 +2,7 @@
   <div class="flex flex-row-reverse justify-content-around m-3">
     <like-button  (checkboxChanged)="handleCheckboxChange($event,Product)"></like-button>
     <p></p></div>
-  <a href='SimplementeFlow/Products/Search/{{Product.General.age}}/{{Product._id.$oid}}'>
+  <a href='SimplementeFlow/Products/Search/{{Product.General.age}}/{{Product._id}}'>
     <p-image src="{{Product.images[0]}}" [preview]="true" alt="Image" width="450" [imageStyle]="{'object-fit':'cover'}">
       <ng-template pTemplate="indicator" class="flex justify-items-space border-none">
         <span class="sizes">{{Min}}</span>

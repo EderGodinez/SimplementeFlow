@@ -1,0 +1,38 @@
+<p-toast></p-toast>
+<p-dialog [(visible)]="AdventageDialog" [style]="{width: '30%'}" header="Ventajas y desventajas" [modal]="true" class="p-fluid" [formGroup]="AdventagesForm">
+  <ng-template pTemplate="content">
+        <p-card header="Ventajas">
+          <div formArrayName="Adventages">
+            <div class="formgrid grid" *ngFor="let adventage of AdventagesControls!.controls; let i = index;">
+              <div class="field col">
+<!-- [ngClass]="{'ng-invalid ng-dirty': submitted && adventage.invalid}"-->
+                <label for="adventages">Ventaja #{{ i + 1 }}</label>
+                <input type="text" [formControlName]="i" pInputText id="adventages" autofocus autocomplete="off"/>
+              </div>
+            </div>
+          </div>
+        <ng-template pTemplate="footer">
+          <p-button label="Añadir otra" icon="pi pi-plus" [style]="{'width':'auto'}" (onClick)="addDisadventage()"></p-button>
+      </ng-template>
+        </p-card>
+        <p-card header="Desventajas">
+          <div formArrayName="Disaventages">
+            <div class="formgrid grid" *ngFor="let disaventage of DisadventagesControls!.controls; let i = index;">
+              <div class="field col">
+                <!-- GetArrayForm('AdventagesForm','Disaventages')?.controls -->
+<!-- [ngClass]="{'ng-invalid ng-dirty': submitted && adventage.invalid}"-->
+                <label for="Disaventages">Desventaja #{{ i + 1 }}</label>
+                <input type="text" [formControlName]="i"  pInputText id="Disaventages" autofocus autocomplete="off" />
+              </div>
+            </div>
+          </div>
+        <ng-template pTemplate="footer">
+          <p-button label="Añadir otra" icon="pi pi-plus" [style]="{'width':'auto'}" (onClick)="addAdventage()"></p-button>
+      </ng-template>
+        </p-card>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+      <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="CloseAdventageDialog()"></button>
+  </ng-template>
+</p-dialog>

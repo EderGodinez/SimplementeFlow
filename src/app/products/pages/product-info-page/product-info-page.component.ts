@@ -36,25 +36,11 @@ isSelect:boolean=false
 selectedSize: string=""
 titleCarrousel:string="Otros productos"
 Product:Product={
-  _id: {
-    $oid: "0"
-  },
+  _id: "",
   ProductName: "",
   description: "",
   price: 0,
-  sizes: {
-    20: 0,
-    21: 0,
-    22: 0,
-    23: 0,
-    24: 0,
-    25: 0,
-    26: 0,
-    27: 0,
-    28: 0,
-    29: 0,
-    30: 0
-  },
+  sizes:{},
   images: [],
   General: {
     patent: " ",
@@ -72,6 +58,7 @@ Product:Product={
   disadventages: [],
   Discount:0,
   inventoryStatus:"",
+  RegisterDate:new Date(),
   __v: 0
 }
 responsiveOptions: any[] = [

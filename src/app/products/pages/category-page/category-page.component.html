@@ -18,7 +18,7 @@
   <div class="flex w-full h-5rem surface-400 flex-row-reverse justify-content-evenly align-items-center">
     <p-button *ngFor="let filter of ProductFilters" label="{{filter}}" (click)="filterProducts(filter)" [style]="{'background-color':'grey','border-color':'white'}"></p-button>
   </div>
-  <h2 class="ml-5 mt-5">Search {{search}}</h2>
+  <h2 class="ml-5 mt-5">Productos encontrados  "{{search}}"</h2>
 <product-list [Products]="Products" (mensajeEnviado)="showMessage($event)" *ngIf="Products.length>0;else NoproductsFound"></product-list>
 <ng-template #NoproductsFound>
   <div class="text-center w-full h-full flex flex-column justify-content-start flex-wrap align-content-center">

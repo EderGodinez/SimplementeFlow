@@ -19,7 +19,7 @@ constructor(private productService:ProductsService,private Router:Router){}
     const {ProductName,description,images,price,General,_id,sizes}=result;
     const dataCheckout:checkoutList={
       age:General!.age,
-      id:_id!.$oid,
+      id:_id!,
       patent:General!.patent,
       productName: ProductName, // Descripción del producto
       productDescription:description,
@@ -28,12 +28,12 @@ constructor(private productService:ProductsService,private Router:Router){}
       Amount: product.quantity,
       Price:price
     }
-    this.AllowSizes.push(sizes)
+    this.AllowSizes=sizes
     this.Checkoutlist.push(dataCheckout)
   });
   this.CalculateTotal()
 }
-AllowSizes:Sizes[]=[]
+AllowSizes:Sizes={}
 Checkoutlist:checkoutList[]=[]
 totalPay: number = 0;
 
