@@ -1,4 +1,5 @@
-<p-table #dt [value]="Orders" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['numOrder', 'UserId', 'OrderDate', 'TotalPay', 'PayMethod','delivery_status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Mostrando desde {first} a {last} de {totalRecords} productos" selectionMode="multiple" [rowHover]="true">
+<p-toast [position]="'top-right'"></p-toast>
+<p-table #dt [value]="Orders" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['numOrder','Username', 'OrderDate', 'TotalPay', 'PayMethod','delivery_status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Mostrando desde {first} a {last} de {totalRecords} productos" selectionMode="multiple" [rowHover]="true">
   <ng-template pTemplate="caption">
       <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
           <h2 class="m-0">Administrar ordenes</h2>
@@ -11,7 +12,7 @@
   <ng-template pTemplate="header">
       <tr>
           <th pSortableColumn="numOrder">Numero de pedido <p-sortIcon field="numOrder"></p-sortIcon></th>
-          <th pSortableColumn="UserId">Nombre cliente<p-sortIcon field="UserId"></p-sortIcon></th>
+          <th pSortableColumn="Username">Nombre cliente<p-sortIcon field="Username"></p-sortIcon></th>
           <th pSortableColumn="OrderDate">Fecha de pedido<p-sortIcon field="OrderDate"></p-sortIcon></th>
           <th >Imagen</th>
           <th pSortableColumn="TotalPay">Total pagado<p-sortIcon field="TotalPay"></p-sortIcon></th>
@@ -27,7 +28,7 @@
           </td>
           <td style="width:14%; min-width:10rem;">
               <span class="p-column-title">Nombre</span>
-              {{order.UserId|clientName}}
+              {{order.Username}}
           </td>
           <td style="width:14%; min-width:10rem;">
             <span class="p-column-title">Fecha de pedido</span>
@@ -44,11 +45,11 @@
               {{order.PayMethod}}
           </td>
           <td style="width:14%; min-width: 10rem;">
-              <span [class]="'product-badge status-' + (order.delivery_status ? order.delivery_status.toLowerCase() : '')" >{{order.delivery_status|delivery|titlecase}}</span>
+              <span [class]="'product-badge status-' + (order.delivery_status ? order.delivery_status.toLowerCase() : '')" >{{order.delivery_status|titlecase}}</span>
           </td>
-          <td>
-                  <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-success mr-2" (click)="showDialog(order,'OrderCompleteDialog')" [disabled]="order.delivery_status==='cancel'||order.delivery_status==='shipped'"></button>
-                  <button pButton pRipple icon="pi pi-times" class="p-button-rounded p-button-warning mr-2" (click)="showDialog(order,'OrderCancelDialog')" [disabled]="order.delivery_status==='cancel'"></button>
+          <td class="flex gap-5 align-items-center align-items-stretch p-5">
+                  <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-success mr-2" (click)="showDialog(order,'OrderCompleteDialog')" [disabled]="order.delivery_status==='Cancelado'||order.delivery_status==='Entregado'"></button>
+                  <button pButton pRipple icon="pi pi-times" class="p-button-rounded p-button-warning mr-2" (click)="showDialog(order,'OrderCancelDialog')" [disabled]="order.delivery_status==='Cancelado'"></button>
                   <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-primary" (click)="ViewOrderDitails(order)"></button>
           </td>
       </tr>
@@ -101,6 +102,7 @@
             <th>Imagen</th>
             <th>Descripcion</th>
             <th>Cantidad</th>
+            <th>Talla</th>
             <th>Precio unitario</th>
             <th>Total</th>
           </tr>
@@ -110,6 +112,7 @@
             <td><img src="{{orderdetail.Image}}" alt="{{orderdetail.productName}}" width="50%" style="object-fit: cover;"></td>
             <td>{{ orderdetail.productDescription}}</td>
             <td>{{ orderdetail.Amount}}</td>
+            <td>{{ orderdetail.Size}}</td>
             <td>{{ orderdetail.Price|currency:'MXN' }}</td>
             <td>{{ orderdetail.Price*orderdetail.Amount|currency:'MXN'}}</td>
           </tr>
@@ -136,7 +139,7 @@
   </div>
   <ng-template pTemplate="footer">
       <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="OrderCancelDialog = false"></button>
-      <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Si" (click)="ChangesOrderStatus('cancel')"></button>
+      <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Si" (click)="ChangesOrderStatus('Cancelado')"></button>
   </ng-template>
 </p-dialog>
 <!-- DIALOG DE CONFIRMACION DE PEIDOD ENVIADO -->
@@ -146,6 +149,6 @@
   </div>
   <ng-template pTemplate="footer">
       <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="OrderCompleteDialog = false"></button>
-      <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Si" (click)="ChangesOrderStatus('shipped')"></button>
+      <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Si" (click)="ChangesOrderStatus('Entregado')"></button>
   </ng-template>
 </p-dialog>

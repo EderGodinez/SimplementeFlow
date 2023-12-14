@@ -14,7 +14,11 @@ constructor(private ActivatedRoute:ActivatedRoute,private OrdersService:OrdersSe
   this.ActivatedRoute.params.subscribe(params => {
     const id = params['id'];
    const user= this.OrderById(id)
-    this.UserInfo=this.AccountService.getUserById(user.UserId)
+  this.AccountService.getUserById(user.UserId).subscribe({
+    next:(user)=>{
+      this.UserInfo=user
+    }
+  })
   });
 }
   UserInfo:User={
@@ -31,7 +35,7 @@ constructor(private ActivatedRoute:ActivatedRoute,private OrdersService:OrdersSe
   likes: [],
   shopping_car: [],
   }
-  OrderInfo:Order={numOrder:0,UserId:"",PayMethod:"",OrderDate:new Date(),Details:[],TotalPay:0,payment_status:"",delivery_status:""}
+  OrderInfo:Order={_id:"",numOrder:0,UserId:"",PayMethod:"",OrderDate:new Date(),Details:[],TotalPay:0,payment_status:"",delivery_status:""}
   OrderById(id:string){
      return this.OrderInfo=this.OrdersService.GetOrderById(parseInt(id))
   }

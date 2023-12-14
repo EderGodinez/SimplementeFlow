@@ -12,8 +12,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { BodyComponent } from './components/body/body.component';
-import { DeliveryPipe } from './pages/orders-page/pipes/delivery.pipe';
-import { ClientNamePipe } from './pages/orders-page/pipes/client-name.pipe';
 import { FilesService } from './services/file.service';
 import { ProductInfoComponent } from './components/product-info/product-info.component';
 import { AdventagesFormComponent } from './components/adventages-form/adventages-form.component';
@@ -29,8 +27,6 @@ import { GeneralInformationFormComponent } from './components/general-informatio
     LoginPageComponent,
     SidenavComponent,
     BodyComponent,
-    DeliveryPipe,
-    ClientNamePipe,
     ProductInfoComponent,
     AdventagesFormComponent,
     GeneralInformationFormComponent

@@ -1,35 +1,64 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
 
 import { Order } from 'src/app/orders/Interfaces/orders.interface';
-import { AdminOrdersService } from './services/orders.service';
 import { User } from '../../../interfaces/user.interfaces';
 import { AccountService } from '../../../account/services/Account.service';
-import { SortEvent } from 'primeng/api';
+import { MessageService, SortEvent } from 'primeng/api';
 import { Router } from '@angular/router';
+import { OrdersAdminService } from '../../services/OrdersAdmin.service';
+import { Observable, Subscription, catchError, finalize, map, of, switchMap, tap } from 'rxjs';
 
 @Component({
   templateUrl: './orders-page.component.html',
-  styleUrls: ['./orders-page.component.scss']
+  styleUrls: ['./orders-page.component.scss'],
+  providers:[MessageService]
 })
-export class OrdersPageComponent implements OnInit {
-  constructor(private OrdersService:AdminOrdersService,private AccountService:AccountService,private Router:Router){
-    this.Orders=this.OrdersService.GetAllOrders()
+export class OrdersPageComponent implements OnInit,OnDestroy {
+  constructor(private toast:MessageService,private OrdersAdminService:OrdersAdminService,private AccountService:AccountService,private Router:Router){
+    //SE descarto YA QUE EL PERFORMANCE ERA MENOS EFICIENTE QUE EL USADO
+    this.AJAX$=this.OrdersAdminService.getOrders().pipe(
+      switchMap(orders=>{
+        return orders.map((order) => {
+          const Username = order.UserId.names+' '+order.UserId.lastnames;
+          order.UserId=order.UserId._id
+          return { ...order, Username };
+        })
+      }),
+      tap((order)=>{
+        this.Orders.push(order)
+      }),
+      catchError((error) => {
+      this.toast.add({detail:error.message,severity:'error',life:3000,summary:'Error al obtener ordenes'})
+       return of([]);
+      }),finalize(()=>{
+        this.toast.add({detail:'Ordenes cagadas con exito',severity:'success',life:3000,summary:'Carga completa'})
+      })
+        ).subscribe()
+      }
+      ngOnInit(): void {
+
+      }
+      ngOnDestroy(): void {
+    this.AJAX$.unsubscribe()
   }
-  ngOnInit(): void {
-    this.cols = [
-      { field: 'code', header: 'code' },
-      { field: 'Client', header: 'Client' },
-      { field: 'date', header: 'date' },
-      { field: 'Total', header: 'Total' },
-      { field: 'Method', header: 'Method' },
-      { field: 'OrderStatus', header: 'OrderStatus' }
-  ]
-  }
+  AJAX$:Subscription=new Subscription()
   ViewDetailsDailog:boolean=false
   OrderCompleteDialog:boolean=false
   OrderCancelDialog:boolean=false
-  order:any={}
+  order:Order={
+   _id:"",
+   delivery_status:"" ,
+   Details:[],
+   numOrder:0,
+   OrderDate:new Date(),
+   payment_status:"",
+   PayMethod:"",
+   TotalPay:0,
+   UserId:"",
+   shipping:{},
+   Username:""
+  }
   clientInfo:User=
   {
     _id: {
@@ -62,19 +91,36 @@ export class OrdersPageComponent implements OnInit {
     table.filterGlobal(searchText, 'contains');
 }
 ChangesOrderStatus(statusValue:string){
-  this.Orders.map(order=>{
-    if (this.order.numOrder===order.numOrder) {
-      order.delivery_status=statusValue
+  this.OrdersAdminService.updateOrderDeliverStatus(this.order.numOrder,statusValue).subscribe({
+    next:(resp)=>{
+      this.toast.add({detail:resp.message,severity:'success',life:3000,summary:'Orden actualizada'})
+    },
+    error:(error)=>{
+      this.toast.add({detail:error.message,severity:'error',life:3000,summary:'Error al actualizar status'})
+    },
+    complete:()=>{
+      const index=this.Orders.findIndex(order=>order.numOrder===this.order.numOrder)
+      this.Orders[index].delivery_status=statusValue
+      this.OrderCompleteDialog=false
+      this.OrderCancelDialog=false
     }
   })
-  this.OrderCompleteDialog=false
-  this.OrderCancelDialog=false
 }
 
 ViewOrderDitails(order: Order) {
-  this.clientInfo=this.AccountService.getUserById(order.UserId)
-  this.order = {...order };
-  this.ViewDetailsDailog = true;
+  this.AccountService.getUserById(order.UserId).subscribe({
+    next:(user)=>{
+      this.clientInfo=user
+    },
+    error:(err)=>{
+      console.log(err)
+      this.toast.add({severity:'error',life:3000,summary:'Error',detail:err.message})
+    },
+    complete:()=>{
+      this.order = {...order };
+      this.ViewDetailsDailog = true;
+    }
+  })
 }
 showDialog(order:Order,dialog:string){
   this.order=order

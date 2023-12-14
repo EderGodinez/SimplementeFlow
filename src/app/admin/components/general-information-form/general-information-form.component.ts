@@ -26,7 +26,7 @@ EditProduct:boolean=false;
 CaracteristicsDialogChanges:EventEmitter<boolean>=new EventEmitter<boolean>()
 @Output()
 CaracteristicsChanges:EventEmitter<FormGroup>=new EventEmitter<FormGroup>()
-Categories:string[]=["Hombre","Mujeres","Niños","Todos"]
+Categories:string[]=["Hombres","Mujeres","Niños","Todos"]
 public CaracteristicsForm:FormGroup=this.FB.group({})
 CloseGeneralDialog(){
   this.CaracteristicsChanges.emit(this.CaracteristicsForm)

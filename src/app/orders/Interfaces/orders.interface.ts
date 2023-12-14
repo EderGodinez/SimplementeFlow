@@ -1,15 +1,21 @@
 export interface Order {
+  _id:string
   numOrder: number
   UserId: string
   PayMethod: string
-  Details: Detail[]
+  Details?: Detail[]
   shipping?: Shipping
   TotalPay: number
   payment_status: string
   delivery_status: string
   OrderDate: Date
+  Username?:string
 }
-
+interface UserId{
+  _id:string
+  names?:string
+  lastnames?:string
+}
 export interface Detail {
   id:string
   productName: string
@@ -21,12 +27,12 @@ export interface Detail {
 }
 
 export interface Shipping {
-  address: Address
-  email: string
-  name: string
-  phone: string
-  tax_exempt: string
-  tax_ids: any[]
+  address?: Address
+  email?: string
+  name?: string
+  phone?: string
+  tax_exempt?: string
+  tax_ids?: any[]
 }
 
 export interface Address {
