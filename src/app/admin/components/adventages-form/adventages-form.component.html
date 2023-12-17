@@ -1,5 +1,5 @@
 <p-toast></p-toast>
-<p-dialog [(visible)]="AdventageDialog" [style]="{width: '30%'}" header="Ventajas y desventajas" [modal]="true" class="p-fluid" [formGroup]="AdventagesForm">
+<p-dialog [(visible)]="AdventageDialog" [style]="{width: '30%'}" header="Ventajas y desventajas" [modal]="true" class="p-fluid" [formGroup]="AdventagesForm" (onHide)="this.AdventageDialogChange.emit(false)">
   <ng-template pTemplate="content">
         <p-card header="Ventajas">
           <div formArrayName="Adventages">
@@ -7,7 +7,8 @@
               <div class="field col">
 <!-- [ngClass]="{'ng-invalid ng-dirty': submitted && adventage.invalid}"-->
                 <label for="adventages">Ventaja #{{ i + 1 }}</label>
-                <input type="text" [formControlName]="i" pInputText id="adventages" autofocus autocomplete="off"/>
+                <input type="text" [ngClass]="{'ng-dirty ng-invalid' :isvalidFieldInArray(AdventagesControls,i)}" [formControlName]="i" pInputText id="adventages" autofocus autocomplete="off" />
+                <small class="error" *ngIf="isvalidFieldInArray(AdventagesControls,i)">Este campo es obligatorio</small>
               </div>
             </div>
           </div>
@@ -22,7 +23,8 @@
                 <!-- GetArrayForm('AdventagesForm','Disaventages')?.controls -->
 <!-- [ngClass]="{'ng-invalid ng-dirty': submitted && adventage.invalid}"-->
                 <label for="Disaventages">Desventaja #{{ i + 1 }}</label>
-                <input type="text" [formControlName]="i"  pInputText id="Disaventages" autofocus autocomplete="off" />
+                <input type="text" [formControlName]="i"  pInputText id="Disaventages" autofocus autocomplete="off" [ngClass]="{'ng-dirty ng-invalid' :isvalidFieldInArray(DisadventagesControls,i)}"/>
+                <small class="error" *ngIf="isvalidFieldInArray(DisadventagesControls,i)">Este campo es obligatorio</small>
               </div>
             </div>
           </div>

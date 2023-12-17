@@ -73,26 +73,31 @@
                         </td>
                     </tr>
                 </ng-template>
-            </p-table>
+              </p-table>
             </p-card>
+            <p-messages *ngIf="Sizes.controls.length===0&&Sizes.touched" [value]="Message" [enableService]="false" [closable]="false"></p-messages>
 
 
-        <p-fileUpload name="files" method="post" url="http://localhost:3000/files/upload" chooseLabel="Seleccione imagenes de producto" uploadLabel="Subir"  [disabled]="images.length>4||!EditProduct" cancelLabel="cancelar" invalidFileLimitMessageDetail="Maximo de documentos son 5"
-        invalidFileLimitMessageSummary="Limite de 5 documentos excedido" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" [maxFileSize]="15000000" [fileLimit]="5" invalidFileTypeMessageDetail="Unicamente se acepta formatos de imagen" invalidFileTypeMessageSummary="Formato invalido">
-        <ng-template pTemplate="content">
-          <ul >
-              <li class="flex justify-content-between align-items-center" *ngFor="let file of images.controls;let i=index">
-                <img width="250px" height="200px" style="object-fit: contain; aspect-ratio: 1/1;" [src]="'http://localhost:3000/files/'+file.value" [alt]="'Imagen'+i">
-                {{ProductInfoForm.controls['ProductName'].value+'_'+i}}
-                {{images.length}}
-                <p-button label="Eliminar" icon="pi pi-times" (onClick)="DeleteImage(file.value)" [disabled]="!EditProduct"></p-button></li>
-          </ul>
-          <div *ngIf="images.controls.length===0" class="text-center"><h2>Ninguna imagen seleccionada para producto</h2></div>
-      </ng-template>
-      </p-fileUpload>
-      <div class="m-3 align-items-center">
-        <p-button label="Caracteristicas" icon="pi pi-info" [style]="{'width':'45%','margin-right':'5%'}"(onClick)="CaracteristicsDialog=true"></p-button>
-        <p-button label="Ventajas y desventajas" icon="pi pi-bookmark-fill" [style]="{'width':'45%'}"(onClick)="AdventageDialog=true" ></p-button>
+            <p-fileUpload name="files" method="post" url="http://localhost:3000/files/upload" chooseLabel="Seleccione imagenes de producto" uploadLabel="Subir"  [disabled]="images.length>4||!EditProduct" cancelLabel="cancelar" invalidFileLimitMessageDetail="Maximo de documentos son 5"
+              invalidFileLimitMessageSummary="Limite de 5 documentos excedido" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" [maxFileSize]="15000000" [fileLimit]="5" invalidFileTypeMessageDetail="Unicamente se acepta formatos de imagen" invalidFileTypeMessageSummary="Formato invalido">
+              <ng-template pTemplate="content">
+                <ul >
+                  <li class="flex justify-content-between align-items-center" *ngFor="let file of images.controls;let i=index">
+                    <img width="250px" height="200px" style="object-fit: contain; aspect-ratio: 1/1;" [src]="'http://localhost:3000/files/'+file.value" [alt]="'Imagen'+i">
+                    {{ProductInfoForm.controls['ProductName'].value+'_'+i}}
+                    {{images.length}}
+                    <p-button label="Eliminar" icon="pi pi-times" (onClick)="DeleteImage(file.value)" [disabled]="!EditProduct"></p-button></li>
+                  </ul>
+                  <div *ngIf="images.controls.length===0" class="text-center"><h2>Ninguna imagen seleccionada para producto</h2></div>
+                </ng-template>
+              </p-fileUpload>
+              <p-messages *ngIf="images.controls.length===0&&images.touched" [value]="Message" [enableService]="false" [closable]="false"></p-messages>
+      <div class="m-3 align-items-center gap-2">
+        <p-button label="Caracteristicas" icon="pi pi-info" (onClick)="CaracteristicsDialog=true"></p-button>
+        <p-messages *ngIf="CaracteristicsForm.invalid&&CaracteristicsForm.touched" [value]="[{severity: 'error', summary: 'error en caracteristicas de producto'}]" [enableService]="false" [closable]="false"></p-messages>
+        <span class="opacity-0">space</span>
+        <p-button label="Ventajas y desventajas" icon="pi pi-bookmark-fill"(onClick)="AdventageDialog=true" ></p-button>
+        <p-messages *ngIf="AdventagesForm.invalid&&AdventagesForm.touched" [value]="[{severity: 'error', summary: 'error en ventajas y desventajas'}]" [enableService]="false" [closable]="false"></p-messages>
       </div>
     </ng-template>
 

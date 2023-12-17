@@ -31,6 +31,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { GalleriaModule } from 'primeng/galleria';
 import { InputMaskModule } from 'primeng/inputmask';
 import { CardModule } from 'primeng/card';
+import { BadgeModule } from 'primeng/badge';
 @NgModule({
   declarations: [],
   imports: [
@@ -67,7 +68,8 @@ import { CardModule } from 'primeng/card';
     TabViewModule,
     GalleriaModule,
     InputMaskModule,
-    CardModule
+    CardModule,
+    BadgeModule
   ]
 })
 export class PrimeModule { }

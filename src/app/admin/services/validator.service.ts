@@ -5,12 +5,18 @@ import { AbstractControl, FormArray, FormGroup, ValidatorFn } from '@angular/for
 export class ProductValidatorService {
   constructor() { }
 
-   atLeastOneValidInArrays(array1: FormArray, array2: FormArray): ValidatorFn {
+  atLeastOne(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
-      const validControlsArray1 = array1.controls.filter((control) => control.valid);
-      const validControlsArray2 = array2.controls.filter((control) => control.valid);
-
-      return validControlsArray1.length > 0 || validControlsArray2.length > 0 ? null : { atLeastOneValid: true };
+      if (control instanceof FormArray) {
+        const arrayLength = control.length;
+        if (arrayLength === 0) {
+          return { atLeastOne: true };
+        }else{
+          const controlsValid=control.controls.filter((field=>field.valid))
+          return controlsValid.length>0?null:{ atLeastOne: true }
+        }
+      }
+      return null;
     };
   }
   isValidField( MyForm:FormGroup,field: string ): boolean | null {
@@ -18,18 +24,15 @@ export class ProductValidatorService {
       && MyForm.controls[field].touched;
   }
 
-  getFieldError( MyForm:FormGroup,field: string ): string | null {
-
+  getFieldError( MyForm:FormGroup,field: string): string | null {
     if ( !MyForm.controls[field] ) return null;
-
     const errors = MyForm.controls[field].errors || {};
-
     for (const key of Object.keys(errors) ) {
       switch( key ) {
         case 'required':
           return 'Este campo es requerido';
         case 'minlength':
-          return `Mínimo ${ errors['minlength'].requiredLength } caracters.`;
+          return `Mínimo ${ errors['minlength'].actualLength }/${ errors['minlength'].requiredLength } caracters.`;
         case 'maxlength':
             return `Maximo ${ errors['maxlength'].maxLength } es de caracters.`;
         case 'min':

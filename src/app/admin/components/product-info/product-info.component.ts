@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, ViewChild, OnInit, Output, EventEmitter }
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Product } from 'src/app/products/interfaces';
 import { FilesService } from '../../services/file.service';
-import { MessageService } from 'primeng/api';
+import { Message, MessageService } from 'primeng/api';
 import { environment } from 'src/environments/environment';
 import { ProductValidatorService } from '../../services/validator.service';
 interface SaveProduct{
@@ -33,10 +33,10 @@ export class ProductInfoComponent implements OnInit {
       ProductName:[this.product.ProductName,[Validators.required,Validators.minLength(10)]],
       description:[this.product.description,[Validators.required,Validators.minLength(20)]],
       inventoryStatus:[this.product.inventoryStatus,[Validators.required]],
-      images:this.FB.array(this.ParseArrayToArrayControls(this.product.images)),
+      images:this.FB.array(this.ParseArrayToArrayControls(this.product.images),this.ValidatorService.atLeastOne()),//,this.ValidatorService.atLeastOneValid(this.images)
       price:[this.product.price,[Validators.required,Validators.min(500),Validators.max(100000)]],
       Discount:[this.product.Discount,[Validators.required,Validators.min(0),Validators.max(100)]],
-      sizes:this.InitSizes(this.product.sizes)
+      sizes:this.InitSizes(this.product.sizes),
     })
     this.CaracteristicsForm=this.FB.group({
       patent:[this.product.General.patent,[Validators.required]],
@@ -48,15 +48,17 @@ export class ProductInfoComponent implements OnInit {
       class_shoes:[this.product.General.class_shoes,[Validators.required]],
       E_Material:[this.product.General.E_Material,[Validators.required]],
       I_Material:[this.product.General.I_Material,[Validators.required]],
-      Shoe_sole:[this.product.General.Shoe_sole,[Validators.required]],})
+      Shoe_sole:[this.product.General.Shoe_sole,[Validators.required]]})
       this.AdventagesForm= this.FB.group({
-        Adventages:this.FB.array(this.ParseArrayToArrayControls(this.product.adventages)) ,//this.FB.array(this.ParseArrayToArrayControls(this.product.adventages))
-        Disaventages: this.FB.array(this.ParseArrayToArrayControls(this.product.disadventages)),
+        Adventages:this.FB.array(this.ParseArrayToArrayControls(this.product.adventages),this.ValidatorService.atLeastOne()) ,//,this.ValidatorService.atLeastOneValid(this.AdventagesForm.get('Adventages') as FormArray)
+        Disaventages: this.FB.array(this.ParseArrayToArrayControls(this.product.disadventages),this.ValidatorService.atLeastOne()),//,this.ValidatorService.atLeastOneValid(this.AdventagesForm.get('Disaventages') as FormArray)
       })
       this.ProductInfoForm.get('inventoryStatus')?.disable()
       if (!this.EditProduct) {
         this.ProductInfoForm.disable()
       }
+      this.Message = [{ severity: 'error', summary: 'Minimo de tallas', detail: 'Para registrar un producto debera de tener minimo una talla' }];
+      this.Message2 = [{ severity: 'error', summary: 'Minimo de imagenes', detail: 'Para registrar un producto debera de tener minimo una imagen de referencia' }];
     }
   @Input()
   product:Product = {
@@ -111,6 +113,7 @@ export class ProductInfoComponent implements OnInit {
   key: Number(key),
   value: value,
 }));
+
 // Ahora puedes usar 'map' en el array sizeArray
   const sizeQuantityControls:FormGroup[] = sizeArray.map(item => {
     return this.FB.group({
@@ -121,8 +124,10 @@ export class ProductInfoComponent implements OnInit {
 
 });
  // Utiliza el método 'array' de FormBuilder para crear la FormArray
- return this.FB.array(sizeQuantityControls,[Validators.required,Validators.minLength(1),Validators.maxLength(5)]);
+ return this.FB.array(sizeQuantityControls,this.ValidatorService.atLeastOne());//this.ValidatorService.atLeastOneValid(this.Sizes)
   }
+  Message:Message[]=[]
+  Message2:Message[]=[]
   //Info
   public ProductInfoForm!:FormGroup;
   //General
@@ -138,15 +143,11 @@ export class ProductInfoComponent implements OnInit {
   GetErrorMessage(MyForm:FormGroup,field:string){
     return this.ValidatorService.getFieldError(MyForm,field)
   }
-  createAdvantageControl(value:string): FormControl {
-     const NewControl= this.FB.control(value,[Validators.required]);//todo:Aqui de da error el valor marca null
-     return NewControl
-  }
   //Los form controls unicamnete con validators de campo obligatorio
   ParseArrayToArrayControls(array:any[]):FormControl[]{
     let arrayControls:FormControl[]=[];
     array.forEach(field=>{
-      const control=this.createAdvantageControl(field)
+      const control=this.FB.control(field,[Validators.required]);
       arrayControls.push(control)
     })
     return arrayControls;
@@ -293,44 +294,49 @@ let SizeMap:Map<number,number>=new Map()
 }
   SubmitProduct(){
     if(this.EditProduct){
-    this.ProductInfoForm.get('inventoryStatus')?.enable()
-    const {ProductName,description,images,price,Discount,sizes}=this.ProductInfoForm.value
-    const {Adventages,Disaventages}=this.AdventagesForm.value
-    const {patent,model,Category,age,width_type,fit_type,class_shoes,E_Material,I_Material,Shoe_sole}=this.CaracteristicsForm.value
-    const sizesMap = new Map(sizes.map((item: { size: number, quantity: number }) => [item.size, item.quantity]));
-    const sizesObject: { [key: number]: number } = {};
-    sizes.forEach((item:{size: number, quantity: number}) => {
-    sizesObject[item.size] = item.quantity;
-    });
-    const SubmitProduct:Product={
-    _id: this.product._id?this.product._id:'',
-    ProductName:ProductName,
-    description: description,
-    price: price,
-    sizes: sizesObject,
-    images: images,
-    General: {
-    patent: patent,
-    model: model,
-    Category: Category,
-    age: age,
-    width_type:width_type,
-    fit_type: fit_type,
-    class_shoes: class_shoes,
-    E_Material: E_Material,
-    I_Material: I_Material,
-    Shoe_sole: Shoe_sole
-    },
-    adventages: Adventages,
-    disadventages: Disaventages,
-    Discount:Discount,
-    inventoryStatus:this.CalculateStatus([...sizesMap.values()]),
-    RegisterDate:this.product._id?this.product.RegisterDate:new Date(),
-    __v: 0
-    }
-    this.SaveProduct.emit({
-      closeDialog:false,
-      product:SubmitProduct    })
+      this.CaracteristicsForm.markAllAsTouched()
+      this.AdventagesForm.markAllAsTouched()
+      this.ProductInfoForm.markAllAsTouched()
+      if (this.ProductInfoForm.valid&&this.CaracteristicsForm.valid&&this.AdventagesForm.valid) {
+        this.ProductInfoForm.get('inventoryStatus')?.enable()
+        const {ProductName,description,images,price,Discount,sizes}=this.ProductInfoForm.value
+        const {Adventages,Disaventages}=this.AdventagesForm.value
+        const {patent,model,Category,age,width_type,fit_type,class_shoes,E_Material,I_Material,Shoe_sole}=this.CaracteristicsForm.value
+        const sizesMap = new Map(sizes.map((item: { size: number, quantity: number }) => [item.size, item.quantity]));
+        const sizesObject: { [key: number]: number } = {};
+        sizes.forEach((item:{size: number, quantity: number}) => {
+        sizesObject[item.size] = item.quantity;
+        });
+        const SubmitProduct:Product={
+        _id: this.product._id?this.product._id:'',
+        ProductName:ProductName,
+        description: description,
+        price: price,
+        sizes: sizesObject,
+        images: images,
+        General: {
+        patent: patent,
+        model: model,
+        Category: Category,
+        age: age,
+        width_type:width_type,
+        fit_type: fit_type,
+        class_shoes: class_shoes,
+        E_Material: E_Material,
+        I_Material: I_Material,
+        Shoe_sole: Shoe_sole
+        },
+        adventages: Adventages,
+        disadventages: Disaventages,
+        Discount:Discount,
+        inventoryStatus:this.CalculateStatus([...sizesMap.values()]),
+        RegisterDate:this.product._id?this.product.RegisterDate:new Date(),
+        __v: 0
+        }
+        this.SaveProduct.emit({
+          closeDialog:false,
+          product:SubmitProduct    })
+      }
     }
     else
     this.CancelRegister.emit(false)

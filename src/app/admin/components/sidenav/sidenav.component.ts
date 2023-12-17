@@ -1,6 +1,9 @@
-import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
+import { MailService } from './../../services/Mail.service';
+import { Component, EventEmitter, HostListener, OnDestroy, OnInit, Output } from '@angular/core';
 import { navOptions } from './navOptions';
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
+import { Subscription } from 'rxjs';
+import { MessageService } from 'primeng/api';
 interface SideNavToggle {
   screenWidth: number;
   collapsed: boolean;
@@ -37,12 +40,26 @@ interface SideNavToggle {
   ]
 })
 
-export class SidenavComponent implements OnInit {
+export class SidenavComponent implements OnInit,OnDestroy {
+  constructor(private MailService:MailService){
+    // this.AJAX$=this.MailService.GetTotalPendient().subscribe({
+    //   next:(messages)=>{
+    //   this.PendientMessages=messages.totalMessages.toString()
+    //   },
+    //   error:(error)=>{
+    //     console.error(error.message)
+    //   }
+    // })
+  }
+  ngOnDestroy(): void {
+    this.AJAX$.unsubscribe()
+  }
   @Output() onToggleSideNav: EventEmitter<SideNavToggle> = new EventEmitter();
   collapsed = false;
   screenWidth = 0;
   navData = navOptions;
-
+  PendientMessages:string='0';
+  AJAX$:Subscription=new Subscription()
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.screenWidth = window.innerWidth;

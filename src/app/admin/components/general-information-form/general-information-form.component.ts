@@ -1,15 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { ProductValidatorService } from '../../services/validator.service';
 
 @Component({
   selector: 'generalInfoFormComponent',
   templateUrl: './general-information-form.component.html',
   styleUrls: ['./general-information-form.component.scss'],
-  providers:[MessageService]
 })
 export class GeneralInformationFormComponent implements OnInit{
-constructor(private FB:FormBuilder,private MessageService:MessageService){}
+constructor(private FB:FormBuilder,private validatorService:ProductValidatorService){}
   ngOnInit(): void {
 this.CaracteristicsForm=this.Carateristics
 if (!this.EditProduct) {
@@ -29,7 +28,16 @@ CaracteristicsChanges:EventEmitter<FormGroup>=new EventEmitter<FormGroup>()
 Categories:string[]=["Hombres","Mujeres","Niños","Todos"]
 public CaracteristicsForm:FormGroup=this.FB.group({})
 CloseGeneralDialog(){
-  this.CaracteristicsChanges.emit(this.CaracteristicsForm)
-  this.CaracteristicsDialogChanges.emit(false)
+  this.Carateristics.markAllAsTouched()
+  if(this.Carateristics.valid){
+    this.CaracteristicsChanges.emit(this.CaracteristicsForm)
+    this.CaracteristicsDialogChanges.emit(false)
+  }
+}
+IsValidField(field:string){
+return this.validatorService.isValidField(this.CaracteristicsForm,field)
+}
+GetErrorMessage(field:string){
+return this.validatorService.getFieldError(this.CaracteristicsForm,field)
 }
 }

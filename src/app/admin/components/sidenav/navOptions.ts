@@ -15,6 +15,11 @@ export const navOptions=[
   label:'Ordenes'
 },
 {
+  routeLink:'messages',
+  icon:'pi pi-comment',
+  label:'Mensajes'
+},
+{
   routeLink:'login',
   icon:'pi pi-sign-out',
   label:'Cerrar sesion'

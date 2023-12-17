@@ -1,56 +1,66 @@
 <p-toast></p-toast>
-<p-dialog [(visible)]="CaracteristicsDialog" [style]="{width: '40%' ,height:'100%'}" header="Informacion general de producto" [modal]="true" class="p-fluid" [formGroup]="CaracteristicsForm">
+<p-dialog [(visible)]="CaracteristicsDialog" [style]="{width: '40%' ,height:'100%'}" header="Informacion general de producto" [modal]="true" class="p-fluid" [formGroup]="CaracteristicsForm" (onHide)="this.CaracteristicsDialogChanges.emit(false)">
   <ng-template pTemplate="content">
     <div class="field">
       <label for="name">Marca</label>
-      <input type="text" formControlName="patent" pInputText id="name" autocomplete="off" autofocus /><!-- [ngClass]="{'ng-invalid ng-dirty' : submitted && !product.ProductName}" -->
+      <input type="text" formControlName="patent" pInputText id="name" autocomplete="off" autofocus [ngClass]="{'ng-inv ng-dirty' :IsValidField('patent') }"/>
+      <small class="error" *ngIf="IsValidField('patent')">{{GetErrorMessage('patent')}}</small>
   </div>
   <div class="field">
     <label for="name">Modelo</label>
-     <input type="text" pInputText id="name" formControlName="model" autocomplete="off" autofocus /><!--[ngClass]="{'ng-invalid ng-dirty' : submitted && !product.ProductName}" -->
+     <input type="text" pInputText id="name" formControlName="model" autocomplete="off" autofocus [ngClass]="{'ng-invalid ng-dirty' : IsValidField('model')}" />
+     <small class="error" *ngIf="IsValidField('model')">{{GetErrorMessage('model')}}</small>
   </div>
-  <div class="field">
+  <div class="field" >
       <label class="mb-3">Categoria</label>
-      <div class="formgrid grid">
+      <div class="formgrid grid"[ngClass]="{'invalid' : IsValidField('Category')}" >
           <div class="field-radiobutton col-6" *ngFor="let category of Categories">
               <p-radioButton id="category1" [inputId]="category" formControlName="Category" [value]="category" ></p-radioButton>
               <label for="category1">{{category}}</label>
           </div>
       </div>
+      <small class="error" *ngIf="IsValidField('Category')">{{GetErrorMessage('Category')}}</small>
   </div>
   <div class="field">
     <label for="status">Edad</label>
-    <p-dropdown  [options]="['Niños','Adolescentes','Adultos']"  placeholder="Edad a la que esta dirigido" formControlName="age"></p-dropdown>
+    <p-dropdown  [options]="['Niños','Adolescentes','Adultos']"  placeholder="Edad a la que esta dirigido" formControlName="age" [ngClass]="{'ng-invalid ng-dirty' : IsValidField('age')}"></p-dropdown>
+    <small class="error" *ngIf="IsValidField('age')">{{GetErrorMessage('age')}}</small>
 </div>
 
   <div class="formgrid grid">
       <div class="field col">
           <label for="price">Tipos de ancho</label>
-          <p-dropdown  formControlName="width_type" [options]=" ['Angosto','Estandar','Ancho','Extra ancho']"  placeholder="Tipo de ancho del zapato"></p-dropdown>
+          <p-dropdown  formControlName="width_type" [options]=" ['Angosto','Estandar','Ancho','Extra ancho']"  placeholder="Tipo de ancho del zapato" [ngClass]="{'ng-invalid ng-dirty' : IsValidField('width_type')}"></p-dropdown>
+          <small class="error" *ngIf="IsValidField('width_type')">{{GetErrorMessage('width_type')}}</small>
       </div>
       <div class="field col">
           <label for="Descuento">Tipo de ajuste</label>
-          <p-dropdown  [options]="" formControlName="fit_type"  [options]="['Cordones','Velcro']" placeholder="Tipo de ajuste"></p-dropdown>
+          <p-dropdown  [options]="" formControlName="fit_type"  [options]="['Cordones','Velcro']" placeholder="Tipo de ajuste" [ngClass]="{'ng-invalid ng-dirty' : IsValidField('fit_type')}"></p-dropdown>
+          <small class="error" *ngIf="IsValidField('fit_type')">{{GetErrorMessage('fit_type')}}</small>
       </div>
     </div>
     <div class="formgrid grid">
       <div class="field col">
           <label for="price">Clase de zapato</label>
-          <p-dropdown  [options]="" formControlName="class_shoes"  [options]="['Original','Exclusivo','UA','Top Quality','G5']" placeholder="Clase de zapato"></p-dropdown>
+          <p-dropdown  [options]="" formControlName="class_shoes"  [options]="['Original','Exclusivo','UA','Top Quality','G5']" placeholder="Clase de zapato" [ngClass]="{'ng-invalid ng-dirty' : IsValidField('class_shoes')}"></p-dropdown>
+          <small class="error" *ngIf="IsValidField('class_shoes')">{{GetErrorMessage('class_shoes')}}</small>
       </div>
       <div class="field col">
         <label for="Descuento">Suela de zapato</label>
-        <p-dropdown  [options]="" formControlName="Shoe_sole" [options]="['Goma']" placeholder="Material de suela"></p-dropdown>
+        <p-dropdown  [options]="" formControlName="Shoe_sole" [options]="['Goma']" placeholder="Material de suela" [ngClass]="{'ng-invalid ng-dirty' : IsValidField('Shoe_sole')}"></p-dropdown>
+        <small class="error" *ngIf="IsValidField('Shoe_sole')">{{GetErrorMessage('Shoe_sole')}}</small>
     </div>
     </div>
     <div class="formgrid grid">
       <div class="field col">
           <label for="price">Material interior</label>
-          <p-dropdown  [options]="" formControlName="I_Material" [options]="['Malla','Algodon']"  placeholder="Material del interior"></p-dropdown>
+          <p-dropdown  [options]="" formControlName="I_Material" [options]="['Malla','Algodon']"  placeholder="Material del interior" [ngClass]="{'ng-invalid ng-dirty' : IsValidField('I_Material')}"></p-dropdown>
+          <small class="error" *ngIf="IsValidField('I_Material')">{{GetErrorMessage('I_Material')}}</small>
       </div>
       <div class="field col">
         <label for="Descuento">Material exterior</label>
-        <p-dropdown  [options]="['Cuero','Tela','Gamuza']"  formControlName="E_Material" placeholder="Material del exterior"></p-dropdown>
+        <p-dropdown  [options]="['Cuero','Tela','Gamuza']"  formControlName="E_Material" placeholder="Material del exterior" [ngClass]="{'ng-invalid ng-dirty' : IsValidField('E_Material')}"></p-dropdown>
+        <small class="error" *ngIf="IsValidField('E_Material')">{{GetErrorMessage('E_Material')}}</small>
     </div>
     </div>
   </ng-template>

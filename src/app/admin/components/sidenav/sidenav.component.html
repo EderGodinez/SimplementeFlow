@@ -11,7 +11,12 @@
           <a class="sidenav-nav-link" [routerLink]="[data.routeLink]"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{exact: true}">
-              <i class="sidenav-link-icon" [class]="data.icon"></i>
+              <ng-container *ngIf="data.label==='Mensajes'&&PendientMessages!=='0'; else Normal">
+                <i class="sidenav-link-icon" [class]="data.icon" pBadge [value]="PendientMessages"></i>
+              </ng-container>
+              <ng-template #Normal>
+                <i class="sidenav-link-icon" [class]="data.icon" ></i>
+              </ng-template>
               <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
                   {{data.label}}
               </span>
