@@ -1,1 +1,24 @@
-<p>detail-message works!</p>
+
+<p-panel [header]="'Asunto: '+Message.issue" [classList]="'h-screen'" >
+  <ng-template pTemplate="icons">
+    <button class="p-panel-header-icon p-link mr-2" (click)="NavigateList()">
+      <span class="pi pi-backward"style="font-size: 1.5rem"></span>
+    </button>
+
+</ng-template>
+<div class="flex justify-content-between">
+  <h4>
+Nombre de usuario:{{' '+Message.username}}
+  </h4>
+  <h4>
+    Correo de contacto:{{' '+Message.UserEmail}}
+  </h4>
+  <h4>
+    {{Message.MessageDate|date:'medium'}}
+  </h4>
+  </div>
+  <p>
+    {{Message.Content}}
+  </p>
+</p-panel>
+

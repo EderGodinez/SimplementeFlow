@@ -11,8 +11,8 @@
           <a class="sidenav-nav-link" [routerLink]="[data.routeLink]"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{exact: true}">
-              <ng-container *ngIf="data.label==='Mensajes'&&PendientMessages!=='0'; else Normal">
-                <i class="sidenav-link-icon" [class]="data.icon" pBadge [value]="PendientMessages"></i>
+              <ng-container *ngIf="data.label==='Mensajes'&&PendientMails!=='0'; else Normal">
+                <i class="sidenav-link-icon" [class]="data.icon" pBadge [value]="PendientMails"></i>
               </ng-container>
               <ng-template #Normal>
                 <i class="sidenav-link-icon" [class]="data.icon" ></i>

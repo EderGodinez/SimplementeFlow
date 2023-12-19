@@ -1,0 +1,61 @@
+<p-table
+    #dt1
+    [value]="Messages"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    [paginator]="true"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} mensajes"
+    [globalFilterFields]="['username', 'issue', 'MessageDate', 'status']"
+    selectionMode="single"
+    dataKey="username"
+    [(selection)]="MessageSelected"
+    (onRowSelect)="ViewMessage($event)"
+>
+    <ng-template pTemplate="caption">
+        <div class="flex">
+          <p-button icon="pi pi-refresh" [style]="{'background':'none','border-radius':'5px','border':'none','color':'grey'}" (onClick)="ReloadMessages()" label="Refrescar mensajes"></p-button>
+            <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="onGlobalFilter(dt1, $event)" placeholder="Buscar mensaje"  />
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="min-width:15rem">
+                <div class="flex align-items-center">
+                    Nombre de usuario
+                </div>
+            </th>
+            <th style="min-width:15rem">
+                <div class="flex align-items-center">
+                    Asunto
+                </div>
+            </th>
+            <th style="min-width:15rem">
+                <div class="flex align-items-center">
+                    Fecha
+                </div>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-message>
+        <tr [ngStyle]="{'font-weight': message.status === 'Pendiente' ? '600' : ''}" [pSelectableRow]="message">
+            <td>
+                {{ message.username }}
+            </td>
+            <td>
+              {{ message.issue }}
+          </td>
+            <td>
+                {{ message.MessageDate | date: 'MM/dd/yyyy' }}
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="7">No customers found.</td>
+        </tr>
+    </ng-template>
+</p-table>

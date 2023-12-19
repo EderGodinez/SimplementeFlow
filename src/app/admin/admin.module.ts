@@ -16,9 +16,9 @@ import { FilesService } from './services/file.service';
 import { ProductInfoComponent } from './components/product-info/product-info.component';
 import { AdventagesFormComponent } from './components/adventages-form/adventages-form.component';
 import { GeneralInformationFormComponent } from './components/general-information-form/general-information-form.component';
-import { MessagesPageComponent } from './components/messages-list/messages-page.component';
+import { MessagesPageComponent } from './components/messages-list/messages-list.component';
 import { DetailMessageComponent } from './components/detail-message/detail-message.component';
-import { MessageLayoutComponent } from './pages/message-layout/message-layout.component';
+
 
 
 @NgModule({
@@ -35,7 +35,6 @@ import { MessageLayoutComponent } from './pages/message-layout/message-layout.co
     GeneralInformationFormComponent,
     MessagesPageComponent,
     DetailMessageComponent,
-    MessageLayoutComponent
   ],
   imports: [
     CommonModule,

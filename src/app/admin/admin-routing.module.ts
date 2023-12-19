@@ -6,8 +6,7 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
 import { ProductsPageComponent } from './pages/products-page/products-page.component';
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
-import { MessagesPageComponent } from './components/messages-list/messages-page.component';
-import { MessageLayoutComponent } from './pages/message-layout/message-layout.component';
+import { MessagesPageComponent } from './components/messages-list/messages-list.component';
 import { DetailMessageComponent } from './components/detail-message/detail-message.component';
 
 const routes: Routes = [
@@ -16,7 +15,7 @@ const routes: Routes = [
     {path:'dashboard',component:DashboardPageComponent},
     {path:'products',component:ProductsPageComponent},
     {path:'orders',component:OrdersPageComponent},
-    {path:'messages',component:MessageLayoutComponent,children:[
+    {path:'messages',children:[
       {path:'list',component:MessagesPageComponent},
       {path:'detail/:id',component:DetailMessageComponent},
       {path:'**',redirectTo:'list'}

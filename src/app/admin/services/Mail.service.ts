@@ -2,27 +2,30 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Message } from '../interfaces/Messages.interface';
+import { TotalResponse } from '../interfaces/TotalMessages.interface';
 
-interface TotalResponse{
-totalMessages:string
-status:number
-}
-interface Message{
-  _id:string
-  username:string
-  status:string
-  UserEmail:string
-  issue:string
-  Content:string
-}
+
+
 
 @Injectable({providedIn: 'root'})
 export class MailService {
   constructor(private Http:HttpClient) { }
-  GetMessages():Observable<Message[]>{
-    return this.Http.get<Message[]>(`${environment.APIBaseUrl}/Messages`)
+  PendientMessages:string="0"
+  setpendientMessages(messages:string){
+    this.PendientMessages=messages
   }
-  GetTotalPendient():Observable<TotalResponse>{
-    return this.Http.get<TotalResponse>(`${environment.APIBaseUrl}/Messages/Total`)
+  GetMessages():Observable<Message[]>{
+    return this.Http.get<Message[]>(`${environment.APIBaseUrl}/messages`)
+  }
+  GetMessageById(id:string):Observable<Message>{
+    return this.Http.get<Message>(`${environment.APIBaseUrl}/messages/${id}`)
+  }
+  GetTotal(status:string):Observable<TotalResponse>{
+    return this.Http.get<TotalResponse>(`${environment.APIBaseUrl}/messages/Total?status=${status}`)
+  }
+  UpdateMessageStatus(MessageUpdated:Message):Observable<Message>{
+    const {_id}=MessageUpdated
+    return this.Http.patch<Message>(`${environment.APIBaseUrl}/messages/${_id}`,MessageUpdated)
   }
 }

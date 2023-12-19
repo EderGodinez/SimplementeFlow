@@ -41,16 +41,7 @@ interface SideNavToggle {
 })
 
 export class SidenavComponent implements OnInit,OnDestroy {
-  constructor(private MailService:MailService){
-    // this.AJAX$=this.MailService.GetTotalPendient().subscribe({
-    //   next:(messages)=>{
-    //   this.PendientMessages=messages.totalMessages.toString()
-    //   },
-    //   error:(error)=>{
-    //     console.error(error.message)
-    //   }
-    // })
-  }
+  constructor(private MailService:MailService){}
   ngOnDestroy(): void {
     this.AJAX$.unsubscribe()
   }
@@ -58,7 +49,6 @@ export class SidenavComponent implements OnInit,OnDestroy {
   collapsed = false;
   screenWidth = 0;
   navData = navOptions;
-  PendientMessages:string='0';
   AJAX$:Subscription=new Subscription()
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -71,9 +61,21 @@ export class SidenavComponent implements OnInit,OnDestroy {
 
   ngOnInit(): void {
       this.screenWidth = window.innerWidth;
+      this.AJAX$=this.MailService.GetTotal('Pendiente').subscribe({
+        next:(messages)=>{
+        this.MailService.setpendientMessages(messages.totalMessages)
+      },
+      error:(error)=>{
+        this.MailService.setpendientMessages("0")
+        }
+      })
   }
 
+get PendientMails(){
+  return this.MailService.PendientMessages
+}
   toggleCollapse(): void {
+    console.log(this.MailService.PendientMessages)
     this.collapsed = !this.collapsed;
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
   }
