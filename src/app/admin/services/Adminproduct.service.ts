@@ -29,4 +29,7 @@ getProducts():Observable<Product[]> {
   DeleteProduct(id:string):Observable<{message:string}> {
       return this.http.delete<{message:string}>(`${this.API_URL}/products/${id}`,)
   }
+  GetTotalStock():Observable<{TotalStock:number}>{
+    return this.http.get<{TotalStock:number}>(`${this.API_URL}/products/stock`)
+  }
 }

@@ -20,6 +20,6 @@ getUserFromCokkies(){
 
 }
 getUserById(id:string):Observable<User>{
-  return this.Http.get<User>(`${environment.APIBaseUrl}/auth/${id}`)
+  return this.Http.get<User>(`${environment.APIBaseUrl}/users/${id}`)
   }
 }
