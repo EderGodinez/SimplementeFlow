@@ -7,13 +7,14 @@ export interface User {
   birthdate: Date
   gender: string
   phone: number
-  password: string
+  password?: string
   isActive: boolean
   UserRole: string
   likes: string[]
   shopping_car: []
-  data_Address?: DataAddress
+  data_Address: DataAddress
   __v?: number
+  RegisterDate:Date
 }
 
 export interface Id {

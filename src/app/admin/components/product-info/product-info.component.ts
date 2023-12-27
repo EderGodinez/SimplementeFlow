@@ -4,7 +4,8 @@ import { Product } from 'src/app/products/interfaces';
 import { FilesService } from '../../services/file.service';
 import { Message, MessageService } from 'primeng/api';
 import { environment } from 'src/environments/environment';
-import { ProductValidatorService } from '../../services/validator.service';
+import { ValidatorService } from 'src/app/validators/validator.service';
+
 interface SaveProduct{
   closeDialog:boolean
   product:Product
@@ -20,7 +21,7 @@ interface Sizes{
   providers:[MessageService]
 })
 export class ProductInfoComponent implements OnInit {
-  constructor(private FB:FormBuilder,private FileService:FilesService,private messageService: MessageService,private ValidatorService:ProductValidatorService){
+  constructor(private FB:FormBuilder,private FileService:FilesService,private messageService: MessageService,private ValidatorService:ValidatorService){
   }
 
   ngOnInit(): void {

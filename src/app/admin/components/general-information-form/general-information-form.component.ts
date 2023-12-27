@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ProductValidatorService } from '../../services/validator.service';
+import { ValidatorService } from 'src/app/validators/validator.service';
 
 @Component({
   selector: 'generalInfoFormComponent',
@@ -8,7 +8,7 @@ import { ProductValidatorService } from '../../services/validator.service';
   styleUrls: ['./general-information-form.component.scss'],
 })
 export class GeneralInformationFormComponent implements OnInit{
-constructor(private FB:FormBuilder,private validatorService:ProductValidatorService){}
+constructor(private FB:FormBuilder,private validatorService:ValidatorService){}
   ngOnInit(): void {
 this.CaracteristicsForm=this.Carateristics
 if (!this.EditProduct) {

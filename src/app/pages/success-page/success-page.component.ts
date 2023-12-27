@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+interface Data{
+  Sumary:string
+  Detail:string
+}
+
 
 @Component({
   templateUrl: './success-page.component.html',
@@ -8,9 +13,23 @@ import { MessageService } from 'primeng/api';
   providers: [MessageService]
 })
 export class SuccessPageComponent implements OnInit{
-  constructor(private Router:Router,private messageService: MessageService){}
+  Info:Data={Detail:'',Sumary:''}
+  constructor(private Router:Router,private messageService: MessageService){
+    if (history.length===1) {
+      this.Info={
+        Detail:'Bienvenido a la comunidad de SimplementeFlow',
+        Sumary:'Cuenta creada exitosamente'
+      }
+    }
+    else{
+      this.Info={
+        Detail:'Tu pedido ah sido validado y pagado con exito',
+        Sumary:'Compra realizada con exito '
+      }
+    }
+
+  }
   ngOnInit(): void {
-     // Muestra el toast después de un breve retraso (por ejemplo, 1 segundo)
      setTimeout(() => {
       this.showSuccessToast();
     }, 1000);

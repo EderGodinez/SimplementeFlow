@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Order } from '../../Interfaces/orders.interface';
 import { ActivatedRoute } from '@angular/router';
 import { OrdersService } from '../../services/orders.service';
-import { AccountService } from '../../../account/services/Account.service';
+import { AuthService } from '../../../account/services/Account.service';
 import { User } from 'src/app/interfaces/user.interfaces';
 
 @Component({
@@ -10,7 +10,7 @@ import { User } from 'src/app/interfaces/user.interfaces';
   styleUrls: ['./order-details-page.component.scss']
 })
 export class OrderDetailsPageComponent {
-constructor(private ActivatedRoute:ActivatedRoute,private OrdersService:OrdersService,private AccountService:AccountService){
+constructor(private ActivatedRoute:ActivatedRoute,private OrdersService:OrdersService,private AccountService:AuthService){
   this.ActivatedRoute.params.subscribe(params => {
     const id = params['id'];
    const user= this.OrderById(id)
@@ -34,6 +34,15 @@ constructor(private ActivatedRoute:ActivatedRoute,private OrdersService:OrdersSe
   UserRole: "",
   likes: [],
   shopping_car: [],
+  RegisterDate:new Date(),
+  data_Address:{
+    City:"",
+    Cologne:"",
+    number:"",
+    postal_Code:0,
+    State:"",
+    Street:""
+  }
   }
   OrderInfo:Order={_id:"",numOrder:0,UserId:"",PayMethod:"",OrderDate:new Date(),Details:[],TotalPay:0,payment_status:"",delivery_status:""}
   OrderById(id:string){

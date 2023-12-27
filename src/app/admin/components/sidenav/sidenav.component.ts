@@ -4,6 +4,7 @@ import { navOptions } from './navOptions';
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { Subscription } from 'rxjs';
 import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 interface SideNavToggle {
   screenWidth: number;
   collapsed: boolean;
@@ -41,7 +42,7 @@ interface SideNavToggle {
 })
 
 export class SidenavComponent implements OnInit,OnDestroy {
-  constructor(private MailService:MailService){}
+  constructor(private MailService:MailService,private Router:Router){}
   ngOnDestroy(): void {
     this.AJAX$.unsubscribe()
   }
@@ -75,7 +76,6 @@ get PendientMails(){
   return this.MailService.PendientMessages
 }
   toggleCollapse(): void {
-    console.log(this.MailService.PendientMessages)
     this.collapsed = !this.collapsed;
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
   }
@@ -83,5 +83,10 @@ get PendientMails(){
   closeSidenav(): void {
     this.collapsed = false;
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
+  }
+  NavigateUrl(url:string){
+    if (url==='login')
+    localStorage.removeItem('Token')
+    this.Router.navigateByUrl('Admin/'+url)
   }
 }

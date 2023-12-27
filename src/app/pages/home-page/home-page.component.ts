@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { adverticers,advertice } from './advertices';
 import { Product } from 'src/app/products/interfaces/product.interface';
 import { Toast } from 'src/app/products/interfaces';

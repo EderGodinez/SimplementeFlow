@@ -8,9 +8,10 @@ import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { MessagesPageComponent } from './components/messages-list/messages-list.component';
 import { DetailMessageComponent } from './components/detail-message/detail-message.component';
+import { AdminGuard, AdminLogoutGuard } from './guards/Admin.guard';
 
 const routes: Routes = [
-  {path:'login',component:LoginPageComponent},
+  {path:'login',component:LoginPageComponent,canActivate:[AdminLogoutGuard]},
   {path:'',component:AdminlayoutPageComponent,children:[
     {path:'dashboard',component:DashboardPageComponent},
     {path:'products',component:ProductsPageComponent},
@@ -21,7 +22,7 @@ const routes: Routes = [
       {path:'**',redirectTo:'list'}
     ]},
     {path:'**',redirectTo:'dashboard'}
-  ]}
+  ],canActivate:[AdminGuard]}
 
 ];
 

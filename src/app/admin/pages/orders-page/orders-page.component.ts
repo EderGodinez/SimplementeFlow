@@ -3,11 +3,11 @@ import { Table } from 'primeng/table';
 
 import { Order } from 'src/app/orders/Interfaces/orders.interface';
 import { User } from '../../../interfaces/user.interfaces';
-import { AccountService } from '../../../account/services/Account.service';
-import { MessageService, SortEvent } from 'primeng/api';
+import { AuthService } from '../../../account/services/Account.service';
+import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { OrdersAdminService } from '../../services/OrdersAdmin.service';
-import { Observable, Subscription, catchError, finalize, map, of, switchMap, tap } from 'rxjs';
+import { Subscription, catchError, finalize, of, switchMap, tap } from 'rxjs';
 
 @Component({
   templateUrl: './orders-page.component.html',
@@ -15,7 +15,7 @@ import { Observable, Subscription, catchError, finalize, map, of, switchMap, tap
   providers:[MessageService]
 })
 export class OrdersPageComponent implements OnInit,OnDestroy {
-  constructor(private toast:MessageService,private OrdersAdminService:OrdersAdminService,private AccountService:AccountService,private Router:Router){
+  constructor(private toast:MessageService,private OrdersAdminService:OrdersAdminService,private AccountService:AuthService,private Router:Router){
     //SE descarto YA QUE EL PERFORMANCE ERA MENOS EFICIENTE QUE EL USADO
     this.AJAX$=this.OrdersAdminService.getOrders().pipe(
       switchMap(orders=>{
@@ -75,6 +75,7 @@ export class OrdersPageComponent implements OnInit,OnDestroy {
     UserRole: "",
     likes: [],
     shopping_car: [],
+    RegisterDate:new Date(),
     data_Address: {
       Street: " ",
       number: "",

@@ -21,7 +21,6 @@ import { PrimeModule } from './prime/prime.module';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SocialResposabilityComponent } from './pages/social-resposability/social-resposability.component';
-import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { ReturnPageComponent } from './pages/return-page/return-page.component';
 import { LegalNoticePageComponent } from './pages/legal-notice-page/legal-notice-page.component';
@@ -64,7 +63,6 @@ registerLocaleData(localeEsMx)
     BrowserAnimationsModule,
     PrimeModule,
     FormsModule,
-    AngularMaterialModule,
     ProductsModule
   ],
   providers: [ValidatorService,

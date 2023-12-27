@@ -56,7 +56,7 @@ export class DashboardPageComponent implements OnInit,OnDestroy{
       const textColor = documentStyle.getPropertyValue('--text-color');
       const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
       const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-
+console.log(this.monthsChart)
       this.chartData = {
           labels:this.monthsChart,// ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
           datasets: [
@@ -136,11 +136,11 @@ export class DashboardPageComponent implements OnInit,OnDestroy{
       })
   }
   GetchartData():void{
-    this.OrdersService.GetChartsData().subscribe({
+      this.OrdersService.GetChartsData().subscribe({
       next:(info)=>{
         info.salesStats.forEach((stats)=>{
           const month=this.MonthMap.get(stats.month) ?? 'Mes Desconocido'
-          this.monthsChart.push(month)
+          this.monthsChart.push(...[month])
         })
         info.salesStats.forEach((stats)=>{
           const value=stats.totalSales[0]?stats.totalSales[0].totalSales:0

@@ -9,7 +9,6 @@ import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { PrimeModule } from '../prime/prime.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AngularMaterialModule } from '../angular-material/angular-material.module';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { BodyComponent } from './components/body/body.component';
 import { FilesService } from './services/file.service';
@@ -40,7 +39,6 @@ import { DetailMessageComponent } from './components/detail-message/detail-messa
     CommonModule,
     AdminRoutingModule,
     PrimeModule,
-    AngularMaterialModule,
     FormsModule,
     ReactiveFormsModule,
 

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { ProductValidatorService } from '../../services/validator.service';
+import { ValidatorService } from 'src/app/validators/validator.service';
 
 @Component({
   selector: 'adventagesformComponent',
@@ -10,7 +10,7 @@ import { ProductValidatorService } from '../../services/validator.service';
   providers:[MessageService]
 })
 export class AdventagesFormComponent implements OnInit {
-  constructor(private FB:FormBuilder,private messageService:MessageService,private ValidatorService:ProductValidatorService){}
+  constructor(private FB:FormBuilder,private messageService:MessageService,private ValidatorService:ValidatorService){}
   ngOnInit(): void {
     this.AdventagesForm=this.Adventages
     if (!this.EditProduct) {

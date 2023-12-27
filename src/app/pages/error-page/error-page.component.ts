@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./error-page.component.scss']
 })
 export class ErrorPageComponent {
-constructor(private router:Router){}
+constructor(private router:Router){
+}
 Home(){
   this.router.navigateByUrl('SimplementeFlow/Home');
 }
