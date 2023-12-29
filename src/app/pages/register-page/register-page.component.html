@@ -47,9 +47,9 @@
                   <div class="w-full flex gap-2 justify-content-center">
                     <div class="w-4">
                       <label for="birthdate" class="block text-900 text-xl font-medium my-3">Fecha de nacimiento</label>
-                      <p-calendar formControlName="birthdate" [showIcon]="true"></p-calendar><br>
+                      <p-calendar formControlName="birthdate" [showIcon]="true" [ngClass]="{'ng-invalid ng-dirty': false}"></p-calendar><br>
                       <small id="calendar-help">Ingrese la fecha de nacimiento de debera ser mayor de edad <br></small>
-                      <small *ngIf="!esMayorDeEdad(RegisterForm.controls['birthdate'].value)" class="text-danger" id="calendar-help">Usuario no es mayor de edad</small>
+                      <small *ngIf="!esMayorDeEdad(RegisterForm.controls['birthdate'].value)&&RegisterForm.get('birthdate')?.touched" class="text-danger" id="calendar-help">Usuario no es mayor de edad</small>
                     </div>
                     <div class="w-4">
                       <label for="gender" class="block text-900 text-xl font-medium my-3">Contraseña</label>

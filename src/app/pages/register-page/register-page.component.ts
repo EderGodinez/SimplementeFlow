@@ -4,9 +4,6 @@ import { FormBuilder,FormGroup,Validators} from '@angular/forms';
 import { ValidatorService } from '../../validators/validator.service';
 import { AuthService } from 'src/app/account/services/Account.service';
 import { MessageService } from 'primeng/api';
-interface genders{
-  gender:string
-}
 @Component({
   templateUrl: './register-page.component.html',
   styleUrls: ['./register-page.component.scss'],
@@ -15,15 +12,16 @@ interface genders{
 export class RegisterPageComponent implements OnInit {
   constructor(private router:Router,private AuthService:AuthService,private FormBuilder:FormBuilder,private ValidatorService:ValidatorService,private MessageService:MessageService){}
   ngOnInit(): void {
+    const {gender,birthdate,lastnames,email,password,names,phone}=this.AuthService._User
     this.RegisterForm=this.FormBuilder.group({
-      email:["eder.godinez26@gmail.com",[Validators.required,Validators.pattern(this.ValidatorService.emailPattern)]],
-      names:["Eder",[Validators.required,Validators.pattern(this.ValidatorService.firstNameAndLastnamePattern)]],
-      lastnames:["Godinez",[Validators.required,Validators.pattern(this.ValidatorService.firstNameAndLastnamePattern)]],
-      gender:["Hombre",[Validators.required]],
-      phone:["3921006281",[Validators.required]],
-      birthdate:[new Date("11/01/2000"),[Validators.required]],
-      password:["A123456789a",[Validators.required,Validators.minLength(10),Validators.pattern(this.ValidatorService.passPattern)]],
-      Confirmpassword:["A123456789a",[Validators.required]]
+      email:[email,[Validators.required,Validators.pattern(this.ValidatorService.emailPattern)]],
+      names:[names,[Validators.required,Validators.pattern(this.ValidatorService.firstNameAndLastnamePattern)]],
+      lastnames:[lastnames,[Validators.required,Validators.pattern(this.ValidatorService.firstNameAndLastnamePattern)]],
+      gender:[gender,[Validators.required]],
+      phone:[phone,[Validators.required]],
+      birthdate:[birthdate,[Validators.required]],
+      password:[password,[Validators.required,Validators.minLength(10),Validators.pattern(this.ValidatorService.passPattern)]],
+      Confirmpassword:[password,[Validators.required]]
     },{
       validators:[
         this.PasswordEquals('password','Confirmpassword')
@@ -42,7 +40,8 @@ export class RegisterPageComponent implements OnInit {
          this.MessageService.add({life:3000,severity:'success',summary:'Cuenta creada con exito',detail:response.message})
          //se envian los datos a el backend
          setTimeout(()=>{
-          this.AuthService.User.email = this.RegisterForm.get('email')?.value;
+
+          this.setUserInfo()
           this.router.navigateByUrl('SimplementeFlow/NewUser/VerifyAccount');
           this.AuthService.isValidRegister = true;
          },3000)
@@ -53,7 +52,9 @@ export class RegisterPageComponent implements OnInit {
         this.MessageService.add({life:2000,severity:'error',summary:'Error al crear cuenta',detail:err.error.message})
       }
     });
-
+  }
+  setUserInfo(){
+    this.AuthService.setUser(this.RegisterForm.value)
   }
   PasswordEquals(field1:string,field2:string){
     return this.ValidatorService.AreFieldsEquals(field1,field2)

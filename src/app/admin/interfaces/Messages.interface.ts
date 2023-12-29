@@ -7,3 +7,9 @@ export interface Message{
   Content:string
   MessageDate:Date
 }
+export interface MessageDto{
+  username:string,
+    UserEmail:string,
+    issue:string,
+    Content:string
+}
