@@ -39,14 +39,14 @@ export class ValidatorService {
       return null
     }
   }
-  public passwordsMatch(control: AbstractControl): ValidationErrors | null {
-    const newPassword = control.get('NewPassword')?.value;
-    const confirmNewPassword = control.get('ConfirmNewPassword')?.value;
-    if (newPassword !== confirmNewPassword) {
-      return { passwordsNotMatch: true };
-    }
-    return null;
-  }
+  // public passwordsMatch(control: AbstractControl): ValidationErrors | null {
+  //   const newPassword = control.get('NewPassword')?.value;
+  //   const confirmNewPassword = control.get('ConfirmNewPassword')?.value;
+  //   if (newPassword !== confirmNewPassword) {
+  //     return { passwordsNotMatch: true };
+  //   }
+  //   return null;
+  // }
   HasUpper(cadena:string):boolean {
     for (var i = 0; i < cadena.length; i++) {
       if (cadena[i] >= 'A' && cadena[i] <= 'Z') {
@@ -108,6 +108,12 @@ export class ValidatorService {
               return `La cantidad maxima no debe sobrepasar ${ errors['max'].max }.`;
         case 'pattern':
                 return `Formato de campo invalido.`;
+        case 'FieldsEquals':
+          return 'La nueva contraseña debe de ser diferente a la anterior'
+        case 'FieldsDiferents':
+          return 'El campo debe de ser igual al anterior'
+        case 'wrongPass':
+          return 'Contraseña incorrecta'
       }
     }
     return null;

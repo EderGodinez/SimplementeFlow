@@ -11,6 +11,7 @@ import { RegisterResponse } from '../interfaces/RegisterResponse.interface';
   providedIn: 'root'
 })
 export class AuthService {
+  IsLog:boolean=false
 constructor(private Http:HttpClient) { }
 isValidRegister:boolean=false
 User:User={
@@ -36,21 +37,24 @@ data_Address:{
   Street:""
 }
 }
-IsLog:boolean=false
 setUser(User:User){
   this.User=User
 }
 get _User():User{
   return this.User
 }
+getUserAutorizationHeaders(){
+  const token = localStorage.getItem('Token');
+  const headers = new HttpHeaders()
+    .set('Authorization', `Bearer ${ token }`);
+    return headers
+}
 Register(UserInfo:RegisterDto):Observable<RegisterResponse>{
 return this.Http.post<RegisterResponse>(`${environment.APIBaseUrl}/users/register`,UserInfo)
 }
 UpdateInfo(UserInfo:User):Observable<User>{
   const url:string=`${environment.APIBaseUrl}/users/${this.User._id}`
-    const token = localStorage.getItem('Token');
-    const headers = new HttpHeaders()
-      .set('Authorization', `Bearer ${ token }`);
+  const headers=this.getUserAutorizationHeaders()
   return this.Http.patch<User>(url,UserInfo,{headers})
 }
 SignIn(email:string,password:string):Observable<LoginResponse>{
@@ -61,7 +65,40 @@ logOut(){
 localStorage.removeItem('Token')
 this.IsLog=false
 }
+ChangePass(_password:string,newPassword:string):Observable<User>{
+  const email=this._User.email
+  const body={email,_password,newPassword}
+  const headers=this.getUserAutorizationHeaders()
+  const url:string=`${environment.APIBaseUrl}/users/ChangePass`
+  return this.Http.patch<User>(url,body,{headers})
+}
 getUserById(id:string):Observable<User>{
   return this.Http.get<User>(`${environment.APIBaseUrl}/users/${id}`)
+  }
+  ResetUser():void{
+    this.setUser(
+      {
+        _id:{$oid:""},
+        email:'',
+        birthdate:new Date(),
+        gender:'Hombre',
+        isActive:true,
+        names:"",
+        lastnames:"",
+        likes:[],
+        phone:0,
+        RegisterDate:new Date(),
+        shopping_car:[],
+        UserRole:'User',
+        __v:0,
+        data_Address:{
+          City:"",
+          Cologne:"",
+          number:"",
+          postal_Code:0,
+          State:"",
+          Street:""
+        }
+    })
   }
 }

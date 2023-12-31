@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="grid w-full h-screen p-3">
     <div class="col-9 p-5">
         <router-outlet></router-outlet>
@@ -12,10 +13,14 @@
             <!-- MENUBODY -->
             <div class="">
                 <ul class="p-0">
-                  <li *ngFor="let user of userOptions" class=" flex hover:text-blue-600 cursor-pointer" style="font-size: 16px;" routerLink="{{user.url}}" routerLinkActive="text-blue-600">
+                  <li *ngFor="let user of userOptions" class=" flex hover:text-blue-600 cursor-pointer" style="font-size: 1rem;" routerLink="{{user.url}}" routerLinkActive="text-blue-600">
                     <i class="{{user.icon}} p-2"></i>
                     <p class="mt-2 ml-2 text-lg">{{user.label}}</p>
                   </li>
+                  <li class=" flex hover:text-blue-600 cursor-pointer" style="font-size: 1rem;" routerLinkActive="text-blue-600" (click)="LogOut(logOut.url)">
+                    <i class="{{logOut.icon}} p-2"></i>
+                    <p class="mt-2 ml-2 text-lg">{{logOut.label}}</p>
+                  </li >
                 </ul>
             </div>
 

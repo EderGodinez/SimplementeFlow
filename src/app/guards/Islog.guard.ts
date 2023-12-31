@@ -22,6 +22,7 @@ export const islogGuard: CanActivateFn = (route, state) => {
           }
         }),
         catchError((error) => {
+          router.navigateByUrl('SimplementeFlow/Home')
           return of(false)
           })
 
