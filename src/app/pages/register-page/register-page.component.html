@@ -15,19 +15,19 @@
                   <label for="email1" class="block text-900 text-xl font-medium mb-3">Correo</label>
                   <input id="email1" type="text" placeholder="Correo electronico" pInputText class="w-full" autocomplete="off" style="padding:1rem;" formControlName="email" [ngClass]="{'ng-dirty': isValidField('email')}">
                   <small>Ingresa correo electronico</small>
-                  <small id="NewPassword-help" class="text-danger" *ngIf="isValidField('email')"><br>{{MessageError('email')}}</small>
+                  <small id="NewPassword-help" class="text-danger" *ngIf="isValidField('email')"><br>{{MessageError('email')|PatternError:"email"}}</small>
                   <div class="flex gap-4 justify-content-start w-full">
                     <div class="w-6">
                       <label for="name" class="block text-900 text-xl font-medium my-3">Nombres</label>
                       <input id="nane" type="text" placeholder="Nombres" autocomplete="off" pInputText class="w-full" style="padding:1rem" formControlName="names" [ngClass]="{'ng-dirty': isValidField('names')}" >
                       <small class="font-medium">Ingresar nombre de usuario </small>
-                      <small id="NewPassword-help" class="text-danger" *ngIf="isValidField('names')"><br>{{MessageError('names')}}</small>
+                      <small id="NewPassword-help" class="text-danger" *ngIf="isValidField('names')"><br>{{MessageError('names')|PatternError:"names"}}</small>
                     </div>
                     <div class="w-6">
                       <label for="lastname" class="block text-900 text-xl font-medium my-3">Apellidos</label>
                       <input id="lastname" type="text" placeholder="Apellidos" autocomplete="off" pInputText class="w-full" style="padding:1rem"formControlName="lastnames" [ngClass]="{'ng-dirty': isValidField('lastnames')}">
                       <small class="font-medium">Ingresar apellidos de usuario </small>
-                      <small id="NewPassword-help" class="text-danger" *ngIf="isValidField('lastnames')"><br>{{MessageError('lastnames')}}</small>
+                      <small id="NewPassword-help" class="text-danger" *ngIf="isValidField('lastnames')"><br>{{MessageError('lastnames')|PatternError:"lastnames"}}</small>
                     </div>
                   </div>
                   <div class="p-grid">
@@ -69,9 +69,7 @@
                         </ng-template>
                     </p-password>
                     <small id="NewPassword-help">Ingrese la contraseña en considerando las sugerencias</small>
-                    <small id="NewPassword-help" class="text-danger" *ngIf="RegisterForm.controls['password'].getError('required')&&RegisterForm.controls['password'].touched"><br>Este campo es obligatorio</small>
-                    <small id="NewPassword-help" class="text-danger" *ngIf="RegisterForm.controls['password'].getError('minlength')&&RegisterForm.controls['password'].touched"><br>Este campo debe de contender un minimo de {{RegisterForm.controls['password'].value!.length}}-10 caracteres</small>
-                    <small id="NewPassword-help" class="text-danger" *ngIf="RegisterForm.controls['password'].getError('pattern')&&RegisterForm.controls['password'].touched"><br>La contraseña no cumple con los requerimientos establecidos</small>
+                    <small id="NewPassword-help" class="text-danger" *ngIf="isValidField('password')"><br>{{MessageError('password')|PatternError:"password"}}</small>
                     </div>
                     <div class="w-4">
                       <label for="phone" class="block text-900 text-xl font-medium my-3">Confirmar contraseña</label>
@@ -80,7 +78,6 @@
                     <small id="NewPassword-help">Ingrese la confirmacion esta debera ser igual al campo anterior</small>
                     <small id="NewPassword-help" class="text-danger" *ngIf="RegisterForm.controls['Confirmpassword'].getError('required')&&RegisterForm.controls['Confirmpassword'].touched"><br>Este campo es obligatorio</small>
                     <small id="NewPassword-help" class="text-danger" *ngIf="RegisterForm.controls['Confirmpassword'].getError('FieldsDiferents')&&RegisterForm.controls['Confirmpassword'].touched"><br>Los campos de contraseña no coinciden</small>
-                    <!-- controls['password'].value!==RegisterForm.controls['Confirmpassword'].value -->
                   </div>
                   </div>
                   <button pButton pRipple label="Registrar" class="w-full p-3 text-xl align-self-center my-5" type="submit" [disabled]="!RegisterForm.valid"></button>

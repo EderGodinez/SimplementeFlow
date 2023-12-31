@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ValidatorService } from 'src/app/validators/validator.service';
 import { AuthService } from 'src/app/account/services/Account.service';
+import { GuardsService } from '../../services/Guards.service';
 
 @Component({
   templateUrl: './login-page.component.html',
@@ -19,7 +20,7 @@ providers:[MessageService]
 })
 export class LoginPageComponent {
   constructor(
-    private Router:Router,private fb:FormBuilder,private ValidatorService:ValidatorService,private LoginService:AuthService,private MessageService:MessageService) { }
+    private Router:Router,private fb:FormBuilder,private ValidatorService:ValidatorService,private LoginService:AuthService,private MessageService:MessageService,private GuardsService:GuardsService) { }
     public adminlogin:FormGroup=this.fb.group({
       email:["",[Validators.required,Validators.pattern(this.ValidatorService.emailPattern)]],
       password:["",[Validators.required,Validators.minLength(10)]]
@@ -35,6 +36,7 @@ export class LoginPageComponent {
             if (response.User.UserRole==='Admin') {
               localStorage.setItem('Token',response.token)
               this.Router.navigateByUrl('Admin/dashboard');
+              this.GuardsService.JoinOnDashboard=true
               return
             }
             this.MessageService.add({ severity: 'error', summary: 'Error al iniciar sesion', detail: `El usuario no cuenta con rol de administrador`});

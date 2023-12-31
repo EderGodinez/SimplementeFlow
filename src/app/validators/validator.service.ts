@@ -106,7 +106,7 @@ export class ValidatorService {
         case 'max':
               return `La cantidad maxima no debe sobrepasar ${ errors['max'].max }.`;
         case 'pattern':
-                return `Formato  patron de campo invalido.`;
+                return `Formato de campo invalido.`;
       }
     }
     return null;

@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { socialMedia,social,UserOptions,UserOp } from '../../interfaces/index.interface';
 import { NavigationEnd, Router } from '@angular/router';
+import { AuthService } from '../../account/services/Account.service';
+import { GuardsService } from 'src/app/admin/services/Guards.service';
+import { catchError, of, tap } from 'rxjs';
 
 @Component({
   selector:'app-header',
@@ -8,8 +11,19 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router,private AuthService:AuthService,private GuardsService:GuardsService) {}
   ngOnInit() {
+    //Validar que el token es aun valido de la sesion
+    this.GuardsService.checkAuthStatus().pipe(
+      tap((reponse)=>{
+        this.AuthService.User=reponse.User
+      }),
+      catchError(err => {
+        console.error(err);
+        localStorage.removeItem('Token')
+        return of(false);
+      })
+    ).subscribe()
     // Suscríbete al evento NavigationEnd del enrutador
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -18,7 +32,9 @@ export class HeaderComponent {
       }
     });
   }
-
+  get Islog(){
+    return localStorage.getItem('Token')?true:false
+  }
   @Input()
   CategorieSelected:string=""
   sidebarVisible: boolean = false;

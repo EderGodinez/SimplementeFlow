@@ -31,10 +31,10 @@
 </p-sidebar>
 <!-- contenido de panel emergente de usuario -->
 <p-overlayPanel #op [style]="{'background-color':'rbg(236,236,236)'}">
-  <div class="w-20rem flex align-content-center justify-content-between p-0 m-0 surface-300">
-    <div class="flex align-content-center gap-2">
-      <a class="underline m-2 cursor-pointer text-600 text-sm hover:text-blue-600" (click)="op.toggle($event)" routerLink="login">Iniciar Sesion</a><span class="m-2">|</span>
-      <a class="underline m-2 cursor-pointer text-600 text-sm hover:text-blue-600"  (click)="op.toggle($event)" routerLink="NewUser">Registrarte</a>
+  <div class="w-20rem flex justify-content-between p-0 m-0 surface-300">
+    <div class="flex align-content-center gap-2" *ngIf="!Islog">
+      <a  class="underline m-2 cursor-pointer text-600 text-sm hover:text-blue-600" (click)="op.toggle($event)" routerLink="login">Iniciar Sesion</a><span class="m-2">|</span>
+      <a  class="underline m-2 cursor-pointer text-600 text-sm hover:text-blue-600"  (click)="op.toggle($event)" routerLink="NewUser">Registrarte</a>
     </div>
     <p-button icon="pi pi-times" styleClass="p-button-rounded p-button-text" [style]="{'padding': '0' ,'color':'grey'}" (click)="op.toggle($event)"></p-button>
   </div>

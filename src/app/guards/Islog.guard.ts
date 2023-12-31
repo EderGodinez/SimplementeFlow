@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { Router, type CanActivateFn } from '@angular/router';
 import { GuardsService } from '../admin/services/Guards.service';
-import { map, tap } from 'rxjs';
+import { catchError, map, of, tap } from 'rxjs';
 
 export const islogGuard: CanActivateFn = (route, state) => {
   const Guard=inject(GuardsService)
@@ -14,13 +14,16 @@ export const islogGuard: CanActivateFn = (route, state) => {
       return Guard.checkAuthStatus().pipe(
         map(({ User }) => {
           // Realizar la verificación y devolver un Observable<boolean> en función de la condición
-          return User.UserRole === 'User';
+          return User.UserRole === 'User'||User.UserRole === 'Admin';
         }),
         tap(IsAuthenticated=>{
           if (!IsAuthenticated) {
             router.navigateByUrl('SimplementeFlow/login')
           }
-        })
+        }),
+        catchError((error) => {
+          return of(false)
+          })
 
       );
 };
@@ -30,6 +33,7 @@ export const UserLogoutGuard: CanActivateFn = () => {
   if(!localStorage.getItem('Token'))
   return true
 else{
+  console.log('hay una sesion abierta')
   router.navigateByUrl('SimplementeFlow/Home')
   return false
 }

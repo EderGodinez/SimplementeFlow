@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, map, of, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CheckTokenResponse } from '../interfaces/CheckTokenResponse.interface';
 
@@ -12,6 +12,7 @@ export class GuardsService {
     localStorage.setItem('Token',token);
     return true;
   }
+  JoinOnDashboard:boolean=false
   checkAuthStatus():Observable<CheckTokenResponse> {
     const url   = `${ environment.APIBaseUrl }/users/check-token`;
     const token = localStorage.getItem('Token');

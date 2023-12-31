@@ -31,6 +31,7 @@ import { CommonModule, registerLocaleData } from '@angular/common';
 
 //cambiar idioma por defecto
 import localeEsMx from '@angular/common/locales/es-MX';
+import { PatternError } from './pipes/EmailPatternError.pipe';
 registerLocaleData(localeEsMx)
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ registerLocaleData(localeEsMx)
     LoginPageComponent,
     ReturnPageComponent,
     LegalNoticePageComponent,
-    FindUsPageComponent
+    FindUsPageComponent,
+    PatternError
   ],
   imports: [
     CommonModule,

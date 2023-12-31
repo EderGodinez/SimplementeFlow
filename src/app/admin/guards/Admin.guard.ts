@@ -20,6 +20,7 @@ export const AdminGuard: CanActivateFn = () => {
           if (!IsAdmin) {
             router.navigateByUrl('Admin/login')
           }
+
         }),
         catchError(err => {
           console.error(err);
@@ -33,7 +34,8 @@ export const AdminGuard: CanActivateFn = () => {
 export const AdminLogoutGuard: CanActivateFn = () => {
   //No permitira cargar la pagina o modulo si hay una sesion de administrador
   const router=inject(Router)
-  if(!localStorage.getItem('Token'))
+  const Guard=inject(GuardsService)
+  if(!Guard.JoinOnDashboard)
   return true
 else{
   router.navigateByUrl('Admin/dashboard')

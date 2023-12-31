@@ -36,6 +36,7 @@ data_Address:{
   Street:""
 }
 }
+IsLog:boolean=false
 setUser(User:User){
   this.User=User
 }
@@ -52,6 +53,7 @@ return this.Http.post<LoginResponse>(`${environment.APIBaseUrl}/users/login`,bod
 }
 logOut(){
 localStorage.removeItem('Token')
+this.IsLog=false
 }
 getUserById(id:string):Observable<User>{
   return this.Http.get<User>(`${environment.APIBaseUrl}/users/${id}`)
