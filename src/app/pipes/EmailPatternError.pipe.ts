@@ -1,7 +1,8 @@
 import { Pipe, type PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'PatternError'
+  name: 'PatternError',
+  standalone:true
 })
 export class PatternError implements PipeTransform {
 
@@ -20,6 +21,12 @@ export class PatternError implements PipeTransform {
             return 'Formato de apellidos invalido'
           case 'password':
             return 'La contraseña no cumple con los estandares propuestos'
+          case 'street':
+            return 'El nombre de la calle no es valida'
+          case 'cologne':
+            return 'El nombre de colonia invalido'
+          case 'number':
+              return 'Numero de domicilio es invalido'
           default:
             return value
         }

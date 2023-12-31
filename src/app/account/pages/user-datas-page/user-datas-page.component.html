@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="flex flex-column h-full w-full mt-4 ml-8">
   <!-- personal data -->
     <h1>Datos personales</h1>
@@ -8,19 +9,17 @@
         <div class="field col">
           <div class="flex flex-column gap-2">
             <label htmlFor="username">Nombres</label>
-            <input pInputText id="username" aria-describedby="username-help" formControlName="names" />
+            <input pInputText id="username" aria-describedby="username-help" formControlName="names" [ngClass]="{'ng-invalid ng-dirty':IsInvalidField('names',UserDataForm)}" />
             <small id="username-help">Ingresa tu nombre.</small>
-            <small *ngIf="UserDataForm.controls['names'].getError('required')&&UserDataForm.controls['names'].touched" class="text-danger font-medium">Este campo es obligatorio</small>
-            <small *ngIf="UserDataForm.controls['names'].getError('pattern')&&UserDataForm.controls['names'].touched" class="text-danger font-medium">Este campo unicamente acepta uno o dos nombres para ser valido</small>
+            <small *ngIf="IsInvalidField('names',UserDataForm)" class="text-danger font-medium">{{GetMessageError('names',UserDataForm)|PatternError:"names"}}</small>
         </div>
         </div>
         <div class="field col">
           <div class="flex flex-column gap-2">
             <label htmlFor="username">Apellidos</label>
-            <input pInputText id="username" aria-describedby="username-help" formControlName="lastnames" />
+            <input pInputText id="username" aria-describedby="username-help" formControlName="lastnames" [ngClass]="{'ng-invalid ng-dirty':IsInvalidField('lastnames',UserDataForm)}"/>
             <small id="username-help">Ingresa tus apellidos.</small>
-            <small *ngIf="UserDataForm.controls['lastnames'].getError('required')&&UserDataForm.controls['lastnames'].touched" class="text-danger font-medium">Este campo es obligatorio</small>
-            <small *ngIf="UserDataForm.controls['lastnames'].getError('pattern')&&UserDataForm.controls['lastnames'].touched" class="text-danger font-medium">Este campo unicamente acepta uno o dos apellidos para ser valido</small>
+            <small *ngIf="IsInvalidField('lastnames',UserDataForm)" class="text-danger font-medium">{{GetMessageError('lastnames',UserDataForm)|PatternError:"lastnames"}}</small>
         </div>
         </div>
       </div>
@@ -29,9 +28,9 @@
         <div class="field col">
           <div class="flex flex-column gap-2">
             <label htmlFor="username">Numero de telefono</label>
-            <p-inputMask mask="(999) 999-9999" placeholder="(999) 999-9999" [ngClass]="{'ng-invalid ng-dirty':UserDataForm.controls['phone'].hasError}" formControlName="phone"  [style]="{'width':'100%'}" ></p-inputMask>
+            <p-inputMask mask="999-999-9999" placeholder="(999) 999-9999" [ngClass]="{'ng-invalid ng-dirty':IsInvalidField('phone',UserDataForm)}" formControlName="phone"  [style]="{'width':'100%'}" ></p-inputMask>
             <small id="username-help">Ingresa tu numero de telefono.</small>
-            <small *ngIf="UserDataForm.controls['phone'].getError('required')&&UserDataForm.controls['phone'].touched" class="text-danger font-medium">Este campo es obligatorio</small>
+            <small *ngIf="IsInvalidField('phone',UserDataForm)" class="text-danger font-medium">{{GetMessageError('phone',UserDataForm)}}</small>
         </div>
         </div>
         <div class="field col">
@@ -45,34 +44,32 @@
 
 
   <!-- shipping data -->
-  <div>
+  <div formGroupName="data_Address">
     <h1>Datos de envio</h1>
     <hr>
     <div class="formgrid grid">
       <div class="field col">
         <div class="flex flex-column gap-2">
           <label htmlFor="Street">Calle</label>
-          <input pInputText aria-describedby="username-help" formControlName="Street" />
+          <input pInputText aria-describedby="username-help" formControlName="Street" [ngClass]="{'ng-invalid ng-dirty':IsInvalidField('Street',DataAddressForm)}" />
           <small id="street-help">Ingresa la calle en de direccion de envio</small>
-          <small *ngIf="UserDataForm.controls['Street'].getError('required')&&UserDataForm.controls['Street'].touched" class="text-danger font-medium">Este campo es obligatorio</small>
-          <small *ngIf="UserDataForm.controls['Street'].getError('pattern')&&UserDataForm.controls['Street'].touched" class="text-danger font-medium">This street its not valid</small>
+          <small *ngIf="IsInvalidField('Street',DataAddressForm)" class="text-danger font-medium">{{GetMessageError('Street',DataAddressForm)|PatternError:"street"}}</small>
       </div>
       </div>
       <div class="field col">
         <div class="flex flex-column gap-2">
           <label htmlFor="Number">Numero</label>
-          <input pInputText aria-describedby="Number-help" formControlName="number" />
+          <input pInputText aria-describedby="Number-help" formControlName="number" [ngClass]="{'ng-invalid ng-dirty':IsInvalidField('number',DataAddressForm)}"/>
           <small id="username-help">Ingrese numero y de ser necesario extencion</small>
-          <small *ngIf="UserDataForm.controls['number'].getError('required')&&UserDataForm.controls['number'].touched" class="text-danger font-medium">Este campo es obligatorio</small>
+          <small *ngIf="IsInvalidField('number',DataAddressForm)" class="text-danger font-medium">{{GetMessageError('number',DataAddressForm)|PatternError:"number"}}</small>
       </div>
       </div>
       <div class="field col">
         <div class="flex flex-column gap-2">
           <label htmlFor="PostalCode">Codigo postal</label>
-          <input pInputText aria-describedby="PostalCode-help" formControlName="postal_Code" />
+          <input pInputText aria-describedby="PostalCode-help" formControlName="postal_Code" [ngClass]="{'ng-invalid ng-dirty':IsInvalidField('postal_Code',DataAddressForm)}"/>
           <small id="username-help">Codigo postal <a href="https://www.correosdemexico.gob.mx/SSLServicios/ConsultaCP/Descarga.aspx" target="_blank" rel="noopener noreferrer">buscar codigo</a></small>
-          <small *ngIf="UserDataForm.controls['postal_Code'].getError('required')&&UserDataForm.controls['postal_Code'].touched" class="text-danger font-medium">Este campo es obligatorio</small>
-          <small *ngIf="UserDataForm.controls['postal_Code'].getError('minlength')&&UserDataForm.controls['postal_Code'].touched" class="text-danger font-medium">Este campo denera de tener un minimo de {{UserDataForm.controls['postal_Code'].value.length}}-5 caracteres</small>
+          <small *ngIf="IsInvalidField('postal_Code',DataAddressForm)" class="text-danger font-medium">{{GetMessageError('postal_Code',DataAddressForm)}}</small>
       </div>
       </div>
     </div>
@@ -80,26 +77,25 @@
       <div class="field col">
         <div class="flex flex-column gap-2">
           <label htmlFor="Cologne">Colonia</label>
-          <input pInputText id="Cologne" aria-describedby="Cologne-help" formControlName="Cologne" />
+          <input pInputText id="Cologne" aria-describedby="Cologne-help" formControlName="Cologne" [ngClass]="{'ng-invalid ng-dirty':IsInvalidField('Cologne',DataAddressForm)}"/>
           <small id="Cologne-help">Ingrese colonia de envio.</small>
-          <small *ngIf="UserDataForm.controls['Cologne'].getError('required')&&UserDataForm.controls['Cologne'].touched" class="text-danger font-medium">Este campo es obligatorio</small>
-          <small *ngIf="UserDataForm.controls['Street'].getError('pattern')&&UserDataForm.controls['Street'].touched" class="text-danger font-medium">No es una colonia valida</small>
+          <small *ngIf="IsInvalidField('Cologne',DataAddressForm)" class="text-danger font-medium">{{GetMessageError('Cologne',DataAddressForm)|PatternError:"cologne"}}</small>
       </div>
       </div>
       <div class="field col">
         <div class="flex flex-column gap-2">
           <label htmlFor="State">State</label>
-          <input pInputText id="State" aria-describedby="State-help" formControlName="State" />
+          <input pInputText id="State" aria-describedby="State-help" formControlName="State" [ngClass]="{'ng-invalid ng-dirty':IsInvalidField('State',DataAddressForm)}"/>
           <small id="State-help">Ingrese estado de envio.</small>
-          <small *ngIf="UserDataForm.controls['State'].getError('required')&&UserDataForm.controls['State'].touched" class="text-danger font-medium">Este campo es obligatorio</small>
+          <small *ngIf="IsInvalidField('State',DataAddressForm)" class="text-danger font-medium">{{GetMessageError('State',DataAddressForm)}}</small>
       </div>
       </div>
       <div class="field col">
     <div class="flex flex-column gap-2">
       <label htmlFor="State">Ciudad</label>
-      <input pInputText id="City" aria-describedby="City-help" formControlName="City" />
+      <input pInputText id="City" aria-describedby="City-help" formControlName="City" [ngClass]="{'ng-invalid ng-dirty':IsInvalidField('City',DataAddressForm)}"/>
       <small id="City-help">Ingresa ciudad o pueblo de envio.</small>
-      <small *ngIf="UserDataForm.controls['City'].getError('required')&&UserDataForm.controls['City'].touched" class="text-danger font-medium">Este campo es obligatorio</small>
+      <small *ngIf="IsInvalidField('City',DataAddressForm)" class="text-danger font-medium">{{GetMessageError('City',DataAddressForm)}}</small>
   </div>
       </div>
     </div>

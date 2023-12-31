@@ -8,6 +8,7 @@ import { UserLayoutPageComponent } from './layouts/user-layout-page/user-layout-
 import { ReactiveFormsModule } from '@angular/forms';
 import { PrimeModule } from '../prime/prime.module';
 import { ValidatorService } from '../validators/validator.service';
+import { PatternError } from '../pipes/EmailPatternError.pipe';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ValidatorService } from '../validators/validator.service';
     CommonModule,
     AccountRoutingModule,
     ReactiveFormsModule,
-    PrimeModule
+    PrimeModule,
+    PatternError
   ]
 })
 export class AccountModule { }

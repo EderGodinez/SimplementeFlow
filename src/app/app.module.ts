@@ -54,7 +54,6 @@ registerLocaleData(localeEsMx)
     ReturnPageComponent,
     LegalNoticePageComponent,
     FindUsPageComponent,
-    PatternError
   ],
   imports: [
     CommonModule,
@@ -65,7 +64,8 @@ registerLocaleData(localeEsMx)
     BrowserAnimationsModule,
     PrimeModule,
     FormsModule,
-    ProductsModule
+    ProductsModule,
+    PatternError
   ],
   providers: [ValidatorService,
       {provide:LOCALE_ID,useValue:'es-MX'}

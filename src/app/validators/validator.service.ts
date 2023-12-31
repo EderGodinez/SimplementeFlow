@@ -10,6 +10,7 @@ export class ValidatorService {
   public  emailPattern: string = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
   public  AddressPatter:string='([a-zA-Z0-9]+)(?: ([a-zA-Z0-9]+))?(?: ([a-zA-Z0-9]+))?';
   public passPattern=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{10,}$/;
+  public NumberAddress=/^\d+(-[A-Z]{1,2})?$/
   public AreFieldsEquals(pass:string,confirm:string){
     return(Form:AbstractControl): ValidationErrors| null=>{
       const field1value=Form.get(pass)?.value

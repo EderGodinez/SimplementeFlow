@@ -16,7 +16,7 @@ export class HeaderComponent {
     //Validar que el token es aun valido de la sesion
     this.GuardsService.checkAuthStatus().pipe(
       tap((reponse)=>{
-        this.AuthService.User=reponse.User
+        this.AuthService.setUser(reponse.User)
       }),
       catchError(err => {
         console.error(err);

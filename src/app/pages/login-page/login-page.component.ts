@@ -26,6 +26,7 @@ export class LoginPageComponent {
         this.AuthService.SignIn(email,password).subscribe({
           next:(response)=>{
               localStorage.setItem('Token',response.token)
+              this.AuthService.setUser(response.User)
               this.MessageService.add({ severity: 'success',life:3000, summary: 'Inicio de sesion exitoso', detail: `Bienvenido ${response.User.names}`});
               setTimeout(()=>{
                 this.AuthService.IsLog=true

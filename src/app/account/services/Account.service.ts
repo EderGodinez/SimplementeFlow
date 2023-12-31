@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from 'src/app/interfaces/user.interfaces';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { LoginResponse } from 'src/app/admin/interfaces/loginResponse.interface';
@@ -44,8 +44,14 @@ get _User():User{
   return this.User
 }
 Register(UserInfo:RegisterDto):Observable<RegisterResponse>{
-  console.log(UserInfo)
 return this.Http.post<RegisterResponse>(`${environment.APIBaseUrl}/users/register`,UserInfo)
+}
+UpdateInfo(UserInfo:User):Observable<User>{
+  const url:string=`${environment.APIBaseUrl}/users/${this.User._id}`
+    const token = localStorage.getItem('Token');
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${ token }`);
+  return this.Http.patch<User>(url,UserInfo,{headers})
 }
 SignIn(email:string,password:string):Observable<LoginResponse>{
   const body={email,password}
