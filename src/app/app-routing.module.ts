@@ -17,7 +17,6 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { ReturnPageComponent } from './pages/return-page/return-page.component';
 import { LegalNoticePageComponent } from './pages/legal-notice-page/legal-notice-page.component';
 import { FindUsPageComponent } from './pages/find-us-page/find-us-page.component';
-import { AdminLogoutGuard } from './admin/guards/Admin.guard';
 import { accountCreatedGuard } from './guards/AccountCreated.guard';
 import { registerGuard } from './guards/RegisterGuard.guard';
 
@@ -45,10 +44,10 @@ const routes: Routes = [
     {path:'legal-notice',component:LegalNoticePageComponent},
     {path:'FindUs',component:FindUsPageComponent},
     {path:'**',redirectTo:'Home'},
-  ],canActivate:[AdminLogoutGuard]},
+  ]},
   {path:'Admin',loadChildren:()=>import('./admin/admin.module').then(m=>m.AdminModule)},
   {path:'Error',component:ErrorPageComponent},
-  {path:'**',redirectTo:"Error"},
+  {path:'**',redirectTo:"SimplementeFlow"},
 ];
 
 @NgModule({

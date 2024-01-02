@@ -19,8 +19,7 @@ export class HeaderComponent {
         this.AuthService.setUser(reponse.User)
       }),
       catchError(err => {
-        console.error(err);
-        localStorage.removeItem('Token')
+        localStorage.clear()
         return of(false);
       })
     ).subscribe()

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Subscription, filter, map, takeLast, tap,  } from 'rxjs';
@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { TotalProductSold } from '../../interfaces/TotalProductSold.interface';
 import { OrdersAdminService } from '../../services/OrdersAdmin.service';
 import { UserAdminService } from '../../services/UserAdmin.service';
+import { GuardsService } from '../../services/Guards.service';
 
 @Component({
   templateUrl: './dashboard-page.component.html',
@@ -23,7 +24,7 @@ export class DashboardPageComponent implements OnInit,OnDestroy{
   Earnings:number=0
   NumUsers:number=0
   NumStock:number=0
-  constructor(private Router:Router,private productService:AdminProductService,private OrdersService:OrdersAdminService,private userService:UserAdminService) {}
+  constructor(private Router:Router,private productService:AdminProductService,private OrdersService:OrdersAdminService,private userService:UserAdminService,private Guard:GuardsService) {}
   ngOnInit() {
       this.subscription=this.productService.getProducts().pipe(
       takeLast(5)).subscribe({
@@ -49,14 +50,14 @@ export class DashboardPageComponent implements OnInit,OnDestroy{
   userDataChart:number[]=[]
   salesDataCharts:number[]=[]
   get CurrentMonth(){
-    return new Date().getMonth()+1
+    return new Date()
   }
   initChart() {
       const documentStyle = getComputedStyle(document.documentElement);
       const textColor = documentStyle.getPropertyValue('--text-color');
       const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
       const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-console.log(this.monthsChart)
+      //console.log(this.monthsChart)
       this.chartData = {
           labels:this.monthsChart,// ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
           datasets: [
@@ -78,7 +79,6 @@ console.log(this.monthsChart)
               }
           ]
       };
-
       this.chartOptions = {
           plugins: {
               legend: {
@@ -126,7 +126,7 @@ console.log(this.monthsChart)
       })
       this.productService.GetTotalStock().subscribe({
         next:(Total)=>{
-          this.NumStock=Total.TotalStock
+          this.NumStock=Total.TotalStock?Total.TotalStock:0
         }
       })
       this.userService.GetTotalUser().subscribe({
@@ -135,14 +135,12 @@ console.log(this.monthsChart)
         }
       })
   }
-  GetchartData():void{
-      this.OrdersService.GetChartsData().subscribe({
+  async GetchartData(){
+    await this.OrdersService.GetChartsData().subscribe({
       next:(info)=>{
         info.salesStats.forEach((stats)=>{
           const month=this.MonthMap.get(stats.month) ?? 'Mes Desconocido'
-          this.monthsChart.push(...[month])
-        })
-        info.salesStats.forEach((stats)=>{
+          this.monthsChart.push(...[month]);
           const value=stats.totalSales[0]?stats.totalSales[0].totalSales:0
           this.userDataChart.push(value)
         })
@@ -150,6 +148,7 @@ console.log(this.monthsChart)
           const value=Userstats.totalUsers[0]?Userstats.totalUsers[0].totalUsers:0
           this.salesDataCharts.push(value)
         })
+        this.initChart();
       }
     })
   }

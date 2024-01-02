@@ -15,6 +15,7 @@ export class HomePageComponent {
   }
   @Input()
   Products:Product[]=[]
+  
   adverticers:advertice[]=adverticers
   CarouselTitles:string[]=["Nuevos productos","Hombres","Mujeres","Niños","Ofertas"]
   mensajeToast: Toast={

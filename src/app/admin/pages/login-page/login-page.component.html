@@ -15,8 +15,7 @@
           <div class="flex flex-column mb-2">
             <label for="email1" class="block text-900 text-xl font-medium mb-2">Correo</label>
             <input id="email1" autocomplete="off" type="text" formControlName="email" placeholder="Nombre de usuario" pInputText class="w-full md:w-30rem mb-1" style="padding:1rem" [ngClass]="{'ng-dirty': isValidField('email')}">
-            <small *ngIf="isValidField('email')" style="color:red">{{MessageError('email')}}</small>
-            <small *ngIf="adminlogin.controls['email'].getError('pattern')&&adminlogin.controls['email'].touched" style="color:red">Formato de correo invalido</small>
+            <small *ngIf="isValidField('email')" style="color:red">{{MessageError('email')|PatternError:"email"}}</small>
           </div>
           <div class="flex flex-column mb-2">
             <label for="password1" class="block text-900 font-medium text-xl mb-2">Contraseña</label>

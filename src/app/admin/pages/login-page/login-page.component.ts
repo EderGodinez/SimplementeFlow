@@ -25,8 +25,6 @@ export class LoginPageComponent {
       email:["",[Validators.required,Validators.pattern(this.ValidatorService.emailPattern)]],
       password:["",[Validators.required,Validators.minLength(10)]]
     })
-    password!: string;
-    email !:string;
     login(){
       this.adminlogin.markAllAsTouched();
       if (this.adminlogin.valid) {
@@ -35,8 +33,8 @@ export class LoginPageComponent {
           next:(response)=>{
             if (response.User.UserRole==='Admin') {
               localStorage.setItem('Token',response.token)
+              localStorage.setItem('AdminAccess','1')
               this.Router.navigateByUrl('Admin/dashboard');
-              this.GuardsService.JoinOnDashboard=true
               return
             }
             this.MessageService.add({ severity: 'error', summary: 'Error al iniciar sesion', detail: `El usuario no cuenta con rol de administrador`});

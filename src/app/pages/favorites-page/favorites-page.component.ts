@@ -25,11 +25,10 @@ export class FavoritesPageComponent {
         { name: 'Marcas de la A a la Z', code: '' },
         { name: 'Marcas de la Z a la A', code: '' }
     ];
-    this.Products=[this.ProductService.GetProductById('1'),this.ProductService.GetProductById('2'),this.ProductService.GetProductById('3')]
 }
 
 get Condition():number{
-return 3
+return 2
 }
 ProductDelete:string="";
 Delete(id:string|null){

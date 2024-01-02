@@ -17,6 +17,7 @@ import { AdventagesFormComponent } from './components/adventages-form/adventages
 import { GeneralInformationFormComponent } from './components/general-information-form/general-information-form.component';
 import { MessagesPageComponent } from './components/messages-list/messages-list.component';
 import { DetailMessageComponent } from './components/detail-message/detail-message.component';
+import { PatternError } from '../pipes/EmailPatternError.pipe';
 
 
 
@@ -41,7 +42,7 @@ import { DetailMessageComponent } from './components/detail-message/detail-messa
     PrimeModule,
     FormsModule,
     ReactiveFormsModule,
-
+    PatternError
   ],
   providers:[FilesService]
 })

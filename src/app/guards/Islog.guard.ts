@@ -13,7 +13,6 @@ export const islogGuard: CanActivateFn = (route, state) => {
         }
       return Guard.checkAuthStatus().pipe(
         map(({ User }) => {
-          // Realizar la verificación y devolver un Observable<boolean> en función de la condición
           return User.UserRole === 'User'||User.UserRole === 'Admin';
         }),
         tap(IsAuthenticated=>{
@@ -22,6 +21,7 @@ export const islogGuard: CanActivateFn = (route, state) => {
           }
         }),
         catchError((error) => {
+          localStorage.clear()
           router.navigateByUrl('SimplementeFlow/Home')
           return of(false)
           })
@@ -31,10 +31,10 @@ export const islogGuard: CanActivateFn = (route, state) => {
 export const UserLogoutGuard: CanActivateFn = () => {
   //No permitira cargar la pagina o modulo si hay una sesion de administrador
   const router=inject(Router)
-  if(!localStorage.getItem('Token'))
-  return true
+  if(!localStorage.getItem('Token')){
+    return true
+  }
 else{
-  console.log('hay una sesion abierta')
   router.navigateByUrl('SimplementeFlow/Home')
   return false
 }

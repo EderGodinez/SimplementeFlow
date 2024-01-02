@@ -63,6 +63,6 @@ ModifyQuantity(data:{id:string,quantity:number}){
   }
 }
 GoHome(){
-this.Router.navigate(['Home'])
+this.Router.navigate(['SimplementeFlow/Home'])
 }
 }

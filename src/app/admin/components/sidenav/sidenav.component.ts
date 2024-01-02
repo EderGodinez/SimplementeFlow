@@ -87,6 +87,7 @@ get PendientMails(){
   NavigateUrl(url:string){
     if (url==='login')
     localStorage.removeItem('Token')
+    localStorage.removeItem('AdminAccess')
     this.Router.navigateByUrl('Admin/'+url)
   }
 }
