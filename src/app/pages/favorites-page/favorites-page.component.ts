@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/products/interfaces';
-import { ProductsService } from 'src/app/products/products.service';
+import { ProductsService } from 'src/app/products/services/products.service';
 interface option{
   name:string
   code:string

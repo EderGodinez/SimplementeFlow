@@ -57,7 +57,6 @@ export class DashboardPageComponent implements OnInit,OnDestroy{
       const textColor = documentStyle.getPropertyValue('--text-color');
       const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
       const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-      //console.log(this.monthsChart)
       this.chartData = {
           labels:this.monthsChart,// ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
           datasets: [

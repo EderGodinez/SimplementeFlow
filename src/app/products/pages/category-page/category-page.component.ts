@@ -1,5 +1,5 @@
 import { Component ,inject} from '@angular/core';
-import { ProductsService } from '../../products.service';
+import { ProductsService } from '../../services/products.service';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
 import { Product ,Toast} from '../../interfaces';
@@ -21,16 +21,24 @@ export class SearchPageComponent {
     // Recoge el valor del parámetro 'id' de la URL
     this.route.params.subscribe(params => {
       const query = params['query'];
-this.search=query
+      this.search=query
+      this.ProductService.GetProductsByCategory(query,20).subscribe({
+        next:(products)=>{
+          this.Products=products
+        },
+        error:(error)=>{
+          console.error(error)
+        }
+      })
     });
   }
-  search:string=""
+  search?:string
+  Products:Product[]=[]  
   NavigateFav(){
     this.router.navigate(['SimplementeFlow/Favorites'])
   }
   showMessage(mensaje: Toast) {
     const {summary,data}=mensaje;
-    console.log(mensaje)
     try{
       this.MessageService.add({summary,data});
     }
@@ -40,13 +48,6 @@ this.search=query
   }
   NavigateHome(){
     this.router.navigate(['Home'])
-  }
-  get Products():Product[]{
-    return this.ProductService.GetProductsByCategory().filter(search=>
-      search.ProductName.toLowerCase().includes(this.search.toLowerCase())||
-      search.General.Category===this.search||
-      search.General.patent===this.search
-       )
   }
   ProductFilters:string[]=['Filtrar por precio de menor a mayor','Filtrar por precio de mayor a menor','Filtrar por orden A a la Z','Filtar por orden Z a la A','Limpiar']
   filterProducts(option:string){

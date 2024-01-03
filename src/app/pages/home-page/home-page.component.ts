@@ -13,9 +13,6 @@ import { Router } from '@angular/router';
 export class HomePageComponent {
   constructor(private messageService: MessageService,private router:Router){
   }
-  @Input()
-  Products:Product[]=[]
-  
   adverticers:advertice[]=adverticers
   CarouselTitles:string[]=["Nuevos productos","Hombres","Mujeres","Niños","Ofertas"]
   mensajeToast: Toast={

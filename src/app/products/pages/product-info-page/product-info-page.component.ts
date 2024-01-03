@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { ProductsService } from '../../products.service';
+import {  Component, OnInit } from '@angular/core';
+import { ProductsService } from '../../services/products.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product, Toast } from '../../interfaces';
 import { MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 @Component({
   templateUrl: './product-info-page.component.html',
   styleUrls: ['./product-info-page.component.scss'],
   providers: [MessageService]
 })
-export class ProductInfoPageComponent implements OnInit {
+export class ProductInfoPageComponent implements OnInit{
   constructor(private ProductsService:ProductsService,
     private route: ActivatedRoute,
     private messageService: MessageService,
@@ -19,10 +20,18 @@ export class ProductInfoPageComponent implements OnInit {
     // Recoge el valor del parámetro 'id' de la URL
     this.route.params.subscribe(params => {
       const id = params['id'];
-      this.ProductById(id)
+      this.ProductsService.GetProductById(id).subscribe({
+        next:(product)=>{
+          this.Similar=product.ProductName
+          this.Product=product
+        },
+        error:(error)=>{
+          console.log(error)
+        }
+      })
     });
   }
-
+  Similar:string=''
   public productForm: FormGroup=this.formBuilder.group({
     size:['',[Validators.required]],
     quantity:[1,[Validators.required,Validators.min(1)]]
@@ -31,7 +40,7 @@ mensajeToast:Toast={
   data:[],
   summary:""
 }
-
+ImagesBaseUrl:string=environment.APIBaseUrl+'/files/'
 isSelect:boolean=false
 selectedSize: string=""
 titleCarrousel:string="Otros productos"
@@ -61,6 +70,7 @@ Product:Product={
   RegisterDate:new Date(),
   __v: 0
 }
+
 responsiveOptions: any[] = [
   {
       breakpoint: '1024px',
@@ -76,9 +86,7 @@ responsiveOptions: any[] = [
   }
 ];
 GeneralArray =[this.Product.General];
-ProductById(id:string){
-  this.Product=this.ProductsService.GetProductById(id)
-}
+
 
 mostrarToast(isLike:boolean) {
   try{
@@ -115,7 +123,6 @@ addShoppingCar(){
       data:[`${this.Product.images[0]}`,this.Product.ProductName,this.Product.price],
       summary:`${this.productForm.get('quantity')!.value} ${this.Product.ProductName} añadido a carrito"`
     }
-    console.log(this.mensajeToast)
     this.messageService.add(this.mensajeToast)
     this.productForm.reset()
   }

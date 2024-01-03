@@ -32,15 +32,12 @@ export class RegisterPageComponent implements OnInit {
   VerifyAccount(){
     const Registerform=this.RegisterForm.value
     const {Confirmpassword,...UserInfo}=Registerform
-    console.log(UserInfo)
     this.AuthService.Register(UserInfo).subscribe({
       next: (response) => {
-        console.log(response)
         if (response.status===200) {
          this.MessageService.add({life:3000,severity:'success',summary:'Cuenta creada con exito',detail:response.message})
          //se envian los datos a el backend
          setTimeout(()=>{
-
           this.setUserInfo()
           this.router.navigateByUrl('SimplementeFlow/NewUser/VerifyAccount');
           this.AuthService.isValidRegister = true;
@@ -48,7 +45,6 @@ export class RegisterPageComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err)
         this.MessageService.add({life:2000,severity:'error',summary:'Error al crear cuenta',detail:err.error.message})
       }
     });

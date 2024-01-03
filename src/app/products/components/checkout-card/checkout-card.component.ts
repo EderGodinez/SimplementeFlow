@@ -21,14 +21,15 @@ MoreLestProduct:EventEmitter<{id:string,quantity:number}>=new EventEmitter()
 AllowSizes:Sizes={}
 @Input()
 productCheckout:checkoutList={
-age:'',
+Category:'',
 patent:'',
 productName: '', // Descripción del producto
 productDescription:'',
 Image: '',
 Size:0,
 Amount: 0,
-Price: 0
+Price: 0,
+Discount:0
 }
 IncreaseProduct(id:string){
   this.productCheckout.Amount=this.productCheckout.Amount+1

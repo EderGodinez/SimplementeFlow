@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product,Sizes,Toast } from '../../interfaces/index';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -8,12 +9,14 @@ import { Product,Sizes,Toast } from '../../interfaces/index';
   styleUrls: ['./product-card.component.scss'],
 
 })
-export class ProductCardComponent {
-  constructor(){
+export class ProductCardComponent implements OnInit {
+  constructor(){}
+  ngOnInit(): void {
     const {minKey,maxKey}=this.calculateMax_Min(this.Product)
     this.Max=maxKey;
     this.Min=minKey;
   }
+  ImageUrl=`${environment.APIBaseUrl}/files/`
   @Input()
   Product:Product={
   _id: "",
@@ -43,8 +46,8 @@ export class ProductCardComponent {
 }
 @Output()
 mensajeEnviado= new EventEmitter<Toast>();
-Max:number;
-Min:number;
+Max?:number;
+Min?:number;
 handleCheckboxChange(isChecked: boolean,Product:Product) {
   const {ProductName,price,images}=Product;
   let Toast:Toast={
@@ -68,7 +71,7 @@ let maxKey = -Infinity;
 const { sizes } = Product;
 for (const key in sizes) {
   if (sizes.hasOwnProperty(key)) {
-    const numericKey = Number(key);
+    const numericKey = parseFloat(key);
     if (!isNaN(numericKey)) {
       if (numericKey < minKey) {
         minKey = numericKey; // Actualiza la clave mínima si se encuentra una menor

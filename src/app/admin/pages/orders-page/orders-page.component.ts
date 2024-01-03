@@ -114,7 +114,6 @@ ViewOrderDitails(order: Order) {
       this.clientInfo=user
     },
     error:(err)=>{
-      console.log(err)
       this.toast.add({severity:'error',life:3000,summary:'Error',detail:err.message})
     },
     complete:()=>{

@@ -1,11 +1,12 @@
 export interface checkoutList{
-      age?:string
-      id?:string
+      Category?:string
+      _id?:string
       patent:string
-      productName: string, // Descripción del producto
+      productName: string, 
       productDescription:string,
       Image: string,
       Size:number
       Amount: number
+      Discount:number
       Price: number
 }

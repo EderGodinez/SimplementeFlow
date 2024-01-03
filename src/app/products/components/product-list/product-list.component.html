@@ -1,5 +1,5 @@
 
-  <ul class="flex flex-wrap justify-content-center list-none py-4 pr-0">
+  <ul class="flex flex-wrap justify-content-start list-none py-4 pr-0">
     <li *ngFor="let product of Products">
       <product-card [Product]="product" (mensajeEnviado)="mensajeEnviado.emit($event)"></product-card>
     </li>
