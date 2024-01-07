@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/account/services/Account.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product,Sizes,Toast } from '../../interfaces/index';
 import { environment } from 'src/environments/environment';
@@ -10,13 +11,15 @@ import { environment } from 'src/environments/environment';
 
 })
 export class ProductCardComponent implements OnInit {
-  constructor(){}
+  constructor(private AuthService:AuthService){}
   ngOnInit(): void {
     const {minKey,maxKey}=this.calculateMax_Min(this.Product)
     this.Max=maxKey;
     this.Min=minKey;
+    this.Islike=this.AuthService._User.likes.includes(this.Product._id)
   }
   ImageUrl=`${environment.APIBaseUrl}/files/`
+  Islike!:boolean
   @Input()
   Product:Product={
   _id: "",
@@ -54,16 +57,23 @@ handleCheckboxChange(isChecked: boolean,Product:Product) {
     summary:"",
     data:[]
 }
-  if (isChecked) {
-     Toast={
-      summary:ProductName+" añadido a favoritos",
-      data:[`${images[0]}`,ProductName,price]}
-  } else {
+this.AuthService.AddLike(Product._id).subscribe({
+  next:(response)=> {
+    if (response.message.includes('agregado')) {
+      this.AuthService.User.likes.push(Product._id)
+    } else {
+      const index=this.AuthService._User.likes.indexOf(Product._id)
+      this.AuthService.User.likes.splice(index)
+    }
     Toast={
-      summary:ProductName+" removido de tu lista",
+      summary:response.message,
       data:[`${images[0]}`,ProductName,price]}
-  }
-  this.mensajeEnviado.emit(Toast);
+      this.mensajeEnviado.emit(Toast);
+  },
+  error:(err)=> {
+    console.error(err)
+  },
+})
 }
 calculateMax_Min(Product:Product){
   let minKey = Infinity;

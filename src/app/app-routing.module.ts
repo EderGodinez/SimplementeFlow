@@ -20,6 +20,7 @@ import { FindUsPageComponent } from './pages/find-us-page/find-us-page.component
 import { accountCreatedGuard } from './guards/AccountCreated.guard';
 import { registerGuard } from './guards/RegisterGuard.guard';
 
+
 const routes: Routes = [
   {path:'SimplementeFlow',component:LayoutPageComponent,
   children:[

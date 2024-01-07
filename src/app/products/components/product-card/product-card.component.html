@@ -1,6 +1,6 @@
 <div style="width: 32vw;">
   <div class="flex flex-row-reverse justify-content-end mb-3">
-    <like-button  (checkboxChanged)="handleCheckboxChange($event,Product)"></like-button>
+    <like-button  [IsOnlikesList]="Islike" (IsOnlikesListChange)="handleCheckboxChange($event,Product)"></like-button>
     <p></p></div>
   <a href='SimplementeFlow/Products/Search/{{Product.General.age}}/{{Product._id}}'>
     <p-image src="{{ImageUrl+Product.images[0]}}" [preview]="true" [alt]="Product.ProductName" width="450" height="250" [imageStyle]="{'object-fit':'fill'}">

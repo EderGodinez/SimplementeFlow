@@ -5,7 +5,7 @@
               <h4>{{message.summary}}</h4>
               <p>{{message.data[1]}}</p>
               <p>{{message.data[2]|currency:'MXN'}}</p>
-              <img src="{{message.data[0]}}" alt="" style="object-fit: cover; width: 120px;">
+              <img src="http://localhost:3000/files/{{message.data[0]}}" alt="" style="object-fit: cover; width: 120px;">
           </div>
           <div class="grid p-fluid">
               <div class="col-12" *ngIf="!message.summary.includes('removido')">
@@ -32,19 +32,22 @@
       </div>
       </div>
   </ng-template>
-  </p-toast>
-<div class="grid m-3">
+  </p-toast> 
+ <div class="grid m-3">
     <div class="col-6">
-      <p-galleria [value]="Product.images" [thumbnailsPosition]="'left'" [responsiveOptions]="responsiveOptions" [numVisible]="5">
-            <ng-template pTemplate="item" let-item>
-                <img [src]="ImagesBaseUrl+item" style="object-fit: cover;width: 40vw; ;display: block;" />
-            </ng-template>
-            <ng-template pTemplate="thumbnail" let-item>
-              <div class="grid grid-nogutter justify-content-center">
-                  <img [src]="ImagesBaseUrl+item" [style]="{'object-fit':'cover','width': '80px','overflow-y':'hidden'}"/>
-              </div>
-          </ng-template>
-        </p-galleria>
+      <div class="card">
+        <p-galleria  [value]="Product.images" [thumbnailsPosition]="'left'" [transitionInterval]="400" [responsiveOptions]="responsiveOptions" [numVisible]="5">
+                    <ng-template pTemplate="item" let-item>
+                        <img [src]="'http://localhost:3000/files/'+item" style="object-fit: cover;width: 35vw; ;display: block;" />
+                    </ng-template>
+                    <ng-template pTemplate="thumbnail" let-item>
+                      <div class="grid grid-nogutter justify-content-center align-items-center" >
+                          <img [src]="'http://localhost:3000/files/'+item" [style]="{'object-fit':'cover','width': '80px'}"/>
+                      </div>
+                  </ng-template>
+                </p-galleria>  
+        </div>
+      
     </div>
     <div class="col-6">
       <form autocomplete="off" [formGroup]="productForm" (ngSubmit)="addShoppingCar()">
@@ -52,7 +55,7 @@
         <h3 class="">{{Product.ProductName}}</h3>
         <h3>Precio: <h3 [ngStyle]="{'text-decoration': Product.Discount > 0 ? 'line-through' : 'none'}"> {{Product.price|currency:"MXN"}}</h3></h3>
         <h4 *ngIf="Product.Discount>0">{{Product.price*((100-Product.Discount)/100)|currency:"MXN"}}</h4>
-        <like-button class="mr-8" (checkboxChanged)="mostrarToast($event)"></like-button>
+        <like-button class="mr-8" [IsOnlikesList]="IsLike"(IsOnlikesListChange)="mostrarToast($event)"></like-button>
       </div>
       <div class="" id="sizes">
         <ul class="flex gap-4 p-0 flex-wrap justify-content-start text-center vertical-align-middle">
@@ -106,10 +109,9 @@
         </tr>
       </ng-template>
   </p-table>
-
   </div>
-  </div>
-  <hr>
+   </div> 
+   <hr>
     <h3 class="text-center mx-8 my-8 px-8">Cada uno de nuestros productos es original y único pero como todo tiene sus pros y sus contras, es por eso que recomendamos a nuestros usuarios revisar las observaciones realizadas por nuestros expertos y en base a ello tomar la mejor decisión para su compra.</h3>
     <hr>
   <hr>

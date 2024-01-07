@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/account/services/Account.service';
 import {  Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,7 +16,8 @@ export class ProductInfoPageComponent implements OnInit{
     private route: ActivatedRoute,
     private messageService: MessageService,
     private formBuilder: FormBuilder,
-    private router:Router){}
+    private router:Router,
+    private AuthService:AuthService){}
   ngOnInit() {
     // Recoge el valor del parámetro 'id' de la URL
     this.route.params.subscribe(params => {
@@ -24,6 +26,7 @@ export class ProductInfoPageComponent implements OnInit{
         next:(product)=>{
           this.Similar=product.ProductName
           this.Product=product
+          this.IsLike=this.AuthService._User.likes.includes(id)
         },
         error:(error)=>{
           console.log(error)
@@ -32,6 +35,7 @@ export class ProductInfoPageComponent implements OnInit{
     });
   }
   Similar:string=''
+  IsLike!:boolean
   public productForm: FormGroup=this.formBuilder.group({
     size:['',[Validators.required]],
     quantity:[1,[Validators.required,Validators.min(1)]]
@@ -89,22 +93,37 @@ GeneralArray =[this.Product.General];
 
 
 mostrarToast(isLike:boolean) {
-  try{
-    if (isLike) {
-      this.mensajeToast={
-       summary:this.Product.ProductName+" añadido a favoritos",
-       data:[`${this.Product.images[0]}`,this.Product.ProductName,this.Product.price]}
-       this.messageService.add(this.mensajeToast)
-      } else {
-        this.mensajeToast={
-          summary:this.Product.ProductName+" removido de favoritos",
-          data:[`${this.Product.images[0]}`,this.Product.ProductName,this.Product.price]}
-          this.messageService.add(this.mensajeToast)
+  this.AuthService.AddLike(this.Product._id).subscribe({
+    next:(response)=> {
+      try{
+        let TotalPrice:number=this.Product.price
+        if (this.Product.Discount>0) {
+          TotalPrice=this.Product.price*((100-this.Product.Discount)/100)
         }
-      }
-      catch{
-        throw new Error('Este es un error de ejemplo');
-      }
+        if (isLike) {
+          this.mensajeToast={
+           summary:response.message,
+           data:[`${this.Product.images[0]}`,this.Product.ProductName,TotalPrice]}
+           this.messageService.add(this.mensajeToast)
+           this.AuthService.User.likes.push(this.Product._id)
+          } else {
+            this.mensajeToast={
+              summary:response.message,
+              data:[`${this.Product.images[0]}`,this.Product.ProductName,TotalPrice]}
+              this.messageService.add(this.mensajeToast)
+              const index=this.AuthService.User.likes.indexOf(this.Product._id)
+              this.AuthService.User.likes.splice(index)
+            }
+          }
+          catch{
+            throw new Error('Este es un error de ejemplo');
+          }    
+    },
+    error:(err)=> {
+      console.error(err)
+    },
+  })
+  
 
     }
     showMessage(mensaje: Toast) {

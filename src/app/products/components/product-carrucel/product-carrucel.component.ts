@@ -16,8 +16,6 @@ export class ProductCarrucelComponent implements OnInit {
   ngOnInit(): void {
     const limit =8
     const skip=0
-    console.log(this.Title)
-    console.log(this.ProductName)
     switch(this.Title){
       case 'Nuevos productos':
         this.ProductService.GetProductsNews(limit).subscribe({
@@ -43,7 +41,6 @@ export class ProductCarrucelComponent implements OnInit {
         
         this.ProductService.GetSimilarProducts(this.ProductName,8).subscribe({
           next:(products)=> {
-            console.log(products)
             this.products=products  
             },
             error:(err)=> {

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { LoginResponse } from 'src/app/admin/interfaces/loginResponse.interface';
 import { RegisterDto } from '../interfaces/Register.interface';
 import { RegisterResponse } from '../interfaces/RegisterResponse.interface';
+import { AddlikeResponse } from '../interfaces/Addlike.Response';
 
 @Injectable({
   providedIn: 'root'
@@ -64,6 +65,7 @@ return this.Http.post<LoginResponse>(`${environment.APIBaseUrl}/users/login`,bod
 logOut(){
 localStorage.removeItem('Token')
 this.IsLog=false
+this.ResetUser()
 }
 ChangePass(_password:string,newPassword:string):Observable<User>{
   const email=this._User.email
@@ -100,5 +102,11 @@ getUserById(id:string):Observable<User>{
           Street:""
         }
     })
+  }
+  AddLike(productId:string):Observable<AddlikeResponse>{
+    const UserID=this._User._id
+    const body={productId,UserID}
+    const headers=this.getUserAutorizationHeaders()
+    return this.Http.post<AddlikeResponse>(`${environment.APIBaseUrl}/users/AddLikes`,body,{headers})
   }
 }
