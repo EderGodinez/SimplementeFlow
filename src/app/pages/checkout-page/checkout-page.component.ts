@@ -6,19 +6,20 @@ import { Sizes } from 'src/app/products/interfaces';
 import { ShoppingCar } from 'src/app/interfaces/user.interfaces';
 import { AuthService } from 'src/app/account/services/Account.service';
 import { map, tap } from 'rxjs';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
   templateUrl: './checkout-page.component.html',
-  styleUrls: ['./checkout-page.component.scss']
+  styleUrls: ['./checkout-page.component.scss'],
+  providers:[MessageService]
 })
 export class CheckoutPageComponent implements OnInit{
-constructor(private productService:ProductsService,private Router:Router,private UserService:AuthService){}
+constructor(private productService:ProductsService,private Router:Router,private UserService:AuthService,private Message:MessageService){}
   ngOnInit(): void {
     //SE obtiene la informacion de los productos en basea su id
-    this.shoppingCard=this.UserService._User.shopping_car
-    this.shoppingCard.forEach(product => {
-    const result=this.productService.GetProductById(product.ProductId).pipe(
+    this.UserService._User.shopping_car.forEach(product => {
+    this.productService.GetProductById(product.ProductId).pipe(
       map((product)=>{
         const {RegisterDate,__v,adventages,disadventages,inventoryStatus,General,...info}=product;
       const {patent,Category}=product.General
@@ -33,34 +34,41 @@ constructor(private productService:ProductsService,private Router:Router,private
           productName: ProductName, // Descripción del producto
           productDescription:description,
           Image: images[0],
-          Size:product.size,
+          Size:product.size?product.size:0,
           Amount: product.quantity,
           Price:price,
           Discount
         }
         this.AllowSizes=sizes
         this.Checkoutlist.push(dataCheckout)
+        this.CalculateTotal()
       })
     ).subscribe()
   });
-  this.CalculateTotal()
 }
 AllowSizes:Sizes={}
 Checkoutlist:checkoutList[]=[]
 totalPay: number = 0;
 
 //Representa el carrito de compras del usuario
-shoppingCard:ShoppingCar[]=[]
 CalculateTotal(){
   this.totalPay=this.Checkoutlist.reduce((total, product) => total + (product.Price * product.Amount), 0)
 }
 deleteProduct(id:string){
  this.Checkoutlist= this.Checkoutlist.filter(product=>product._id!==id)
- this.shoppingCard=this.shoppingCard.filter(car=>car.ProductId!==id)
+ this.UserService._User.shopping_car=this.UserService._User.shopping_car.filter(car=>car.ProductId!==id)
+ this.UserService.UpdateInfo(this.UserService.User).subscribe({
+  next:(value)=> {
+    this.Message.add({severity:'info',life:3000,summary:'Producto eliminado de carrito'})
+  },
+  error:(err)=> {
+    console.error(err)
+  },
+ })
  this.CalculateTotal()
 }
 ModifyQuantity(data:{id:string,quantity:number}){
-  const productoParaIncrementar = this.shoppingCard.find(producto => producto.ProductId === data.id);
+  const productoParaIncrementar = this.UserService._User.shopping_car.find(producto => producto.ProductId === data.id);
   if (productoParaIncrementar) {
     // Si se encontró el producto, incrementa la cantidad
     productoParaIncrementar.quantity += data.quantity;

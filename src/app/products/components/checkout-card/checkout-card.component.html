@@ -17,7 +17,7 @@
   </p>
   <label for="size">Talla:
     <select name="size" class="w-50 h-2rem border-none" style="margin-left: 2.2rem;">
-      <option *ngFor="let size of AllowSizesObject | keyvalue" class="text-right" value="{{size.value[0]}}" [attr.selected]="CompareSizes(size.value[0],productCheckout.Size) ? true : null">{{size.value[0]}}</option>
+      <option *ngFor="let size of AllowSizesObject | keyvalue" class="text-right" value="{{productCheckout.Size}}" [attr.selected]="CompareSizes(size.value[0],productCheckout.Size) ? true : null">{{productCheckout.Size}}</option>
     </select>
   </label>
 </div>

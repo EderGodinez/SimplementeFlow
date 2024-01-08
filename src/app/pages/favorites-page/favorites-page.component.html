@@ -1,4 +1,4 @@
-
+<p-toast></p-toast>
 <div class="block text-center surface-200 h-4rem">
   <h2 class="p-2">
     Articulos guardados
@@ -8,21 +8,10 @@
 <p-dropdown [options]="filterOptions" [(ngModel)]="filterSelected" optionLabel="name" [style]="{'margin-top':'1rem','margin-left':'3rem','margin-bottom':'1rem','width':'300px'}"></p-dropdown>
 <div class="checkout-list mt-2">
 <div class="text-700 text-center p-1 text-base " *ngFor="let product of Products">
-  <favorite-card (deleteProduct)="Delete($event)" [Product]="product" (deleteProduct)="ProductDelete"></favorite-card>
-
-  <div ngSwitch="{{Condition}}">
-    <ng-template [ngSwitchCase]="1">
-      <p-button (onClick)="AddCar(product._id)" label="Añadir a carrito" [style]="{'width':'80%','background-color':'transparent','color':'black','border-color':'green'}"></p-button>
-    </ng-template>
-    <ng-template [ngSwitchCase]="2">
-      <p-button (onClick)="SearchSimilar(product._id,product.ProductName)" label="Buscar similares" [style]="{'width':'80%','background-color':'transparent','color':'black','border-color':'gray'}"></p-button>
-</ng-template>
-  </div>
+  <favorite-card (ProductAction)="HandleAction($event)" [Product]="product"></favorite-card>
 </div>
 </div>
 </div>
-
-
 <ng-template #TheresNotLikes>
     <div class="text-center w-full h-screen flex flex-column  justify-content-center flex-wrap align-content-center align-items-center">
     <h3 class="text-5xl gap-5">No hay productos en tu lista de favoritos</h3>

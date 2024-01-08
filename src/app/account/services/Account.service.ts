@@ -1,5 +1,6 @@
+import { AddShoppingCarResponse } from './../interfaces/addShoppingCar.interface';
 import { Injectable } from '@angular/core';
-import { User } from 'src/app/interfaces/user.interfaces';
+import { ShoppingCar, User } from 'src/app/interfaces/user.interfaces';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
@@ -108,5 +109,12 @@ getUserById(id:string):Observable<User>{
     const body={productId,UserID}
     const headers=this.getUserAutorizationHeaders()
     return this.Http.post<AddlikeResponse>(`${environment.APIBaseUrl}/users/AddLikes`,body,{headers})
+  }
+  AddShoppingCar(CarInfo:ShoppingCar) :Observable<AddShoppingCarResponse>{
+    const UserID=this._User._id
+    const{ProductId,quantity,size}=CarInfo
+    const body={UserID,ProductId,quantity,size}
+    const headers=this.getUserAutorizationHeaders()
+     return this.Http.post<AddShoppingCarResponse>(`${environment.APIBaseUrl}/users/AddProduct`,body,{headers})
   }
 }

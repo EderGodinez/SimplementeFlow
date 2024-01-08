@@ -11,7 +11,7 @@ export interface User {
   isActive: boolean
   UserRole: string
   likes: string[]
-  shopping_car: []
+  shopping_car:ShoppingCar []
   data_Address: DataAddress
   __v?: number
   RegisterDate:Date
@@ -31,6 +31,6 @@ export interface DataAddress {
 }
 export interface ShoppingCar{
   ProductId:string,
-  size:number,
+  size?:number,
   quantity:number
 }

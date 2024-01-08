@@ -6,11 +6,17 @@ import { Product, Toast } from '../../interfaces';
 import { MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
+interface Addproduct{
+  ProductId:string,
+  size:number,
+  quantity:number
+}
 @Component({
   templateUrl: './product-info-page.component.html',
   styleUrls: ['./product-info-page.component.scss'],
   providers: [MessageService]
 })
+
 export class ProductInfoPageComponent implements OnInit{
   constructor(private ProductsService:ProductsService,
     private route: ActivatedRoute,
@@ -37,7 +43,7 @@ export class ProductInfoPageComponent implements OnInit{
   Similar:string=''
   IsLike!:boolean
   public productForm: FormGroup=this.formBuilder.group({
-    size:['',[Validators.required]],
+    size:[0,[Validators.required]],
     quantity:[1,[Validators.required,Validators.min(1)]]
   })
 mensajeToast:Toast={
@@ -138,12 +144,23 @@ mostrarToast(isLike:boolean) {
 addShoppingCar(){
   this.productForm.markAllAsTouched();
   if(this.productForm.valid){
-    this.mensajeToast={
-      data:[`${this.Product.images[0]}`,this.Product.ProductName,this.Product.price],
-      summary:`${this.productForm.get('quantity')!.value} ${this.Product.ProductName} añadido a carrito"`
-    }
-    this.messageService.add(this.mensajeToast)
-    this.productForm.reset()
+    console.log(this.productForm.value)
+    const body={...this.productForm.value,ProductId:this.Product._id}
+    this.AuthService.AddShoppingCar(body).subscribe({
+      next:(value)=> {
+        this.addCar(body)
+        this.mensajeToast={
+          data:[`${this.Product.images[0]}`,this.Product.ProductName,this.Product.price],
+          summary:`${this.productForm.get('quantity')!.value} ${this.Product.ProductName} añadido a carrito"`
+        }
+        this.messageService.add(this.mensajeToast)
+        this.productForm.reset()
+      },
+      error:(err)=> {
+        console.error(err)
+      },
+    })
+    
   }
   else{
     this.mensajeToast={
@@ -167,5 +184,14 @@ decrementQuantity() {
   if (currentQuantity > 1) {
     this.productForm.get('quantity')!.setValue(currentQuantity - 1);
   }
+}
+addCar(info:Addproduct){
+  const{ProductId,quantity,size}=info
+  const existProduct=this.AuthService.User.shopping_car.findIndex((product)=>product.ProductId===ProductId&&product?.size===size)
+  if (existProduct===-1) {
+    this.AuthService.User.shopping_car.push(info)
+    return
+  }
+  this.AuthService.User.shopping_car[existProduct].quantity+=quantity
 }
 }

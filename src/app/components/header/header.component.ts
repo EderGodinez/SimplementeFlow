@@ -22,7 +22,7 @@ export class HeaderComponent {
         localStorage.clear()
         return of(false);
       })
-    ).subscribe()
+      ).subscribe()
     // Suscríbete al evento NavigationEnd del enrutador
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
