@@ -61,9 +61,7 @@ export class OrdersPageComponent implements OnInit,OnDestroy {
   }
   clientInfo:User=
   {
-    _id: {
-      $oid: ""
-    },
+    _id: "",
     email: "",
     names: "",
     lastnames: "",

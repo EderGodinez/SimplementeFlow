@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Order } from '../../Interfaces/orders.interface';
 import { ActivatedRoute } from '@angular/router';
 import { OrdersService } from '../../services/orders.service';
@@ -9,20 +9,23 @@ import { User } from 'src/app/interfaces/user.interfaces';
   templateUrl: './order-details-page.component.html',
   styleUrls: ['./order-details-page.component.scss']
 })
-export class OrderDetailsPageComponent {
+export class OrderDetailsPageComponent implements OnInit {
 constructor(private ActivatedRoute:ActivatedRoute,private OrdersService:OrdersService,private AccountService:AuthService){
   this.ActivatedRoute.params.subscribe(params => {
     const id = params['id'];
-   const user= this.OrderById(id)
-  this.AccountService.getUserById(user.UserId).subscribe({
-    next:(user)=>{
-      this.UserInfo=user
-    }
-  })
+    this.OrdersService.GetOrderById(id).subscribe({
+       next:(order)=> {
+         this.OrderInfo=order
+       },
+    })
+  
   });
 }
+  ngOnInit(): void {
+    this.UserInfo=this.AccountService.User
+  }
   UserInfo:User={
-  _id: {$oid:""},
+  _id:"",
   email: "",
   names: "",
   lastnames:"",
@@ -45,9 +48,6 @@ constructor(private ActivatedRoute:ActivatedRoute,private OrdersService:OrdersSe
   }
   }
   OrderInfo:Order={_id:"",numOrder:0,UserId:"",PayMethod:"",OrderDate:new Date(),Details:[],TotalPay:0,payment_status:"",delivery_status:""}
-  OrderById(id:string){
-     return this.OrderInfo=this.OrdersService.GetOrderById(parseInt(id))
-  }
   get Totalpay(){
      return this.OrderInfo.TotalPay;
   }

@@ -1,3 +1,4 @@
+import { GuardsService } from './../../admin/services/Guards.service';
 import { AddShoppingCarResponse } from './../interfaces/addShoppingCar.interface';
 import { Injectable } from '@angular/core';
 import { ShoppingCar, User } from 'src/app/interfaces/user.interfaces';
@@ -14,10 +15,20 @@ import { AddlikeResponse } from '../interfaces/Addlike.Response';
 })
 export class AuthService {
   IsLog:boolean=false
-constructor(private Http:HttpClient) { }
+constructor(private Http:HttpClient,private GuardsService:GuardsService) {
+  this.GuardsService.checkAuthStatus().subscribe({
+    next:(response)=> {
+    const {User}=response
+    this.setUser(User)      
+    },
+    error:(err)=> {
+      this.logOut()
+    },
+  })
+ }
 isValidRegister:boolean=false
 User:User={
-_id:{$oid:""},
+_id:"",
 email:'',
 birthdate:new Date(),
 gender:'Hombre',
@@ -81,10 +92,10 @@ getUserById(id:string):Observable<User>{
   ResetUser():void{
     this.setUser(
       {
-        _id:{$oid:""},
+        _id:"",
         email:'',
         birthdate:new Date(),
-        gender:'Hombre',
+        gender:'',
         isActive:true,
         names:"",
         lastnames:"",
@@ -92,7 +103,7 @@ getUserById(id:string):Observable<User>{
         phone:0,
         RegisterDate:new Date(),
         shopping_car:[],
-        UserRole:'User',
+        UserRole:'',
         __v:0,
         data_Address:{
           City:"",

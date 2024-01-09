@@ -10,7 +10,7 @@ import { LikeButtonComponent } from './components/like-button/like-button.compon
 import { ProductInfoPageComponent } from './pages/product-info-page/product-info-page.component';
 import { GeneralDetailsPipe } from './pipes/general-details.pipe';
 import { AddProductsPipe } from './pipes/add-products.pipe';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { FavoriteCardComponent } from './components/favorite-card/favorite-card.component';
 import { CheckoutCardComponent } from './components/checkout-card/checkout-card.component';
@@ -34,7 +34,8 @@ import { CheckoutCardComponent } from './components/checkout-card/checkout-card.
     CommonModule,
     ProductsRoutingModule,
     PrimeModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports:[
     SearchPageComponent,

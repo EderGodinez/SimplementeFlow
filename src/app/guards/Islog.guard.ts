@@ -2,10 +2,12 @@ import { inject } from '@angular/core';
 import { Router, type CanActivateFn } from '@angular/router';
 import { GuardsService } from '../admin/services/Guards.service';
 import { catchError, map, of, tap } from 'rxjs';
+import { AuthService } from '../account/services/Account.service';
 
 export const islogGuard: CanActivateFn = (route, state) => {
   const Guard=inject(GuardsService)
   const router=inject(Router)
+  const UserService=inject(AuthService)
       const token = localStorage.getItem('Token');
         if ( !token ) {
           router.navigateByUrl('SimplementeFlow/login')
@@ -13,6 +15,7 @@ export const islogGuard: CanActivateFn = (route, state) => {
         }
       return Guard.checkAuthStatus().pipe(
         map(({ User }) => {
+          UserService.setUser(User)
           return User.UserRole === 'User'||User.UserRole === 'Admin';
         }),
         tap(IsAuthenticated=>{

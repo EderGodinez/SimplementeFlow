@@ -1,6 +1,6 @@
 <div class="flex my-3 text-lg justify-content-around"*ngIf="productCheckout.Amount>0">
   <div style="width: 33%;">
-    <a href="SimplementeFlow/Products/Search/{{productCheckout.Category}}/{{productCheckout._id}}">
+    <a href="SimplementeFlow/Products/Search/{{productCheckout.productName}}/{{productCheckout._id}}">
   <img [src]="productCheckout.Image" [alt]="productCheckout.productName" width="100%" height="100%"  style="object-fit: cover;"></a>
   </div>
 <div style="width: 40%;" class="my-3 flex flex-column align-content-between justify-content-evenly">
@@ -16,8 +16,8 @@
     <button class="btn_quantity"  (click)="IncreaseProduct(productCheckout._id!)">+</button>
   </p>
   <label for="size">Talla:
-    <select name="size" class="w-50 h-2rem border-none" style="margin-left: 2.2rem;">
-      <option *ngFor="let size of AllowSizesObject | keyvalue" class="text-right" value="{{productCheckout.Size}}" [attr.selected]="CompareSizes(size.value[0],productCheckout.Size) ? true : null">{{productCheckout.Size}}</option>
+    <select name="size" class="w-50 h-2rem border-none" style="margin-left: 2.2rem;" [(ngModel)]="productCheckout.Size">
+      <option *ngFor="let size of AllowSizesObject | keyvalue" class="text-right" value="{{size.value[0]}}" >{{size.value[0]}}</option>
     </select>
   </label>
 </div>

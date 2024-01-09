@@ -141,12 +141,13 @@ export class DashboardPageComponent implements OnInit,OnDestroy{
           const month=this.MonthMap.get(stats.month) ?? 'Mes Desconocido'
           this.monthsChart.push(...[month]);
           const value=stats.totalSales[0]?stats.totalSales[0].totalSales:0
-          this.userDataChart.push(value)
+          this.salesDataCharts.push(value)
         })
         info.userStats.forEach((Userstats)=>{
           const value=Userstats.totalUsers[0]?Userstats.totalUsers[0].totalUsers:0
-          this.salesDataCharts.push(value)
+          this.userDataChart.push(value)
         })
+
         this.initChart();
       }
     })
