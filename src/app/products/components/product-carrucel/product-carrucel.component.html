@@ -1,4 +1,4 @@
-<p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [circular]="true">
+<p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [circular]="true" *ngIf="products.length>0">
   <ng-template pTemplate="header">
     <h4 class="pl-6">{{Title}}</h4>
 </ng-template>

@@ -33,7 +33,7 @@ export class SearchPageComponent {
     });
   }
   search?:string
-  Products:Product[]=[]  
+  Products:Product[]=[]
   NavigateFav(){
     this.router.navigate(['SimplementeFlow/Favorites'])
   }

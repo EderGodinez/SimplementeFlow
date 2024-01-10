@@ -14,9 +14,9 @@ export class CheckoutCardComponent implements OnInit{
   }
 AllowSizesObject:any[]=[]
 @Output()
-deleteProduct:EventEmitter<string>=new EventEmitter();
+deleteProduct:EventEmitter<{id:string,size:number}>=new EventEmitter();
 @Output()
-MoreLestProduct:EventEmitter<{id:string,quantity:number}>=new EventEmitter()
+MoreLestProduct:EventEmitter<{id:string,quantity:number,size:number}>=new EventEmitter()
 @Input()
 AllowSizes:Sizes={}
 @Input()
@@ -32,11 +32,11 @@ Price: 0,
 }
 IncreaseProduct(id:string){
   this.productCheckout.Amount=this.productCheckout.Amount+1
-  this.MoreLestProduct.emit({id,quantity:1})
+  this.MoreLestProduct.emit({id,quantity:1,size:this.productCheckout.Size})
 }
 Descreaseproduct(id:string){
   this.productCheckout.Amount=this.productCheckout.Amount-1
-this.MoreLestProduct.emit({id,quantity:-1})
+this.MoreLestProduct.emit({id,quantity:-1,size:this.productCheckout.Size})
 }
 CompareSizes(size:string,Size:number){
   return parseInt(size)===Size

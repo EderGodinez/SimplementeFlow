@@ -1,26 +1,29 @@
 <p-toast></p-toast>
-<div class="block text-center surface-200 h-4rem">
-  <h2 class="p-2">
-    Articulos guardados
-  </h2>
+<div style="min-height: 100vh;width: 100vw;">
+  <div class="block text-center surface-200 h-4rem">
+    <h2 class="p-2">
+      Articulos guardados
+    </h2>
+  </div>
+  <div *ngIf="Products.length>0; else TheresNotLikes">
+  <p-dropdown [options]="filterOptions" [(ngModel)]="filterSelected" optionLabel="name" [style]="{'margin-top':'1rem','margin-left':'3rem','margin-bottom':'1rem','width':'300px'}"></p-dropdown>
+  <div class="checkout-list mt-2">
+  <div class="text-700 text-center p-1 text-base " *ngFor="let product of Products">
+    <favorite-card (ProductAction)="HandleAction($event)" [Product]="product"></favorite-card>
+  </div>
+  </div>
+  </div>
+  <ng-template #TheresNotLikes>
+      <div class="text-center w-full h-screen flex flex-column  justify-content-center flex-wrap align-content-center align-items-center">
+      <h3 class="text-5xl gap-5">No hay productos en tu lista de favoritos</h3>
+      <button class="cta gap-5" (click)="GoHome()">
+        <span class="hover-underline-animation"> compra ahora </span>
+        <svg viewBox="0 0 46 16" height="10" width="30" xmlns="http://www.w3.org/2000/svg" id="arrow-horizontal">
+            <path transform="translate(30)" d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" data-name="Path 10" id="Path_10"></path>
+        </svg>
+    </button>
+    <img  class="gap-5" src="assets/images/Successfulpurchase.png" width="500" height="500" style="object-fit: cover;">
+  </div>
+    </ng-template>
+
 </div>
-<div *ngIf="Products.length>0; else TheresNotLikes">
-<p-dropdown [options]="filterOptions" [(ngModel)]="filterSelected" optionLabel="name" [style]="{'margin-top':'1rem','margin-left':'3rem','margin-bottom':'1rem','width':'300px'}"></p-dropdown>
-<div class="checkout-list mt-2">
-<div class="text-700 text-center p-1 text-base " *ngFor="let product of Products">
-  <favorite-card (ProductAction)="HandleAction($event)" [Product]="product"></favorite-card>
-</div>
-</div>
-</div>
-<ng-template #TheresNotLikes>
-    <div class="text-center w-full h-screen flex flex-column  justify-content-center flex-wrap align-content-center align-items-center">
-    <h3 class="text-5xl gap-5">No hay productos en tu lista de favoritos</h3>
-    <button class="cta gap-5" (click)="GoHome()">
-      <span class="hover-underline-animation"> compra ahora </span>
-      <svg viewBox="0 0 46 16" height="10" width="30" xmlns="http://www.w3.org/2000/svg" id="arrow-horizontal">
-          <path transform="translate(30)" d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" data-name="Path 10" id="Path_10"></path>
-      </svg>
-  </button>
-  <img  class="gap-5" src="assets/images/Successfulpurchase.png" width="500" height="500" style="object-fit: cover;">
-</div>
-  </ng-template>

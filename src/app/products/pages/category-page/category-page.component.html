@@ -15,21 +15,22 @@
       </div>
   </ng-template>
   </p-toast>
-  <div class="flex w-full h-5rem surface-400 flex-row-reverse justify-content-evenly align-items-center">
-    <p-button *ngFor="let filter of ProductFilters" label="{{filter}}" (click)="filterProducts(filter)" [style]="{'background-color':'grey','border-color':'white'}"></p-button>
+  <div style="min-height: 100vh; width: 100wv;">
+    <div class="flex w-full h-5rem surface-400 flex-row-reverse justify-content-evenly align-items-center">
+      <p-button *ngFor="let filter of ProductFilters" label="{{filter}}" (click)="filterProducts(filter)" [style]="{'background-color':'grey','border-color':'white'}"></p-button>
+    </div>
+    <h2 class="ml-5 mt-5">Productos encontrados  "{{search}}"</h2>
+  <product-list [Products]="Products" (mensajeEnviado)="showMessage($event)" *ngIf="Products.length>0;else NoproductsFound"></product-list>
+  <ng-template #NoproductsFound>
+    <div class="text-center w-full h-full flex flex-column justify-content-start flex-wrap align-content-center">
+      <h1 class="text-5xl">Producto {{search}} no encontrado</h1>
+      <button class="cta" (click)="NavigateHome()">
+        <span class="hover-underline-animation"> Buscar otros</span>
+        <svg viewBox="0 0 46 16" height="10" width="30" xmlns="http://www.w3.org/2000/svg" id="arrow-horizontal">
+            <path transform="translate(30)" d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" data-name="Path 10" id="Path_10"></path>
+        </svg>
+    </button>
+      <img src="assets/images/Successfulpurchase.png" width="400" height="500" style="object-fit: cover;">
+    </div>
+  </ng-template>
   </div>
-  <h2 class="ml-5 mt-5">Productos encontrados  "{{search}}"</h2>
-<product-list [Products]="Products" (mensajeEnviado)="showMessage($event)" *ngIf="Products.length>0;else NoproductsFound"></product-list>
-<ng-template #NoproductsFound>
-  <div class="text-center w-full h-full flex flex-column justify-content-start flex-wrap align-content-center">
-    <h1 class="text-5xl">Producto {{search}} no encontrado</h1>
-    <button class="cta" (click)="NavigateHome()">
-      <span class="hover-underline-animation"> Buscar otros</span>
-      <svg viewBox="0 0 46 16" height="10" width="30" xmlns="http://www.w3.org/2000/svg" id="arrow-horizontal">
-          <path transform="translate(30)" d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" data-name="Path 10" id="Path_10"></path>
-      </svg>
-  </button>
-    <img src="assets/images/Successfulpurchase.png" width="400" height="500" style="object-fit: cover;">
-  </div>
-</ng-template>
-

@@ -123,13 +123,13 @@ mostrarToast(isLike:boolean) {
           }
           catch{
             throw new Error('Este es un error de ejemplo');
-          }    
+          }
     },
     error:(err)=> {
       console.error(err)
     },
   })
-  
+
 
     }
     showMessage(mensaje: Toast) {
@@ -143,8 +143,12 @@ mostrarToast(isLike:boolean) {
 }
 addShoppingCar(){
   this.productForm.markAllAsTouched();
+  if (!this.AuthService.User._id) {
+    this.router.navigateByUrl('SimplementeFlow/login')
+    return
+  }
   if(this.productForm.valid){
-    console.log(this.productForm.value)
+
     const body={...this.productForm.value,ProductId:this.Product._id}
     this.AuthService.AddShoppingCar(body).subscribe({
       next:(value)=> {
@@ -160,7 +164,7 @@ addShoppingCar(){
         console.error(err)
       },
     })
-    
+
   }
   else{
     this.mensajeToast={

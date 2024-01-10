@@ -23,6 +23,6 @@
 </div>
 </div>
 <div>
-  <p-button icon="bi bi-trash" (onClick)="deleteProduct.emit(productCheckout._id)"></p-button>
+  <p-button icon="bi bi-trash" (onClick)="deleteProduct.emit({id:productCheckout._id,size:productCheckout.Size})"></p-button>
 </div>
 </div>

@@ -8,7 +8,10 @@ import { AuthService } from 'src/app/account/services/Account.service';
 import { map, tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { OrdersService } from 'src/app/orders/services/orders.service';
-
+interface DeleteProductInfo{
+  id:string
+  size:number
+}
 
 @Component({
   templateUrl: './checkout-page.component.html',
@@ -61,9 +64,13 @@ totalPay: number = 0;
 CalculateTotal(){
   this.totalPay=this.Checkoutlist.Details.reduce((total, product) => total + (product.Price * product.Amount), 0)
 }
-deleteProduct(id:string){
- this.Checkoutlist.Details= this.Checkoutlist.Details.filter(product=>product._id!==id)
- this.UserService._User.shopping_car=this.UserService._User.shopping_car.filter(car=>car.ProductId!==id)
+deleteProduct(deleteProduct:DeleteProductInfo){
+  const{id,size}=deleteProduct
+ const productIndex:number=this.Checkoutlist.Details.findIndex((product)=>{
+  product._id===id&&product.Size===size
+ })
+ this.Checkoutlist.Details.splice(productIndex, 1);
+ this.UserService._User.shopping_car=this.UserService._User.shopping_car.filter(car=>car.ProductId!==id&&car.size!==size)
  this.UserService.UpdateInfo(this.UserService.User).subscribe({
   next:(value)=> {
     this.Message.add({severity:'info',life:3000,summary:'Producto eliminado de carrito'})
@@ -74,21 +81,28 @@ deleteProduct(id:string){
  })
  this.CalculateTotal()
 }
-ModifyQuantity(data:{id:string,quantity:number}){
+ModifyQuantity(data:{id:string,quantity:number,size:number}){
   const productoParaIncrementar = this.UserService._User.shopping_car.find(producto => producto.ProductId === data.id);
   if (productoParaIncrementar) {
     // Si se encontró el producto, incrementa la cantidad
     productoParaIncrementar.quantity += data.quantity;
     this.CalculateTotal()
     if (productoParaIncrementar.quantity<1) {
-      this.deleteProduct(data.id);
+      this.deleteProduct({id:data.id,size:data.size});
     }
   }
 }
 CreateCheckOut(){
+  this.Checkoutlist.Details.map((product)=>{
+  if (typeof product.Size==='string') {
+    product.Size = parseFloat(product.Size);
+  }
+  return product
+  })
 this.OrdersService.createOrder(this.Checkoutlist).subscribe({
 next:({url})=> {
-  window.open(url)
+  console.log(window.location.origin)
+  window.location.href=url
 },
 error:(err)=> {
   this.Message.add({life:3000,summary:'Error al intentar realizar pedido',severity:'error',detail:err.error.message})

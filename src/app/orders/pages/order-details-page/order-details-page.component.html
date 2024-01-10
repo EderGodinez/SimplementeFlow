@@ -43,6 +43,7 @@
           <tr>
             <th>Imagen</th>
             <th>Descripcion</th>
+            <th>Talla</th>
             <th>Cantidad</th>
             <th>Precio unitario</th>
             <th>Total</th>
@@ -52,6 +53,7 @@
           <tr *ngFor="let order of OrderInfo.Details">
             <td><a href="SimplementeFlow/Products/Search/EveryOne/{{order.id}}"><img src="{{order.Image}}" alt="{{order.productName}}" width="" style="object-fit: cover;"></a></td>
             <td>{{ order.productDescription}}</td>
+            <td>{{order.Size}}</td>
             <td>{{ order.Amount}}</td>
             <td>{{ order.Price|currency:'MXN' }}</td>
             <td>{{ order.Price*order.Amount|currency:'MXN' }}</td>
