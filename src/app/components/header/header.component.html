@@ -1,12 +1,16 @@
 <!-- Este es el contenido del header menu -->
-<div class="surface-900 w-screen h-5rem flex align-items-center gap-2">
-  <img src="assets/images/logo_blanco.png" alt="Logo" class="h-3rem ml-2">
-  <p-button (click)="sidebarVisible = true"  [style]="{ 'background-color': 'white', 'color': 'black' ,'border': 'none' }" styleClass="p-button-rounded" icon="pi pi-align-justify" class="ml-2" label="MENU"></p-button>
-    <span class="w-9 ml-4 p-input-icon-right">
+<div class="surface-900 w-screen p-3 flex flex-wrap align-content-center justify-content-center gap-2 r-container">
+  <div class="responsive">
+    <img src="assets/images/logo_blanco.png" alt="Logo"  style="object-fit: contain;" class="h-3rem ml-2 " >
+  </div>
+  <div class="responsive">
+    <p-button (click)="sidebarVisible = true"  [style]="{ 'background-color': 'white', 'color': 'black' ,'border': 'none' }" styleClass="p-button-rounded" icon="pi pi-align-justify" class="ml-2" label="MENU"></p-button>
+  </div>
+    <div class="w-9 ml-4 p-input-icon-right responsive">
       <i class="pi pi-search"></i>
-      <input type="text" placeholder="Buscar productos" pInputText [(ngModel)]="value" class="w-full" style="border-radius: 35px;" (keyup)="onKeyUp($event)"/>
-    </span>
-    <div class="flex gap-5 absolute"style="right: 20px;">
+      <input type="text" placeholder="Buscar productos" pInputText [(ngModel)]="value" class="w-full sm:flex-order-6" style="border-radius: 35px;" (keyup)="onKeyUp($event)"/>
+    </div>
+    <div class="flex gap-5 pt-2 responsive">
       <a class="pi pi-user p-0 cursor-pointer " style="font-size: 1.75rem;color: white;" (click)="op.toggle($event)"></a>
       <a routerLink="Favorites" class="pi pi-heart-fill p-0 cursor-pointer" style="font-size: 1.75rem;color: white;"></a>
       <a routerLink="Checkout" class="pi pi-shopping-cart p-0 cursor-pointer" style="font-size: 1.75rem;color: white;"></a>
