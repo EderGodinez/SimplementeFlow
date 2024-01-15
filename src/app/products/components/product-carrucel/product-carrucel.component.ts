@@ -20,17 +20,17 @@ export class ProductCarrucelComponent implements OnInit {
       case 'Nuevos productos':
         this.ProductService.GetProductsNews(limit).subscribe({
           next:(products)=> {
-            this.products=products  
+            this.products=products
             },
             error:(err)=> {
-              console.error(err)  
+              console.error(err)
             }
         })
       break;
       case 'Ofertas':
         this.ProductService.GetProductsOffers(limit).subscribe({
           next:(products)=> {
-          this.products=products  
+          this.products=products
           },
           error:(err)=> {
             console.error(err)
@@ -38,27 +38,43 @@ export class ProductCarrucelComponent implements OnInit {
         })
       break;
       case 'Otros productos':
-        
+
         this.ProductService.GetSimilarProducts(this.ProductName,8).subscribe({
           next:(products)=> {
-            this.products=products  
+            this.products=products
             },
             error:(err)=> {
-              console.error(err)  
+              console.error(err)
             }
         })
         break;
       default:
         this.ProductService.GetProductsByCategory(this.Title,limit).subscribe({
           next:(products)=> {
-            this.products=products  
+            this.products=products
             },
             error:(err)=> {
-              console.error(err)  
+              console.error(err)
             }
         })
     }
-    
+    this.responsiveOptions = [
+      {
+          breakpoint: '1199px',
+          numVisible: 1,
+          numScroll: 1
+      },
+      {
+          breakpoint: '991px',
+          numVisible: 2,
+          numScroll: 1
+      },
+      {
+          breakpoint: '767px',
+          numVisible: 1,
+          numScroll: 1
+      }
+  ];
   }
   @Input()
   Title:string="";
@@ -66,5 +82,5 @@ export class ProductCarrucelComponent implements OnInit {
   ProductName:string="";
   @Output() mensajeEnviado = new EventEmitter<Toast>();
  products:Product[]=[];
-
+ responsiveOptions:any[]=[]
 }

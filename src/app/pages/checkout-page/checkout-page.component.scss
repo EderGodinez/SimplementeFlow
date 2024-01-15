@@ -95,3 +95,9 @@
   transform: scaleX(1);
   transform-origin: bottom left;
 }
+@media(width<=576px){
+ .xs{
+  flex: 0 0 auto;
+width: 100%;
+ }
+}

@@ -1,19 +1,22 @@
-<div style="width: 32vw;">
-  <div class="flex flex-row-reverse justify-content-end mb-3">
+<div style="height: 30rem;" class="flex flex-column justify-content-between">
+  <div class="flex flex-row-reverse justify-content-end mb-1 px-3">
     <like-button  [IsOnlikesList]="Islike" (IsOnlikesListChange)="handleCheckboxChange($event,Product)"></like-button>
-    <p></p></div>
+    <p></p>
+  </div>
   <a href='SimplementeFlow/Products/Search/{{Product.General.age}}/{{Product._id}}'>
-    <p-image src="{{ImageUrl+Product.images[0]}}" [preview]="true" [alt]="Product.ProductName" width="450" height="250" [imageStyle]="{'object-fit':'fill'}">
+    <p-image src="{{ImageUrl+Product.images[0]}}" [preview]="true" width="95%" height="250" [alt]="Product.ProductName"  [imageStyle]="{'object-fit':'cover','aspect-ratio':'16/9'}">
       <ng-template pTemplate="indicator" class="flex justify-items-space border-none">
         <span class="sizes">{{Min}}</span>
         <span class="sizes">Al</span>
         <span class="sizes">{{Max}}</span>
       </ng-template>
-    </p-image>
+    </p-image>,
   </a>
-  <h5 class="m-0">{{Product.General.patent}}</h5>
-  <h5 class="m-0">{{Product.ProductName}}</h5>
-  <h5 class="m-0" [ngStyle]="{'text-decoration': Product.Discount > 0 ? 'line-through' : 'none'}">{{Product.price| currency: 'MXN'}}</h5>
-  <h6 class="m-1" *ngIf="Product.Discount>0">{{Product.price*((100-Product.Discount)/100)|currency:"MXN"}}</h6>
+  <div class="px-3">
+    <h5 class="m-0">{{Product.General.patent}}</h5>
+    <h6 class="m-0">{{Product.ProductName}}</h6>
+    <h5 class="m-0" [ngStyle]="{'text-decoration': Product.Discount > 0 ? 'line-through' : 'none'}">{{Product.price| currency: 'MXN'}}</h5>
+    <h6 class="m-1" *ngIf="Product.Discount>0">{{Product.price*((100-Product.Discount)/100)|currency:"MXN"}}</h6>
+  </div>
 </div>
 

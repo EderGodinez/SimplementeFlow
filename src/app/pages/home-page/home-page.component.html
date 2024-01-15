@@ -7,7 +7,7 @@
               <h4>{{message.summary}}</h4>
               <p>{{message.data[1]}}</p>
               <p>{{message.data[2]|currency:'MXN'}}</p>
-              <img src="{{message.data[0]}}" alt="" style="object-fit: cover; width: 120px;">
+              <img src="{{message.data[0]}}" alt="" style="object-fit: cover; width: 10vw;">
           </div>
           <div class="grid p-fluid">
               <div class="col-12" *ngIf="!message.summary.includes('removido')">
@@ -19,7 +19,7 @@
   </p-toast>
 <p-carousel [value]="adverticers" [numVisible]="1" [numScroll]="1" [circular]="true"  [indicatorStyleClass]="'border-circle'" [indicatorStyle]="{'width':'15px','height': '15px'}" class="m-0 p-0" [autoplayInterval]="4000">
   <ng-template let-advertice pTemplate="item">
-      <div class="text-center py-3" style="height: 600px;" >
+      <div class="text-center" style="height: 50vw" >
         <a href="{{advertice.url}}">
         <img src="{{advertice.img}}" alt="Carrucel" class="w-full h-full" style="object-fit: contain;">
       </a>
@@ -28,23 +28,23 @@
 </p-carousel>
 <product-carrucel [Title]="CarouselTitles[0]" (mensajeEnviado)="mostrarToast($event)" ></product-carrucel>
 <!-- Carrucel Ofertas -->
-      <div class="text-center py-3 px-3" style="height: 450px;width: 100%;" >
-        <a href="" class="w-full h-full" style="object-fit: contain;">
-        <img src="assets/images/ofertas.jpg" alt="ofertas" class="w-full h-full" style="object-fit: contain;">
+      <div class="text-center py-3 px-3" style="height:50vh ; width: 100%;" >
+        <a href="http://localhost:4200/SimplementeFlow/Products/Search/Nike" class="w-full h-full">
+        <img src="assets/images/ofertas.jpg" alt="ofertas" class="w-full h-full" style="object-fit: cover;">
       </a>
     </div>
 <!-- CARRUCEL NIÑOS -->
 <product-carrucel [Title]="CarouselTitles[1]" (mensajeEnviado)="mostrarToast($event)"></product-carrucel>
-      <div class="text-center py-3 px-3" style="height: 350px; width: 100%;" >
-        <a href="">
+      <div class="text-center py-3 px-3" style=" width: 100%;" >
+        <a href="http://localhost:4200/SimplementeFlow/Products/Search/Niños"class="w-full h-full" >
         <img src="assets/images/niños.jpg" alt="niños" class="w-full h-full" style="object-fit: contain;">
       </a>
     </div>
 
     <product-carrucel [Title]="CarouselTitles[2]" (mensajeEnviado)="mostrarToast($event)"></product-carrucel>
 
-    <div class="text-center py-3 px-3" style="height: 350px; width: 100%;" >
-      <a href="">
+    <div class="text-center py-3 px-3" style="width: 100%;" >
+      <a href="http://localhost:4200/SimplementeFlow/Products/Search/Niños" class="w-full h-full">
       <img src="assets/images/niños.jpg" alt="niños" class="w-full h-full" style="object-fit: contain;">
     </a>
   </div>

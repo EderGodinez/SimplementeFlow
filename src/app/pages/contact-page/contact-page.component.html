@@ -5,45 +5,45 @@
   loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
 <div class="flex flex-wrap w-full gap-4 mx-1 mt-8 justify-content-evenly" >
-  <div  class="flex flex-column h-20rem align-items-center surface-200 border-1 border-300 py-8" style="min-width: 500px;border-radius: 20PX;">
+  <div  class="flex flex-column h-20rem align-items-center surface-200 border-1 border-300 py-8" style="min-width: 380px;border-radius: 20PX;">
     <i class="bi bi-telephone-fill" style="font-size: 25px;"></i>
   <h2 class="my-2">Telefono de la empresa</h2>
   <span>3921067869</span>
   </div>
-  <div  class="flex flex-column align-items-center surface-200 border-1 border-300 py-8" style="min-width: 500px;border-radius: 20PX;">
+  <div  class="flex flex-column align-items-center surface-200 border-1 border-300 py-8" style="min-width: 380px;border-radius: 20PX;">
     <i class="bi bi-geo-alt-fill" style="font-size: 25px;"></i>
   <h2 class="my-2">Nuestra sucursal</h2>
   <span>Av Universidad a un constado de CUCI</span>
   </div>
-  <div  class="flex flex-column align-items-center surface-200 border-1 border-300 py-8" style="min-width: 500px;border-radius: 20PX;">
+  <div  class="flex flex-column align-items-center surface-200 border-1 border-300 py-8" style="min-width: 380px;border-radius: 20PX;">
     <i class="bi bi-envelope"style="font-size: 25px;"></i>
   <h2 class="my-2">Nuestro correo</h2>
   <span>SimplementeFlow@gmail.com</span>
   </div>
 </div>
-<div class="w-full" style="height: 500px; padding: 60px;">
+<div class="w-full" style="height: 500px; padding: 30px;" >
   <form (ngSubmit)="onSubmit()" [formGroup]="MessageForm">
-    <div class="formgrid grid">
-      <div class="field col-4 md:col-6">
+    <div class="flex flex-wrap gap-2">
+      <div class="md:w-5 lg:w-3 phone">
           <label for="firstname6" class="font-medium text-indigo-400">Nombre</label>
           <input id="firstname6" type="text" formControlName="username" [ngClass]="{'invalid-form':!MessageForm.controls['username'].valid&&MessageForm.controls['username'].touched}" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
           <small id="NewPassword-help" class="text-danger" *ngIf="MessageForm.controls['username'].getError('pattern')&&MessageForm.controls['username'].touched"><br>Nombre de usuario no valido</small>
           <small id="NewPassword-help" class="text-danger" *ngIf="MessageForm.controls['username'].getError('required')&&MessageForm.controls['username'].touched"><br>Este campo es obligatorio</small>
       </div>
-      <div class="field col-4 md:col-6">
+      <div class="md:w-6 lg:w-4 phone">
           <label for="lastname6" class="font-medium text-indigo-400">Correo</label>
           <input id="lastname6" type="text" formControlName="UserEmail" [ngClass]="{'invalid-form':!MessageForm.controls['UserEmail'].valid&&MessageForm.controls['UserEmail'].touched}" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
           <small id="NewPassword-help" class="text-danger" *ngIf="MessageForm.controls['UserEmail'].getError('required')&&MessageForm.controls['UserEmail'].touched"><br>Este campo es obligatorio</small>
           <small id="NewPassword-help" class="text-danger" *ngIf="MessageForm.controls['UserEmail'].getError('pattern')&&MessageForm.controls['UserEmail'].touched"><br>No cuenta con un formato de correo valido</small>
       </div>
-      <div class="field col-4 md:col-6">
+      <div class="md:w-full lg:w-4 phone">
         <label for="lastname6" class="font-medium text-indigo-400">Asunto de correo</label>
         <select formControlName="issue" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" [ngClass]="{'invalid-form':!MessageForm.controls['issue'].valid&&MessageForm.controls['issue'].touched}" style="appearance: auto">
           <option *ngFor="let item of optionsIssues" [value]="item">{{item}}</option>
       </select>
         <small id="NewPassword-help" class="text-danger" *ngIf="MessageForm.controls['issue'].getError('required')&&MessageForm.controls['issue'].touched"><br>Este campo es obligatorio</small>
     </div>
-      <div class="field col-12">
+      <div class="col-12">
           <label for="address" class="font-medium text-indigo-400">Mensaje a enviar</label>
           <textarea id="address" type="text" formControlName="Content" [ngClass]="{'invalid-form':!MessageForm.controls['Content'].valid&&MessageForm.controls['Content'].touched}" rows="7" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
           <small id="NewPassword-help" class="text-danger" *ngIf="MessageForm.controls['Content'].getError('required')&&MessageForm.controls['Content'].touched"><br>Este campo es obligatorio</small>

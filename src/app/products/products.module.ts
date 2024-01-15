@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { FavoriteCardComponent } from './components/favorite-card/favorite-card.component';
 import { CheckoutCardComponent } from './components/checkout-card/checkout-card.component';
+import { InfoSkeletonComponent } from './components/infoSkeleton/infoSkeleton.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { CheckoutCardComponent } from './components/checkout-card/checkout-card.
     ProductsRoutingModule,
     PrimeModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    InfoSkeletonComponent
   ],
   exports:[
     SearchPageComponent,

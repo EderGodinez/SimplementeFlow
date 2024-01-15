@@ -14,7 +14,7 @@ export class NewUserPageComponent implements OnInit {
   ngOnInit() {
       this.items = [
           {
-              label: 'Informacion de registro',
+              label: 'Registro',
               routerLink: 'register'
           },
           {

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product } from '../../interfaces';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 interface ProductAction{
   ProductId:string
   size:number
@@ -15,7 +16,7 @@ export class FavoriteCardComponent implements OnInit {
   constructor(private Router:Router){
   }
   ngOnInit(): void {
-  
+
     const Productstock:number[]=Object.values(this.Product.sizes)
     let total=0;
     Productstock.forEach(element => {
@@ -57,6 +58,7 @@ export class FavoriteCardComponent implements OnInit {
   RegisterDate:new Date(),
   __v: 0
 }
+filesUrl=environment.APIBaseUrl+'/files/'
 Delete(){
   const size=this.minSize
  this.ProductAction.emit({ProductId:this.Product._id,size,action:"delete"})

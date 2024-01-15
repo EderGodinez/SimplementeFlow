@@ -1,20 +1,43 @@
 <p-toast></p-toast>
-<div style="min-height: 100vh;width: 100vw;">
+<div style="min-height: 100vh;width: 100vw;" class="mb-6">
   <div class="block text-center surface-200 h-4rem">
     <h2 class="p-2">
       Articulos guardados
     </h2>
   </div>
-  <div *ngIf="Products.length>0; else TheresNotLikes">
-  <p-dropdown [options]="filterOptions" [(ngModel)]="filterSelected" optionLabel="name" [style]="{'margin-top':'1rem','margin-left':'3rem','margin-bottom':'1rem','width':'300px'}"></p-dropdown>
-  <div class="checkout-list mt-2">
-  <div class="text-700 text-center p-1 text-base " *ngFor="let product of Products">
-    <favorite-card (ProductAction)="HandleAction($event)" [Product]="product"></favorite-card>
+  <p-dropdown *ngIf="Products.length>0" [options]="filterOptions" (onChange)="SortProducts()" [(ngModel)]="filterSelected" [style]="{'margin-top':'1rem','margin-left':'3rem','margin-bottom':'1rem','width':'300px'}"></p-dropdown>
+  <div *ngIf="!IsLoad;">
+    <div  class="flex gap-5">
+      <div *ngFor="let item of [1,2,3]" class="flex flex-column justify-content-between" style="width: 32vw;"  >
+        <div class="flex justify-content-end m-3">
+          <!-- trashbutton -->
+          <p-skeleton shape="circle" size="3rem" styleClass="mb-1"></p-skeleton>
+        </div >
+        <div>
+        <p-skeleton width="100%" height="150px" styleClass="mb-3"></p-skeleton>
+      </div>
+      <div class="flex flex-column justify-items-start">
+        <p-skeleton width="50%" styleClass="mb-2 "></p-skeleton>
+        <p-skeleton width="80%" styleClass="mb-2"></p-skeleton>
+        <p-skeleton width="50%" styleClass="mb-2"></p-skeleton>
+      </div>
+      <div>
+        <p-skeleton width="100%" height="30px" styleClass="mb-3"></p-skeleton>
+      </div>
+      </div>
+    </div>
+
   </div>
-  </div>
-  </div>
-  <ng-template #TheresNotLikes>
-      <div class="text-center w-full h-screen flex flex-column  justify-content-center flex-wrap align-content-center align-items-center">
+  <div *ngIf="IsLoad&&Products.length>0;">
+    <div class="flex flex-wrap">
+    <div class="text-700 text-center p-1 text-base lg:w-4 md:w-6 sm:w-full" *ngFor="let product of Products">
+      <favorite-card (ProductAction)="HandleAction($event)" [Product]="product"></favorite-card>
+    </div>
+    </div>
+    </div>
+<div *ngIf="IsLoad&&Products.length===0">
+  <div class="text-center w-full flex justify-content-center flex-wrap align-content-evenly align-items-center" style="height: 70vh;">
+    <div class="flex flex-column py-5 align-self-center sm:align-self-start">
       <h3 class="text-5xl gap-5">No hay productos en tu lista de favoritos</h3>
       <button class="cta gap-5" (click)="GoHome()">
         <span class="hover-underline-animation"> compra ahora </span>
@@ -22,8 +45,9 @@
             <path transform="translate(30)" d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" data-name="Path 10" id="Path_10"></path>
         </svg>
     </button>
-    <img  class="gap-5" src="assets/images/Successfulpurchase.png" width="500" height="500" style="object-fit: cover;">
-  </div>
-    </ng-template>
-
+    </div>
+<img  class="py-5" src="assets/images/Successfulpurchase.png" width="370" height="370" style="object-fit: cover;">
 </div>
+</div>
+</div>
+

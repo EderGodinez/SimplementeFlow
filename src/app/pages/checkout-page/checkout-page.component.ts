@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Sizes } from 'src/app/products/interfaces';
 import { ShoppingCar } from 'src/app/interfaces/user.interfaces';
 import { AuthService } from 'src/app/account/services/Account.service';
-import { map, tap } from 'rxjs';
+import { finalize, map, tap } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { OrdersService } from 'src/app/orders/services/orders.service';
 interface DeleteProductInfo{
@@ -48,6 +48,10 @@ constructor(private productService:ProductsService,
         this.AllowSizes=sizes
         this.Checkoutlist.Details.push(dataCheckout)
         this.CalculateTotal()
+      }),
+      finalize(()=>{
+        this.Isloading=true
+        console.log('se cargo la info',this.Isloading)
       })
     ).subscribe()
   });
@@ -58,6 +62,8 @@ Checkoutlist:checkoutList={
 UserId:"",
 Details:[]
 }
+Isloading:boolean=false
+
 totalPay: number = 0;
 
 //Representa el carrito de compras del usuario

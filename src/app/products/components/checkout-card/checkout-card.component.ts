@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { ProductOrder, checkoutList } from 'src/app/interfaces/checkout.interface';
 import { Sizes } from '../../interfaces/product.interface';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'checkout-card',
@@ -30,6 +31,7 @@ Size:0,
 Amount: 0,
 Price: 0,
 }
+ImagesURL=environment.APIBaseUrl+'/files/'
 IncreaseProduct(id:string){
   this.productCheckout.Amount=this.productCheckout.Amount+1
   this.MoreLestProduct.emit({id,quantity:1,size:this.productCheckout.Size})

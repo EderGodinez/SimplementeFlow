@@ -36,7 +36,9 @@ export class ProductInfoPageComponent implements OnInit{
         },
         error:(error)=>{
           console.log(error)
-        }
+        }, complete:()=> {
+          this.Loading=false
+        },
       })
     });
   }
@@ -50,6 +52,7 @@ mensajeToast:Toast={
   data:[],
   summary:""
 }
+Loading:boolean=true
 ImagesBaseUrl:string=environment.APIBaseUrl+'/files/'
 isSelect:boolean=false
 selectedSize: string=""

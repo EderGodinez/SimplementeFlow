@@ -1,10 +1,10 @@
 
 
 <p-toast></p-toast>
-<div class="surface-ground flex align-items-start justify-content-center min-h-screen min-w-screen overflow-hidden">
-  <div class="flex flex-column align-items-center justify-content-center p-5">
+<div class="surface-ground flex align-items-start justify-content-center w-screen">
+  <div class="flex flex-column align-items-center justify-content-center p-3">
       <div style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, grey 10%, rgba(33, 150, 243, 0) 30%);">
-          <div class="surface-card py-5 px-3 sm:px-8" style="border-radius:53px;width: 90rem;">
+          <div class="surface-card py-5 px-3 sm:px-8" style="border-radius:53px;">
               <div class="text-center mb-5">
                   <div class="text-900 text-3xl font-medium mb-3">Bienvenido</div>
                   <span class="text-600 font-medium">Crear una cuenta</span>
@@ -16,15 +16,15 @@
                   <input id="email1" type="text" placeholder="Correo electronico" pInputText class="w-full" autocomplete="off" style="padding:1rem;" formControlName="email" [ngClass]="{'ng-dirty': isValidField('email')}">
                   <small>Ingresa correo electronico</small>
                   <small id="NewPassword-help" class="text-danger" *ngIf="isValidField('email')"><br>{{MessageError('email')|PatternError:"email"}}</small>
-                  <div class="flex gap-4 justify-content-start w-full">
-                    <div class="w-6">
-                      <label for="name" class="block text-900 text-xl font-medium my-3">Nombres</label>
+                  <div class="flex justify-content-between w-full flex-wrap">
+                    <div class="sm:w-full xl:w-5">
+                      <label for="name" class="block text-900 text-xl font-medium my-2">Nombres</label>
                       <input id="nane" type="text" placeholder="Nombres" autocomplete="off" pInputText class="w-full" style="padding:1rem" formControlName="names" [ngClass]="{'ng-dirty': isValidField('names')}" >
                       <small class="font-medium">Ingresar nombre de usuario </small>
                       <small id="NewPassword-help" class="text-danger" *ngIf="isValidField('names')"><br>{{MessageError('names')|PatternError:"names"}}</small>
                     </div>
-                    <div class="w-6">
-                      <label for="lastname" class="block text-900 text-xl font-medium my-3">Apellidos</label>
+                    <div class="md:w-full sm:w-full xl:w-6">
+                      <label for="lastname" class="block text-900 text-xl font-medium my-2">Apellidos</label>
                       <input id="lastname" type="text" placeholder="Apellidos" autocomplete="off" pInputText class="w-full" style="padding:1rem"formControlName="lastnames" [ngClass]="{'ng-dirty': isValidField('lastnames')}">
                       <small class="font-medium">Ingresar apellidos de usuario </small>
                       <small id="NewPassword-help" class="text-danger" *ngIf="isValidField('lastnames')"><br>{{MessageError('lastnames')|PatternError:"lastnames"}}</small>
@@ -32,27 +32,27 @@
                   </div>
                   <div class="p-grid">
                     <div class="p-col-4">
-                      <label for="gender" class="block text-900 text-xl font-medium my-3">Genero</label>
+                      <label for="gender" class="block text-900 text-xl font-medium my-2">Genero</label>
                       <p-dropdown [options]="['Hombre','Mujer','Otro']" formControlName="gender" NgClass="w-full mb-3" placeholder="Genero de propietario de cuenta" [ngClass]="{'ng-dirty': isValidField('gender')}"></p-dropdown>
                       <small class="font-medium">Ingresar genero de usuario</small>
                       <small *ngIf="isValidField('gender')" class="text-danger font-medium"><br>Este campo es obligatorio</small>
                     </div>
                     <div class="p-col-4">
-                      <label for="phone" class="block text-900 text-xl font-medium my-3">Telefono</label>
+                      <label for="phone" class="block text-900 text-xl font-medium my-2">Telefono</label>
                       <p-inputMask mask="9999999999" placeholder="(999) 999-9999" formControlName="phone" [ngClass]="{'ng-dirty': isValidField('phone')}" ></p-inputMask>
                       <small class="font-medium">Ingresar numero de contacto</small>
                       <small *ngIf="isValidField('phone')" class="text-danger font-medium"><br>{{MessageError('phone')}}</small>
                     </div>
                   </div>
-                  <div class="w-full flex gap-2 justify-content-center">
-                    <div class="w-4">
-                      <label for="birthdate" class="block text-900 text-xl font-medium my-3">Fecha de nacimiento</label>
+                  <div class="w-full flex flex-wrap justify-content-between align-items-center">
+                    <div class="w-full">
+                      <label for="birthdate" class="block text-900 text-xl font-medium my-2">Fecha de nacimiento</label>
                       <p-calendar formControlName="birthdate" [showIcon]="true" [ngClass]="{'ng-invalid ng-dirty': false}"></p-calendar><br>
                       <small id="calendar-help">Ingrese la fecha de nacimiento de debera ser mayor de edad <br></small>
                       <small *ngIf="!esMayorDeEdad(RegisterForm.controls['birthdate'].value)&&RegisterForm.get('birthdate')?.touched" class="text-danger" id="calendar-help">Usuario no es mayor de edad</small>
                     </div>
-                    <div class="w-4">
-                      <label for="gender" class="block text-900 text-xl font-medium my-3">Contraseña</label>
+                    <div class="sm:w-full md:w-full xl:w-5">
+                      <label for="gender" class="block text-900 text-xl font-medium my-2">Contraseña</label>
                       <p-password formControlName="password" [toggleMask]="true"  [ngClass]="{'ng-dirty':isValidField('password')}">
                         <ng-template pTemplate="header">
                             <h6>Inserte contraseña</h6>
@@ -71,8 +71,8 @@
                     <small id="NewPassword-help">Ingrese la contraseña en considerando las sugerencias</small>
                     <small id="NewPassword-help" class="text-danger" *ngIf="isValidField('password')"><br>{{MessageError('password')|PatternError:"password"}}</small>
                     </div>
-                    <div class="w-4">
-                      <label for="phone" class="block text-900 text-xl font-medium my-3">Confirmar contraseña</label>
+                    <div class="sm:w-full md:w-full xl:w-6">
+                      <label for="phone" class="block text-900 text-xl font-medium my-2">Confirmar contraseña</label>
                       <p-password formControlName="Confirmpassword" [toggleMask]="true" [feedback]="false" [ngClass]="{'ng-invalid ng-dirty':!RegisterForm.controls['Confirmpassword'].valid&&RegisterForm.controls['Confirmpassword'].touched}">
                     </p-password>
                     <small id="NewPassword-help">Ingrese la confirmacion esta debera ser igual al campo anterior</small>
@@ -80,7 +80,7 @@
                     <small id="NewPassword-help" class="text-danger" *ngIf="RegisterForm.controls['Confirmpassword'].getError('FieldsDiferents')&&RegisterForm.controls['Confirmpassword'].touched"><br>Los campos de contraseña no coinciden</small>
                   </div>
                   </div>
-                  <button pButton pRipple label="Registrar" class="w-full p-3 text-xl align-self-center my-5" type="submit" [disabled]="!RegisterForm.valid"></button>
+                  <button pButton pRipple label="Registrar" class="w-full p-3 text-xl align-self-center" style="margin-top: 20px;" type="submit" [disabled]="!RegisterForm.valid"></button>
                 </form>
                 </div>
               </div>

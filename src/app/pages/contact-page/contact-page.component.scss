@@ -1,4 +1,9 @@
 .invalid-form{
   border-color: red!important;
 }
+@media (width<=576px) {
+.phone{
+  width: 100%;
+}
+}
 

@@ -1,12 +1,47 @@
 <p-toast></p-toast>
 <div style="min-height: 100vh;width: 100wv;">
-  <div class="grid" *ngIf="Checkoutlist.Details.length>0;else CardEmpty">
-    <div class="col-8" >
+  <div class="grid" *ngIf="!Isloading">
+    <div class="xl:col-8 md:col-12" >
+      <div *ngFor="let product of [1,2,3,4,5]">
+        <div class="flex my-3 text-lg justify-content-around flex-wrap">
+          <div style="min-width: 350px">
+            <p-skeleton width="100%" height="100%" styleClass="mb-3" ></p-skeleton>
+          </div>
+        <div style="width: 40%;" class="my-3 flex flex-column align-content-between justify-content-evenly">
+          <p-skeleton width="100%" height="16px" styleClass="mb-3"></p-skeleton>
+        <div class="flex justify-content-around my-3">
+          <p-skeleton width="100%" height="16px" styleClass="mb-3"></p-skeleton>
+          <p-skeleton width="100%" height="16px" styleClass="mb-3"></p-skeleton>
+        </div>
+        <div class="flex flex-column">
+          <p-skeleton width="100%" height="10px" styleClass="mb-3"></p-skeleton>
+          <label for="size">
+            <p-skeleton width="100%" height="10px" styleClass="mb-3"></p-skeleton>
+          </label>
+        </div>
+      </div>
+      <div>
+          <p-skeleton shape="circle" size="2rem" styleClass="mb-3"></p-skeleton>
+        </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="my-8 pr-8 xl:col-4 md:col-12 px-3 sm:col-12 xs">
+      <p-skeleton width="100%" height="15px" styleClass="mb-3"></p-skeleton>
+        <p-skeleton width="100%" height="20px" styleClass="mb-5"></p-skeleton>
+        <div>
+            <p-skeleton width="100%" height="40px"></p-skeleton>
+      </div>
+    </div>
+  </div>
+  <div class="grid" *ngIf="Isloading&&Checkoutlist.Details.length>0;else CardEmpty">
+    <div class="xl:col-8 md:col-12" >
       <div *ngFor="let product of Checkoutlist.Details; let i = index">
         <checkout-card [productCheckout]="product" [AllowSizes]="AllowSizes" (MoreLestProduct)="ModifyQuantity($event)" (deleteProduct)="deleteProduct($event)"></checkout-card>
       </div>
     </div>
-    <div class="col-4 my-8 pr-8">
+    <div class="my-8 pr-8 xl:col-4 md:col-12 px-3 sm:col-12 xs">
       <h1>Total a pagar</h1>
       <hr>
       <h3>

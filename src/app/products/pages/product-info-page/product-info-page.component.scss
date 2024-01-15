@@ -56,4 +56,12 @@ input[type="radio"] {
   background-color:#c1c1c1;
   color: white;
 }
+@media (width<576px) {
+.text-responsive{
+  font-size: 1rem;
+}
+.phone{
+  width: 100%;
+}
+}
 

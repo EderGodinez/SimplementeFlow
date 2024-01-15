@@ -1,6 +1,6 @@
 @media (width<= 768px) {
   .r-container{
-    justify-content: space-between;
+    justify-content: space-between!important;
     align-content: center;
   }
     .responsive:nth-child(1){
@@ -12,6 +12,7 @@
     }
     .responsive:nth-child(2){
       order: 0;
+      width: 15vw;
       display: flex;
   align-self: center;
     }
@@ -31,7 +32,7 @@
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 1199px)  {
   .r-container{
-    justify-content: space-between;
+    justify-content: space-between!important;
     align-content: center;
   }
     .responsive:nth-child(1){
@@ -49,7 +50,7 @@
     .responsive:nth-child(3){
       margin:0!important;
       order: 8;
-      width: 90vw!important;
+      width: 95vw!important;
     }
     .responsive:nth-child(4){
       order: 2;
