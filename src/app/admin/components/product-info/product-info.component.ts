@@ -104,7 +104,6 @@ export class ProductInfoComponent implements OnInit {
   get Sizes(){
     return this.ProductInfoForm.get('sizes') as FormArray
   }
-  public apiURL=environment.APIBaseUrl;
   CaracteristicsDialog:boolean=false
   AdventageDialog:boolean=false
   statuses:any[]=[]
@@ -231,32 +230,33 @@ export class ProductInfoComponent implements OnInit {
   }
 
   DeleteImage(file:string){
-    let images=this.images
-   this.FileService.DeleteFile(file).subscribe(
-    resp=>{
-      if (resp.message.includes('eliminada')) {
-        //Filtar imagenes y eliminar el nombre de imagen del formarray
-        //1.-Buscamos el index de la imagen a eliminar
-        const index = images.controls.findIndex(control => control.value === file);
-        //2.-Si el elemnto se encuentra se elimina
-        if (index !== -1)
-        images.removeAt(index);
-        this.messageService.add({severity:'success',detail:resp.message,life:4000,summary:'Imagen eliminada con exito'})
-      }
-      else{
-        this.messageService.add({severity:'warn',detail:resp.message,life:4000,summary:'Imagen no exite'})
-      }
-
-    }).unsubscribe
+    const startIndex = file.indexOf('%');
+    const endIndex = file.indexOf('?');
+    const filename=file.substring((startIndex+3),endIndex)
+   this.FileService.DeleteFile(filename).subscribe({
+    next:(value)=> {
+        if (value.message.includes('eliminada')) {
+          //Filtar imagenes y eliminar el nombre de imagen del formarray
+          //1.-Buscamos el index de la imagen a eliminar
+          const index = this.images.controls.findIndex(control => control.value === file);
+          //2.-Si el elemnto se encuentra se elimina
+          if (index !== -1)
+          this.images.removeAt(index);
+          this.messageService.add({severity:'success',detail:value.message,life:4000,summary:'Imagen eliminada con exito'})
+        }
+        else{
+          this.messageService.add({severity:'warn',detail:value.message,life:4000,summary:'Imagen no exite'})
+        }
+    },
+   })
   }
   onUpload(event: any) {
-    const images=this.images
-    const response:string=event.originalEvent.body.split(' ').slice(1,-2).join('')
-    const filesid:string[]=response.split(',')
-    filesid.forEach(id => {
-      images.push(this.FB.control(id))
+    const array=[...event.originalEvent.body.filesinfo]
+    const downloadUrls:string[]=array.map((info)=>{return info.downloadURL})
+    downloadUrls.forEach(id => {
+      this.images.push(this.FB.control(id))
       });
-    this.messageService.add({ severity: 'success', summary: 'Archivo subido', detail: `Archivo guardado con exito con id ${filesid.join(',')}`});
+    this.messageService.add({ severity: 'success', summary: 'Archivo subido', detail: `Archivos guardados con exito`});
   }
   CloseDialog(value:boolean,dialog:string){
   switch(dialog){

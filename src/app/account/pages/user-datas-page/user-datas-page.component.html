@@ -84,7 +84,7 @@
       </div>
       <div class="field col">
         <div class="flex flex-column gap-2">
-          <label htmlFor="State">State</label>
+          <label htmlFor="State">Estado</label>
           <input pInputText id="State" aria-describedby="State-help" formControlName="State" [ngClass]="{'ng-invalid ng-dirty':IsInvalidField('State',DataAddressForm)}"/>
           <small id="State-help">Ingrese estado de envio.</small>
           <small *ngIf="IsInvalidField('State',DataAddressForm)" class="text-danger font-medium">{{GetMessageError('State',DataAddressForm)}}</small>

@@ -53,7 +53,6 @@ mensajeToast:Toast={
   summary:""
 }
 Loading:boolean=true
-ImagesBaseUrl:string=environment.APIBaseUrl+'/files/'
 isSelect:boolean=false
 selectedSize: string=""
 titleCarrousel:string="Otros productos"

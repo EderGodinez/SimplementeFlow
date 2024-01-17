@@ -31,7 +31,6 @@ Size:0,
 Amount: 0,
 Price: 0,
 }
-ImagesURL=environment.APIBaseUrl+'/files/'
 IncreaseProduct(id:string){
   this.productCheckout.Amount=this.productCheckout.Amount+1
   this.MoreLestProduct.emit({id,quantity:1,size:this.productCheckout.Size})

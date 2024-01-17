@@ -5,7 +5,7 @@
               <h4>{{message.summary}}</h4>
               <p>{{message.data[1]}}</p>
               <p>{{message.data[2]|currency:'MXN'}}</p>
-              <img src="http://localhost:3000/files/{{message.data[0]}}" alt="" style="object-fit: cover; width: 120px;">
+              <img src="{{message.data[0]}}" alt="" style="object-fit: cover; width: 120px;">
           </div>
           <div class="grid p-fluid">
               <div class="col-12" *ngIf="!message.summary.includes('removido')">
@@ -38,11 +38,11 @@
       <div class="card">
         <p-galleria  [value]="Product.images" [thumbnailsPosition]="'left'" [transitionInterval]="700" [responsiveOptions]="responsiveOptions" [numVisible]="5">
                     <ng-template pTemplate="item" let-item>
-                        <img [src]="'http://localhost:3000/files/'+item" style="object-fit: cover;width: 35vw; ;display: block;" />
+                        <img [src]="item" style="object-fit: cover;width: 35vw; ;display: block;" />
                     </ng-template>
                     <ng-template pTemplate="thumbnail" let-item>
                       <div class="grid grid-nogutter justify-content-center align-items-center" >
-                          <img [src]="'http://localhost:3000/files/'+item" [style]="{'object-fit':'cover','width': '80px'}"/>
+                          <img [src]="item" [style]="{'object-fit':'cover','width': '80px'}"/>
                       </div>
                   </ng-template>
                 </p-galleria>

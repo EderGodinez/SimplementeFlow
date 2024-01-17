@@ -18,7 +18,6 @@ export class ProductCardComponent implements OnInit {
     this.Min=minKey;
     this.Islike=this.AuthService._User.likes.includes(this.Product._id)
   }
-  ImageUrl=`${environment.APIBaseUrl}/files/`
   Islike!:boolean
   @Input()
   Product:Product={

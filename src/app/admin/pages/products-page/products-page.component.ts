@@ -16,7 +16,7 @@ interface SaveProduct{
 })
 
 export class ProductsPageComponent implements OnInit,OnDestroy{
-  constructor( private messageService: MessageService,private productService:AdminProductService) {
+  constructor( private messageService: MessageService,private  productService:AdminProductService) {
     this.product = {
       _id: "",
       ProductName: "",
@@ -60,7 +60,6 @@ export class ProductsPageComponent implements OnInit,OnDestroy{
     this.InitProductList();
 }
 
-  public apiURL=environment.APIBaseUrl;
   productDialog: boolean = false;
   deleteProductsDialog: boolean = false;
   products:Product[]= [];

@@ -44,7 +44,6 @@ export class DashboardPageComponent implements OnInit,OnDestroy{
       this.GetchartData()//Obtener datos de charts
       this.initChart();
   }
-  apiURL:string=environment.APIBaseUrl
   MostSold:TotalProductSold[]=[]
   monthsChart:string[]=[]
   userDataChart:number[]=[]

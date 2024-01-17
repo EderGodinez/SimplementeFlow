@@ -1,6 +1,6 @@
 <p-toast></p-toast>
 <div style="min-height: 100vh;width: 100wv;">
-  <div class="grid" *ngIf="!Isloading">
+  <div class="grid" *ngIf="!Isload">
     <div class="xl:col-8 md:col-12" >
       <div *ngFor="let product of [1,2,3,4,5]">
         <div class="flex my-3 text-lg justify-content-around flex-wrap">
@@ -35,7 +35,7 @@
       </div>
     </div>
   </div>
-  <div class="grid" *ngIf="Isloading&&Checkoutlist.Details.length>0;else CardEmpty">
+  <div class="grid" *ngIf="Isload&&Checkoutlist.Details.length>0;else CardEmpty">
     <div class="xl:col-8 md:col-12" >
       <div *ngFor="let product of Checkoutlist.Details; let i = index">
         <checkout-card [productCheckout]="product" [AllowSizes]="AllowSizes" (MoreLestProduct)="ModifyQuantity($event)" (deleteProduct)="deleteProduct($event)"></checkout-card>

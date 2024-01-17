@@ -26,35 +26,39 @@ constructor(private productService:ProductsService,
   private OrdersService:OrdersService ){}
   ngOnInit(): void {
     //SE obtiene la informacion de los productos en basea su id
-    this.UserService._User.shopping_car.forEach(product => {
-    this.productService.GetProductById(product.ProductId).pipe(
-      map((product)=>{
-        const {RegisterDate,__v,adventages,disadventages,inventoryStatus,General,...info}=product;
-      const {patent}=product.General
-        return {...info,patent}
-      }),
-      tap((CheckoutInfo)=>{
-        const {Discount,ProductName,_id,description,images,patent,price,sizes}=CheckoutInfo
-        const dataCheckout:ProductOrder={
-          patent,
-          _id:_id,
-          productName: ProductName, // Descripción del producto
-          productDescription:description,
-          Image: images[0],
-          Size:product.size?product.size:0,
-          Amount: product.quantity,
-          Price:price*((100-Discount)/100)
-        }
-        this.AllowSizes=sizes
-        this.Checkoutlist.Details.push(dataCheckout)
-        this.CalculateTotal()
-      }),
-      finalize(()=>{
-        this.Isloading=true
-        console.log('se cargo la info',this.Isloading)
-      })
-    ).subscribe()
-  });
+    if (this.UserService._User.shopping_car.length>0) {
+      this.UserService._User.shopping_car.forEach(product => {
+        this.productService.GetProductById(product.ProductId).pipe(
+          map((product)=>{
+            const {RegisterDate,__v,adventages,disadventages,inventoryStatus,General,...info}=product;
+          const {patent}=product.General
+            return {...info,patent}
+          }),
+          tap((CheckoutInfo)=>{
+            const {Discount,ProductName,_id,description,images,patent,price,sizes}=CheckoutInfo
+            const dataCheckout:ProductOrder={
+              patent,
+              _id:_id,
+              productName: ProductName, // Descripción del producto
+              productDescription:description,
+              Image: images[0],
+              Size:product.size?product.size:0,
+              Amount: product.quantity,
+              Price:price*((100-Discount)/100)
+            }
+            this.AllowSizes=sizes
+            this.Checkoutlist.Details.push(dataCheckout)
+            this.CalculateTotal()
+          }),
+          finalize(()=>{
+            this.Isload=true
+          })
+          ).subscribe()
+      });
+    }
+    else{
+      this.Isload=true
+    }
   this.Checkoutlist.UserId=this.UserService.User._id
 }
 AllowSizes:Sizes={}
@@ -62,7 +66,7 @@ Checkoutlist:checkoutList={
 UserId:"",
 Details:[]
 }
-Isloading:boolean=false
+Isload:boolean=false
 
 totalPay: number = 0;
 
@@ -99,21 +103,28 @@ ModifyQuantity(data:{id:string,quantity:number,size:number}){
   }
 }
 CreateCheckOut(){
-  this.Checkoutlist.Details.map((product)=>{
-  if (typeof product.Size==='string') {
-    product.Size = parseFloat(product.Size);
+  if(this.UserService._User.data_Address.Street){
+    this.Checkoutlist.Details.map((product)=>{
+      if (typeof product.Size==='string') {
+        product.Size = parseFloat(product.Size);
+      }
+      return product
+      })
+    this.OrdersService.createOrder(this.Checkoutlist).subscribe({
+    next:({url})=> {
+      window.location.href=url
+    },
+    error:(err)=> {
+      this.Message.add({life:3000,summary:'Error al intentar realizar pedido',severity:'error',detail:err.error.message})
+    },
+    })
   }
-  return product
-  })
-this.OrdersService.createOrder(this.Checkoutlist).subscribe({
-next:({url})=> {
-  console.log(window.location.origin)
-  window.location.href=url
-},
-error:(err)=> {
-  this.Message.add({life:3000,summary:'Error al intentar realizar pedido',severity:'error',detail:err.error.message})
-},
-})
+  else{
+    this.Message.add({life:5000,summary:'Error al intentar realizar pedido',severity:'error',detail:'Necesitas tener una direccion de envio'})
+    setTimeout(() => {
+      this.Router.navigateByUrl('SimplementeFlow/Account/UserDatas')
+    }, 6000);
+  }
 }
 GoHome(){
 this.Router.navigate(['SimplementeFlow/Home'])

@@ -2,7 +2,7 @@
 <form [formGroup]="ProductInfoForm" (submit)="SubmitProduct()" >
 <p-dialog [(visible)]="productDialog" [style]="{width: '50%'}" header="Detalles de producto" [modal]="true" class="p-fluid" (onHide)="CancelRegister.emit(false)">
     <ng-template pTemplate="content">
-        <img [src]="apiURL+'/files/'+images.controls[0].value" [alt]="ProductInfoForm.controls['ProductName'].value" width="150" class="mt-0 mx-auto mb-5 block shadow-2" *ngIf="images.controls.length>0">
+        <img [src]="images.controls[0].value" [alt]="ProductInfoForm.controls['ProductName'].value" width="150" class="mt-0 mx-auto mb-5 block shadow-2" *ngIf="images.controls.length>0">
         <div class="field">
             <label for="name">Nombre de producto</label>
             <input type="text" pInputText id="name" placeholder="Nombre unico de producto"  autocomplete="off" formControlName="ProductName" [ngClass]="{'ng-dirty ng-invalid' :IsValidField(ProductInfoForm,'ProductName')}" />
@@ -83,7 +83,7 @@
               <ng-template pTemplate="content">
                 <ul >
                   <li class="flex justify-content-between align-items-center" *ngFor="let file of images.controls;let i=index">
-                    <img width="250px" height="200px" style="object-fit: contain; aspect-ratio: 1/1;" [src]="'http://localhost:3000/files/'+file.value" [alt]="'Imagen'+i">
+                    <img width="250px" height="200px" style="object-fit: contain; aspect-ratio: 1/1;" [src]="file.value" [alt]="'Imagen'+i">
                     {{ProductInfoForm.controls['ProductName'].value+'_'+i}}
                     {{images.length}}
                     <p-button label="Eliminar" icon="pi pi-times" (onClick)="DeleteImage(file.value)" [disabled]="!EditProduct"></p-button></li>

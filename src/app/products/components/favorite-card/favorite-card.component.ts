@@ -58,7 +58,6 @@ export class FavoriteCardComponent implements OnInit {
   RegisterDate:new Date(),
   __v: 0
 }
-filesUrl=environment.APIBaseUrl+'/files/'
 Delete(){
   const size=this.minSize
  this.ProductAction.emit({ProductId:this.Product._id,size,action:"delete"})

@@ -53,7 +53,7 @@
                           {{product.ProductName}}
                       </td>
                       <td style="width:14%; min-width:10rem;"><span class="p-column-title">Imagen</span>
-                          <img [src]="apiURL+'/files/'+ product.images[0]" [alt]="product.productName" width="100" class="shadow-4" />
+                          <img [src]="product.images[0]" [alt]="product.productName" width="100" class="shadow-4" />
                       </td>
                       <td style="width:14%; min-width:8rem;">
                           <span class="p-column-title">Precio</span>

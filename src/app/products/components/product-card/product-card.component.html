@@ -4,7 +4,7 @@
     <p></p>
   </div>
   <a href='SimplementeFlow/Products/Search/{{Product.General.age}}/{{Product._id}}'>
-    <p-image src="{{ImageUrl+Product.images[0]}}" [preview]="true" width="95%" height="250" [alt]="Product.ProductName"  [imageStyle]="{'object-fit':'cover','aspect-ratio':'16/9'}">
+    <p-image src="{{Product.images[0]}}" [preview]="true" width="95%" height="250" [alt]="Product.ProductName"  [imageStyle]="{'object-fit':'cover','aspect-ratio':'16/9'}">
       <ng-template pTemplate="indicator" class="flex justify-items-space border-none">
         <span class="sizes">{{Min}}</span>
         <span class="sizes">Al</span>
