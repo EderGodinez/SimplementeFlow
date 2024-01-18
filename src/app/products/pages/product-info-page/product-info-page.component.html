@@ -36,9 +36,9 @@
  <div class="grid m-3" *ngIf="!Loading">
     <div class="sm:col-12 md:col-12 lg:col-6 xl:col-6 phone">
       <div class="card">
-        <p-galleria  [value]="Product.images" [thumbnailsPosition]="'left'" [transitionInterval]="700" [responsiveOptions]="responsiveOptions" [numVisible]="5">
+        <p-galleria  [value]="Product.images" [thumbnailsPosition]="'bottom'" [transitionInterval]="700" [responsiveOptions]="responsiveOptions" [numVisible]="5" th>
                     <ng-template pTemplate="item" let-item>
-                        <img [src]="item" style="object-fit: cover;width: 35vw; ;display: block;" />
+                        <img [src]="item" style="object-fit: cover;width: 35vw; ;display: block; aspect-ratio: 16/12;" />
                     </ng-template>
                     <ng-template pTemplate="thumbnail" let-item>
                       <div class="grid grid-nogutter justify-content-center align-items-center" >

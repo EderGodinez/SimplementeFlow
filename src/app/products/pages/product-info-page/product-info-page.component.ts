@@ -86,7 +86,7 @@ Product:Product={
 responsiveOptions: any[] = [
   {
       breakpoint: '1024px',
-      numVisible: 5
+      numVisible: 4
   },
   {
       breakpoint: '768px',
@@ -94,7 +94,7 @@ responsiveOptions: any[] = [
   },
   {
       breakpoint: '560px',
-      numVisible: 1
+      numVisible: 2
   }
 ];
 GeneralArray =[this.Product.General];
