@@ -1,8 +1,8 @@
-<div *ngIf="Orders.length>0;else NoOrders" class="p-8">
+<div *ngIf="Orders.length>0;else NoOrders" class="p-6" >
 <h1>Mis pedidos</h1>
 <hr>
 <!-- order table -->
-<div style="height: 60vh;">
+<div>
   <table class="my-table">
     <thead>
       <tr>
@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let order of Orders">
+      <tr *ngFor="let order of ShowOrders">
         <td>{{ order.numOrder }}</td>
         <td>{{ order.date |date:'longDate'}}</td>
         <td>{{ order.total |currency:'MXN'}}</td>
@@ -25,6 +25,11 @@
       </tr>
     </tbody>
   </table>
+  <div class="flex align-items-center justify-content-end">
+    <span class="mx-1 text-color">Pedidos por pagina: </span>
+    <p-paginator [first]="first" [rows]="rows" [totalRecords]="totalorders"  (onPageChange)="onPageChange($event)" [showCurrentPageReport]="true"
+        currentPageReportTemplate="{first} - {last} of {totalRecords}" [showPageLinks]="false" [showFirstLastIcon]="false" ></p-paginator>
+</div>
 </div>
 </div>
 <ng-template #NoOrders>

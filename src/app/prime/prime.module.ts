@@ -34,6 +34,7 @@ import { CardModule } from 'primeng/card';
 import { BadgeModule } from 'primeng/badge';
 import { PanelModule } from 'primeng/panel';
 import { SkeletonModule } from 'primeng/skeleton';
+import { PaginatorModule } from 'primeng/paginator';
 @NgModule({
   declarations: [],
   imports: [
@@ -73,7 +74,8 @@ import { SkeletonModule } from 'primeng/skeleton';
     CardModule,
     BadgeModule,
     PanelModule,
-    SkeletonModule
+    SkeletonModule,
+  PaginatorModule
   ]
 })
 export class PrimeModule { }

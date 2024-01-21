@@ -6,23 +6,28 @@ import { Observable } from 'rxjs';
 import { TotalProductSold } from '../interfaces/TotalProductSold.interface';
 import { ProductUpdated } from '../interfaces/ProductUpdatedResponse.interface';
 import { ChartsResponse } from '../interfaces/ChartsResponse.interface';
+import { getUserAutorizationHeaders } from 'src/app/helpers/getHeader';
 
 @Injectable({providedIn: 'root'})
 export class OrdersAdminService {
   constructor(private Http:HttpClient) { }
+  get headers(){
+    const headers=getUserAutorizationHeaders()
+    return headers
+  }
   getOrders():Observable<any[]>{
-   return this.Http.get<Order[]>(`${environment.APIBaseUrl}/orders`)
+   return this.Http.get<Order[]>(`${environment.APIBaseUrl}/orders`,{headers:this.headers})
   }
   updateOrderDeliverStatus(numOrder:number,status:string):Observable<ProductUpdated>{
-    return this.Http.patch<ProductUpdated>(`${environment.APIBaseUrl}/orders/${numOrder}`,{status})
+    return this.Http.patch<ProductUpdated>(`${environment.APIBaseUrl}/orders/${numOrder}`,{status},{headers:this.headers})
   }
   GetMostSelledProducts():Observable<TotalProductSold[]>{
-    return this.Http.get<TotalProductSold[]>(`${environment.APIBaseUrl}/orders/mostSelled`)
+    return this.Http.get<TotalProductSold[]>(`${environment.APIBaseUrl}/orders/mostSelled`,{headers:this.headers})
   }
   GetEarnings():Observable<{TotalEarnings:number}[]>{
-    return this.Http.get<{TotalEarnings:number}[]>(`${environment.APIBaseUrl}/orders/earninigs`)
+    return this.Http.get<{TotalEarnings:number}[]>(`${environment.APIBaseUrl}/orders/earninigs`,{headers:this.headers})
   }
   GetChartsData():Observable<ChartsResponse>{
-    return this.Http.get<ChartsResponse>(`${environment.APIBaseUrl}/orders/info`)
+    return this.Http.get<ChartsResponse>(`${environment.APIBaseUrl}/orders/info`,{headers:this.headers})
   }
 }

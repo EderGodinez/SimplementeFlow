@@ -9,6 +9,7 @@ import { LoginResponse } from 'src/app/admin/interfaces/loginResponse.interface'
 import { RegisterDto } from '../interfaces/Register.interface';
 import { RegisterResponse } from '../interfaces/RegisterResponse.interface';
 import { AddlikeResponse } from '../interfaces/Addlike.Response';
+import { getUserAutorizationHeaders } from 'src/app/helpers/getHeader';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ constructor(private Http:HttpClient,private GuardsService:GuardsService) {
   this.GuardsService.checkAuthStatus().subscribe({
     next:(response)=> {
     const {User}=response
-    this.setUser(User)      
+    this.setUser(User)
     },
     error:(err)=> {
       this.logOut()
@@ -56,18 +57,13 @@ setUser(User:User){
 get _User():User{
   return this.User
 }
-getUserAutorizationHeaders(){
-  const token = localStorage.getItem('Token');
-  const headers = new HttpHeaders()
-    .set('Authorization', `Bearer ${ token }`);
-    return headers
-}
+
 Register(UserInfo:RegisterDto):Observable<RegisterResponse>{
 return this.Http.post<RegisterResponse>(`${environment.APIBaseUrl}/users/register`,UserInfo)
 }
 UpdateInfo(UserInfo:User):Observable<User>{
   const url:string=`${environment.APIBaseUrl}/users/${this.User._id}`
-  const headers=this.getUserAutorizationHeaders()
+  const headers=getUserAutorizationHeaders()
   return this.Http.patch<User>(url,UserInfo,{headers})
 }
 SignIn(email:string,password:string):Observable<LoginResponse>{
@@ -82,12 +78,13 @@ this.ResetUser()
 ChangePass(_password:string,newPassword:string):Observable<User>{
   const email=this._User.email
   const body={email,_password,newPassword}
-  const headers=this.getUserAutorizationHeaders()
+  const headers=getUserAutorizationHeaders()
   const url:string=`${environment.APIBaseUrl}/users/ChangePass`
   return this.Http.patch<User>(url,body,{headers})
 }
 getUserById(id:string):Observable<User>{
-  return this.Http.get<User>(`${environment.APIBaseUrl}/users/${id}`)
+  const headers=getUserAutorizationHeaders()
+  return this.Http.get<User>(`${environment.APIBaseUrl}/users/${id}`,{headers})
   }
   ResetUser():void{
     this.setUser(
@@ -118,14 +115,14 @@ getUserById(id:string):Observable<User>{
   AddLike(productId:string):Observable<AddlikeResponse>{
     const UserID=this._User._id
     const body={productId,UserID}
-    const headers=this.getUserAutorizationHeaders()
+    const headers=getUserAutorizationHeaders()
     return this.Http.post<AddlikeResponse>(`${environment.APIBaseUrl}/users/AddLikes`,body,{headers})
   }
   AddShoppingCar(CarInfo:ShoppingCar) :Observable<AddShoppingCarResponse>{
     const UserID=this._User._id
     const{ProductId,quantity,size}=CarInfo
     const body={UserID,ProductId,quantity,size}
-    const headers=this.getUserAutorizationHeaders()
+    const headers=getUserAutorizationHeaders()
      return this.Http.post<AddShoppingCarResponse>(`${environment.APIBaseUrl}/users/AddProduct`,body,{headers})
   }
 }

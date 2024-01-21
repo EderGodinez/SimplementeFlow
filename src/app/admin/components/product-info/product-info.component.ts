@@ -5,6 +5,7 @@ import { FilesService } from '../../services/file.service';
 import { Message, MessageService } from 'primeng/api';
 import { environment } from 'src/environments/environment';
 import { ValidatorService } from 'src/app/validators/validator.service';
+import { getUserAutorizationHeaders } from 'src/app/helpers/getHeader';
 
 interface SaveProduct{
   closeDialog:boolean
@@ -134,6 +135,9 @@ export class ProductInfoComponent implements OnInit {
   public CaracteristicsForm!:FormGroup;
   //Adventages and Disadventages
   public AdventagesForm!:FormGroup;
+  get headers(){
+    return getUserAutorizationHeaders()
+  }
   IsValidField(MyForm:FormGroup,field:string){
     return this.ValidatorService.isValidField(MyForm,field)
   }
