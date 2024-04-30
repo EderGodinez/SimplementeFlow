@@ -11,7 +11,7 @@ export class ProductsService {
  GetProductById(id:string):Observable<Product>{
   return this.HttpClient.get<Product>(`${this.base_url}/products/${id}`)
  }
- GetProductsByCategory(category:string,limit:number,skip?:number):Observable<Product[]>{
+ GetProductsByCategory(category:string,limit?:number,skip?:number):Observable<Product[]>{
  return this.HttpClient.get<Product[]>(`${this.base_url}/products?Category=${category}&limit=${limit}&skip=${skip}`)
  }
  GetProductsNews(limit:number,skip?:number){

@@ -4,13 +4,8 @@ import { MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
 import { Product ,Toast} from '../../interfaces';
 import { Router } from '@angular/router';
-import { query } from '@angular/animations';
-import { General } from '../../interfaces/product.interface';
 import { catchError, finalize, of, tap } from 'rxjs';
-interface filters{
-  label:string
-  method:void
-}
+
 @Component({
   templateUrl: './category-page.component.html',
   styleUrls: ['./category-page.component.scss'],
@@ -23,13 +18,15 @@ export class SearchPageComponent {
     this.route.params.subscribe(params => {
       const query = params['query'];
       this.search=query
-      this.ProductService.GetProductsByCategory(query,20).pipe(
+      this.ProductService.GetProductsByCategory(query).pipe(
         tap((products)=>{
           this.Products=products
           this._Products=products
+          this.totalProducts = Math.ceil(products.length / 10) * 10;
         }),
         finalize(()=>{
           this.IsLoad=true
+          this.ShowProducts = this.Products.slice(0,10);
         }),
         catchError(()=>{
          return of([])
@@ -45,12 +42,16 @@ export class SearchPageComponent {
     ];
     });
   }
+  ShowProducts!:Product[]
+  totalProducts!:number
   IsLoad:boolean=false
   filterSelected:string=""
   filterOptions:string[]=[]
   search?:string
   Products:Product[]=[]
   _Products:Product[]=[]
+  first: number = 0;
+  rows: number = 10;
   NavigateFav(){
     this.router.navigate(['SimplementeFlow/Favorites'])
   }
@@ -141,5 +142,15 @@ export class SearchPageComponent {
       }
       this.IsLoad=true
     }, 600);
+  }
+  onPageChange(event:any){
+    this.IsLoad=false
+    setTimeout(() => {
+      this.first =event.first;
+      this.rows=event.rows
+      const last =  Math.ceil((this.first+1) / 10) * 10
+      this.ShowProducts = this.Products.slice(this.first,last);
+      this.IsLoad=true
+    }, 1000);
   }
 }

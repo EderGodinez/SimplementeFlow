@@ -22,9 +22,14 @@
     <h2 class="ml-5 mt-5">Productos encontrados  "{{search}}"</h2>
     <div *ngIf="IsLoad&&Products.length>0;">
       <product-list [Products]="Products" (mensajeEnviado)="showMessage($event)" ></product-list>
+      <div class="ml-8 flex align-items-center justify-content-center">
+        <span class="mx-1 text-color">Products por pagina: </span>
+        <p-paginator [first]="first" [rows]="rows" [totalRecords]="totalProducts"  (onPageChange)="onPageChange($event)" [showCurrentPageReport]="true"
+            currentPageReportTemplate="{first} - {last} of {totalRecords}" [showPageLinks]="false" [showFirstLastIcon]="false" ></p-paginator>
+    </div>
     </div>
     <!-- skeleton de productos buscados -->
-    <div *ngIf="!IsLoad" class="flex gap-1 flex-wrap mt-2" >
+    <div *ngIf="!IsLoad" class="flex gap-1 flex-wrap mx-3" >
       <div *ngFor="let item of [1,2,3,4,5,6]" style="width: 32vw;">
         <div class="flex flex-column justify-content-between">
           <div class="flex flex-row-reverse justify-content-end mb-1 px-3">

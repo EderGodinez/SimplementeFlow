@@ -1,6 +1,7 @@
+import { checkoutList } from './../../interfaces/checkout.interface';
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'src/app/products/services/products.service';
-import { ProductOrder, checkoutList } from '../../interfaces/checkout.interface';
+import { ProductOrder } from '../../interfaces/checkout.interface';
 import { Router } from '@angular/router';
 import { Sizes } from 'src/app/products/interfaces';
 import { ShoppingCar } from 'src/app/interfaces/user.interfaces';
@@ -47,8 +48,15 @@ constructor(private productService:ProductsService,
               Price:price*((100-Discount)/100)
             }
             this.AllowSizes=sizes
-            this.Checkoutlist.Details.push(dataCheckout)
-            this.CalculateTotal()
+            const stock=Object.values(this.AllowSizes).reduce((size,total)=>total+size,0)
+            console.log(stock)
+            if (stock>0) {
+              this.Checkoutlist.Details.push(dataCheckout)
+              this.CalculateTotal()
+            }
+            else{
+              this.ClearNoStockProducts(dataCheckout._id,dataCheckout.productName)
+            }
           }),
           finalize(()=>{
             this.Isload=true
@@ -76,12 +84,8 @@ CalculateTotal(){
 }
 deleteProduct(deleteProduct:DeleteProductInfo){
   const{id,size}=deleteProduct
- const productIndex:number=this.Checkoutlist.Details.findIndex((product)=>{
-  product._id===id&&product.Size===size
- })
- this.Checkoutlist.Details.splice(productIndex, 1);
- this.UserService._User.shopping_car=this.UserService._User.shopping_car.filter(car=>car.ProductId!==id&&car.size!==size)
- this.UserService.UpdateInfo(this.UserService.User).subscribe({
+  this.RemoveProductAtUser(id,size)
+ this.UserService.UpdateInfo(this.UserService._User).subscribe({
   next:(value)=> {
     this.Message.add({severity:'info',life:3000,summary:'Producto eliminado de carrito'})
   },
@@ -90,6 +94,29 @@ deleteProduct(deleteProduct:DeleteProductInfo){
   },
  })
  this.CalculateTotal()
+}
+RemoveProductAtUser(id:string,size:number){
+  const productIndex: number = this.Checkoutlist.Details.findIndex((product) => {
+    return product._id === id && product.Size === size;
+  });
+  this.Checkoutlist.Details.splice(productIndex, 1);
+  const UproductIndex: number = this.UserService._User.shopping_car.findIndex((product) => {
+    return product.ProductId === id && product.size === size;
+  });
+  this.UserService.User.shopping_car.splice(UproductIndex,1)
+}
+ClearNoStockProducts(id:string,productname:string){
+  this.Checkoutlist.Details=this.Checkoutlist.Details.filter((product)=>product._id!==id);
+  this.UserService.User.shopping_car=this.UserService.User.shopping_car.filter((product)=>product.ProductId!==id)
+  this.UserService.UpdateInfo(this.UserService._User).subscribe({
+    next:(value)=> {
+      this.Message.add({severity:'info',life:3000,summary:`${productname} eliminado de carrito por falta de stock`})
+    },
+    error:(err)=> {
+      console.error(err)
+    },
+   })
+
 }
 ModifyQuantity(data:{id:string,quantity:number,size:number}){
   const productoParaIncrementar = this.UserService._User.shopping_car.find(producto => producto.ProductId === data.id);
@@ -110,7 +137,7 @@ CreateCheckOut(){
       }
       return product
       })
-    this.OrdersService.createOrder(this.Checkoutlist).subscribe({
+    this.OrdersService.createOrder({UserId:this.UserService._User._id,Details:this.UserService._User.shopping_car}).subscribe({
     next:({url})=> {
       window.location.href=url
     },

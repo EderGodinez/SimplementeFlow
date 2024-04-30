@@ -15,6 +15,7 @@ constructor(private Router:Router,private OrderService:OrdersService){}
       next:(ordersResponse)=> {
         orders=ordersResponse
         this.OrderService.Orders=ordersResponse
+        this.totalorders = Math.ceil(orders.length / 10) * 10;
       },
       error:(err)=> {
         console.error(err)
@@ -24,20 +25,30 @@ constructor(private Router:Router,private OrderService:OrdersService){}
           orders.forEach(order => {
             const {numOrder,OrderDate,TotalPay,PayMethod}=order
             this.Orders.push({numOrder:numOrder,date:OrderDate,total:TotalPay,method:PayMethod})
-          })   
+          })
+          this.ShowOrders = this.Orders.slice(0,10);
           return
         }
         else{
           orders=[]
         }
-       ;    
+        this.totalorders = Math.ceil(orders.length / 10) * 10;
       },
     })
-    
-  }
 
+  }
+  ShowOrders!:OrderList[]
+  totalorders!:number
+  first: number = 0;
+  rows: number = 10;
 Orders:OrderList[]=[]
 ShowDetails(id:number){
 this.Router.navigateByUrl(`SimplementeFlow/Orders/list/${id}`);
+}
+onPageChange(event: any) {
+  this.first =event.first;
+  this.rows=event.rows
+  const last =  Math.ceil((this.first+1) / 10) * 10
+  this.ShowOrders = this.Orders.slice(this.first,last);
 }
 }

@@ -150,7 +150,8 @@ addShoppingCar(){
     return
   }
   if(this.productForm.valid){
-
+    const parsedSize=this.productForm.get('size')?.value.includes('.')?parseFloat(this.productForm.get('size')?.value):parseInt(this.productForm.get('size')?.value)
+    this.productForm.get('size')?.setValue(parsedSize)
     const body={...this.productForm.value,ProductId:this.Product._id}
     this.AuthService.AddShoppingCar(body).subscribe({
       next:(value)=> {

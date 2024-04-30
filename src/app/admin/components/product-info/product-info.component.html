@@ -78,7 +78,7 @@
             <p-messages *ngIf="Sizes.controls.length===0&&Sizes.touched" [value]="Message" [enableService]="false" [closable]="false"></p-messages>
 
 
-            <p-fileUpload name="files" method="post" url="http://localhost:3000/files/upload" chooseLabel="Seleccione imagenes de producto" uploadLabel="Subir"  [disabled]="images.length>4||!EditProduct" cancelLabel="cancelar" invalidFileLimitMessageDetail="Maximo de documentos son 5"
+            <p-fileUpload name="files" method="post" url="http://localhost:3000/files/upload" [headers]="headers" chooseLabel="Seleccione imagenes de producto" uploadLabel="Subir"  [disabled]="images.length>4||!EditProduct" cancelLabel="cancelar" invalidFileLimitMessageDetail="Maximo de documentos son 5"
               invalidFileLimitMessageSummary="Limite de 5 documentos excedido" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" [maxFileSize]="15000000" [fileLimit]="5" invalidFileTypeMessageDetail="Unicamente se acepta formatos de imagen" invalidFileTypeMessageSummary="Formato invalido">
               <ng-template pTemplate="content">
                 <ul >
