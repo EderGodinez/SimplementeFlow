@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { adverticers,advertice } from './advertices';
-import { Product } from 'src/app/products/interfaces/product.interface';
 import { Toast } from 'src/app/products/interfaces';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
@@ -13,6 +12,7 @@ import { Router } from '@angular/router';
 export class HomePageComponent {
   constructor(private messageService: MessageService,private router:Router){
   }
+BaseUrl:string="https://simplemente-flow.netlify.app"
   adverticers:advertice[]=adverticers
   CarouselTitles:string[]=["Nuevos productos","Hombres","Mujeres","Niños","Ofertas"]
   mensajeToast: Toast={

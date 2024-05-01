@@ -29,14 +29,14 @@
 <product-carrucel [Title]="CarouselTitles[0]" (mensajeEnviado)="mostrarToast($event)" ></product-carrucel>
 <!-- Carrucel Ofertas -->
       <div class="text-center py-3 px-3" style="height:50vh ; width: 100%;" >
-        <a href="http://localhost:4200/SimplementeFlow/Products/Search/Nike" class="w-full h-full">
+        <a [href]="BaseUrl+'/SimplementeFlow/Products/Search/Nike'" class="w-full h-full">
         <img src="assets/images/ofertas.jpg" alt="ofertas" class="w-full h-full" style="object-fit: cover;">
       </a>
     </div>
 <!-- CARRUCEL NIÑOS -->
 <product-carrucel [Title]="CarouselTitles[1]" (mensajeEnviado)="mostrarToast($event)"></product-carrucel>
       <div class="text-center py-3 px-3" style=" width: 100%;" >
-        <a href="http://localhost:4200/SimplementeFlow/Products/Search/Niños"class="w-full h-full" >
+        <a [href]="BaseUrl+'/SimplementeFlow/Products/Search/Niños'"class="w-full h-full" >
         <img src="assets/images/niños.jpg" alt="niños" class="w-full h-full" style="object-fit: contain;">
       </a>
     </div>
@@ -44,7 +44,7 @@
     <product-carrucel [Title]="CarouselTitles[2]" (mensajeEnviado)="mostrarToast($event)"></product-carrucel>
 
     <div class="text-center py-3 px-3" style="width: 100%;" >
-      <a href="http://localhost:4200/SimplementeFlow/Products/Search/Niños" class="w-full h-full">
+      <a [href]="BaseUrl+'/SimplementeFlow/Products/Search/Niños'" class="w-full h-full">
       <img src="assets/images/niños.jpg" alt="niños" class="w-full h-full" style="object-fit: contain;">
     </a>
   </div>

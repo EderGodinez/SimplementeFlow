@@ -24,7 +24,7 @@ interface Sizes{
 export class ProductInfoComponent implements OnInit {
   constructor(private FB:FormBuilder,private FileService:FilesService,private messageService: MessageService,private ValidatorService:ValidatorService){
   }
-
+  BaseUrl:string=environment.APIBaseUrl
   ngOnInit(): void {
     this.statuses = [
       { label: 'Disponible', value: 'Disponible' },
