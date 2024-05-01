@@ -149,7 +149,7 @@ CreateCheckOut(){
   else{
     this.Message.add({life:5000,summary:'Error al intentar realizar pedido',severity:'error',detail:'Necesitas tener una direccion de envio'})
     setTimeout(() => {
-      this.Router.navigateByUrl('/Account/UserDatas')
+      this.Router.navigateByUrl('SimplementeFlow/Account/UserDatas')
     }, 6000);
   }
 }

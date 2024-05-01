@@ -53,7 +53,7 @@ export class SearchPageComponent {
   first: number = 0;
   rows: number = 10;
   NavigateFav(){
-    this.router.navigate(['/Favorites'])
+    this.router.navigate(['SimplementeFlow/Favorites'])
   }
   showMessage(mensaje: Toast) {
     const {summary,data}=mensaje;

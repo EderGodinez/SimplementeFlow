@@ -39,7 +39,7 @@ export class RegisterPageComponent implements OnInit {
          //se envian los datos a el backend
          setTimeout(()=>{
           this.setUserInfo()
-          this.router.navigateByUrl('/NewUser/VerifyAccount');
+          this.router.navigateByUrl('SimplementeFlow/NewUser/VerifyAccount');
           this.AuthService.isValidRegister = true;
          },3000)
         }

@@ -46,9 +46,9 @@ export class HeaderComponent {
   }
   Home(){
     const currentRoute = this.router.url;
-    if (currentRoute !== '/Home') {
+    if (currentRoute !== 'SimplementeFlow/Home') {
       this.sidebarVisible=false
-      this.router.navigate(['/Home']);
+      this.router.navigate(['SimplementeFlow/Home']);
       return
     }
     this.sidebarVisible=false
@@ -56,7 +56,7 @@ export class HeaderComponent {
   onKeyUp(event: KeyboardEvent) {
     if (event.key === 'Enter') {
       // Realiza la acción que deseas cuando se presiona "Enter"
-      this.router.navigateByUrl(`/Products/Search/${this.value}`)
+      this.router.navigateByUrl(`SimplementeFlow/Products/Search/${this.value}`)
       this.value="";
 
     }

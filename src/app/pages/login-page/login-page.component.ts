@@ -30,7 +30,7 @@ export class LoginPageComponent {
               this.MessageService.add({ severity: 'success',life:3000, summary: 'Inicio de sesion exitoso', detail: `Bienvenido ${response.User.names}`});
               setTimeout(()=>{
                 this.AuthService.IsLog=true
-                this.Router.navigateByUrl('/Home');
+                this.Router.navigateByUrl('SimplementeFlow/Home');
               },3000)
           },
           error:(error)=>{

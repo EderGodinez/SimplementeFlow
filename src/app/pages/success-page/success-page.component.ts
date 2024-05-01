@@ -35,7 +35,7 @@ export class SuccessPageComponent implements OnInit{
     }, 1000);
   }
 SingIn(){
-  this.Router.navigateByUrl('/Home')
+  this.Router.navigateByUrl('SimplementeFlow/Home')
 }
 showSuccessToast() {
   this.messageService.add({ key: 'bc', severity: 'success', summary: 'Cuenta creada exitosamente', detail: 'Gracias por tu registro' });

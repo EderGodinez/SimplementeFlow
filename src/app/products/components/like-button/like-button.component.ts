@@ -13,7 +13,7 @@ export class LikeButtonComponent {
   @Output() IsOnlikesListChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   onCheckboxChange(event: any) {
     if(!localStorage.getItem('Token')){
-      this.Router.navigateByUrl('/login')
+      this.Router.navigateByUrl('SimplementeFlow/login')
       return
     }
     this.IsOnlikesList = event.target.checked; // Actualizamos el estado del checkbox

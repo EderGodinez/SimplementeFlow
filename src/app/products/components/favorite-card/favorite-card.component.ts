@@ -70,7 +70,7 @@ SearchSimilar(){
   this.Delete()
   const productNameAtt=this.Product.ProductName.split(' ')
   const similar=`${productNameAtt[0]} ${productNameAtt[1]}`
-  this.Router.navigateByUrl(`/Products/Search/${similar}`);
+  this.Router.navigateByUrl(`SimplementeFlow/Products/Search/${similar}`);
 }
 get minSize(){
   const keymin=Object.keys(this.Product.sizes).filter(key => this.Product.sizes[key] > 0).map(Number);;
