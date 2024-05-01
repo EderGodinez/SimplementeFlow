@@ -146,7 +146,7 @@ mostrarToast(isLike:boolean) {
 addShoppingCar(){
   this.productForm.markAllAsTouched();
   if (!this.AuthService.User._id) {
-    this.router.navigateByUrl('SimplementeFlow/login')
+    this.router.navigateByUrl('/login')
     return
   }
   if(this.productForm.valid){
@@ -179,7 +179,7 @@ addShoppingCar(){
   }
 }
 Navigate(url:string){
-  this.router.navigate([`SimplementeFlow/${url}`])
+  this.router.navigate([`/${url}`])
 }
 incrementQuantity() {
   const currentQuantity = this.productForm.get('quantity')!.value;

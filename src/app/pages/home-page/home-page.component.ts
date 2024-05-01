@@ -30,6 +30,6 @@ this.messageService.add({summary,data});
     }
   }
   NavigateFav(){
-    this.router.navigate(['SimplementeFlow/Favorites'])
+    this.router.navigate(['/Favorites'])
   }
 }

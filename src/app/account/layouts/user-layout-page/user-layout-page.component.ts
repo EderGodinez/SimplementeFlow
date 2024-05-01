@@ -24,7 +24,7 @@ userOptions:UserOptions[]=[
 logOut:UserOptions={
         label:"Cerrar sesion",
         icon:"bi bi-box-arrow-in-left",
-        url:"/SimplementeFlow/Home"
+        url:"/Home"
     }
 LogOut(url:string){
   const {names,lastnames}=this.AuthService._User

@@ -7,7 +7,7 @@ export const registerGuard: CanActivateFn = (route, state) => {
   const Auth=inject(AuthService)
   const IsComplete:boolean=Auth.isValidRegister
   if (!IsComplete) {
-    router.navigateByUrl('SimplementeFlow/NewUser/register')
+    router.navigateByUrl('/NewUser/register')
     return IsComplete;
   }
   else{
