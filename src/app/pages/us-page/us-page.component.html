@@ -28,7 +28,7 @@
 </section>
 <footer>
   <p>Gracias por elegir SimplementeFlow. Esperamos que encuentres las tenis perfectas que se adapten a tu estilo y personalidad. ¡Disfruta tu experiencia de compra con nosotros!</p>
-  <p>Si tienes alguna pregunta o comentario, no dudes en <a [href]="BaseUrl+'/SimplementeFlow/Contact'">contactarnos</a>. Estamos aquí para ayudarte.</p>
+  <p>Si tienes alguna pregunta o comentario, no dudes en <a [href]="BaseUrl+'/Contact'">contactarnos</a>. Estamos aquí para ayudarte.</p>
 </footer>
 </div>
 </div>
@@ -41,8 +41,8 @@
       <div class="grid" style="align-items: center;">
         <div class="col md:col-6 lg:col-4 p-3">
           <div class="relative overflow-hidden">
-            <p-image src="assets/images/asesor.png" [preview]="true" alt="Image" width="350" height="450">
-              <ng-template pTemplate="indicator">
+            <p-image src="assets/images/asesor.png" [preview]="true" alt="Image" width="350" height="450" imageClass="border-circle">
+              <ng-template pTemplate="indicator" >
                 <div class="flex flex-column align-self-start text-left">
                   <h3 class="text-white">Jose Sandoval Gonzalez</h3>
                   <h3 class="text-white">Maestro asesor de del sistema</h3>
@@ -58,7 +58,7 @@
         </div>
         <div class="col md:col-6 lg:col-4 p-3">
           <div class="relative overflow-hidden">
-            <p-image src="assets/images/Eder.jpeg" [preview]="true" alt="Image" width="350" height="450">
+            <p-image src="assets/images/Eder.jpeg" [preview]="true" alt="Image" width="350" height="450" imageClass="border-circle">
               <ng-template pTemplate="indicator">
                 <div class="flex flex-column align-self-start text-left">
                   <h3 class="text-white">Eder Yair Godinez Salazar</h3>
@@ -75,7 +75,7 @@
         </div>
         <div class="col md:col-6 lg:col-4 p-3">
           <div class="relative overflow-hidden">
-            <p-image src="assets/images/Paco.png" [preview]="true" alt="Image" width="350" height="450">
+            <p-image src="assets/images/Paco.png" [preview]="true" alt="Image" width="350" height="450" imageClass="border-circle">
               <ng-template pTemplate="indicator" class="flex">
                 <div class="flex flex-column align-self-start text-left">
                   <h3 class="text-white">Francisco Ortega Roman</h3>

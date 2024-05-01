@@ -3,7 +3,7 @@
     <like-button  [IsOnlikesList]="Islike" (IsOnlikesListChange)="handleCheckboxChange($event,Product)"></like-button>
     <p></p>
   </div>
-  <a href='SimplementeFlow/Products/Search/{{Product.General.age}}/{{Product._id}}'>
+  <a href='/Products/Search/{{Product.General.age}}/{{Product._id}}'>
     <p-image src="{{Product.images[0]}}" [preview]="true" width="95%" height="250" [alt]="Product.ProductName"  [imageStyle]="{'object-fit':'cover','aspect-ratio':'16/9','filter':'brightness(1.1)','mix-blend-mode':'multiply','border-radius':'10px'}">
       <ng-template pTemplate="indicator" class="flex justify-items-space border-none">
         <span class="sizes">{{Min}}</span>

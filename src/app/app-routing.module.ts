@@ -22,7 +22,7 @@ import { registerGuard } from './guards/RegisterGuard.guard';
 
 
 const routes: Routes = [
-  {path:'SimplementeFlow',component:LayoutPageComponent,
+  {path:'',component:LayoutPageComponent,
   children:[
     {path:'Home',component:HomePageComponent},
     {path:'login',component:LoginPageComponent,canActivate:[UserLogoutGuard]},
@@ -48,7 +48,7 @@ const routes: Routes = [
   ]},
   {path:'Admin',loadChildren:()=>import('./admin/admin.module').then(m=>m.AdminModule)},
   {path:'Error',component:ErrorPageComponent},
-  {path:'**',redirectTo:"SimplementeFlow"},
+  {path:'**',redirectTo:""},
 ];
 
 @NgModule({

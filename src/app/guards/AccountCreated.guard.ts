@@ -10,7 +10,7 @@ export const accountCreatedGuard: CanActivateFn = (route, state) => {
   }
   else{
     // Navegar a la siguiente ruta
-    router.navigateByUrl('SimplementeFlow/NewUser/register')
+    router.navigateByUrl('/NewUser/register')
  return false
   }
 

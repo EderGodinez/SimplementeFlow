@@ -8,6 +8,6 @@ export class ErrorPageComponent {
 constructor(private router:Router){
 }
 Home(){
-  this.router.navigateByUrl('SimplementeFlow/Home');
+  this.router.navigateByUrl('/Home');
 }
 }

@@ -43,7 +43,7 @@ constructor(private Router:Router,private OrderService:OrdersService){}
   rows: number = 10;
 Orders:OrderList[]=[]
 ShowDetails(id:number){
-this.Router.navigateByUrl(`SimplementeFlow/Orders/list/${id}`);
+this.Router.navigateByUrl(`/Orders/list/${id}`);
 }
 onPageChange(event: any) {
   this.first =event.first;

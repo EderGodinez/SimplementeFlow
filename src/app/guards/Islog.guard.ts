@@ -10,7 +10,7 @@ export const islogGuard: CanActivateFn = (route, state) => {
   const UserService=inject(AuthService)
       const token = localStorage.getItem('Token');
         if ( !token ) {
-          router.navigateByUrl('SimplementeFlow/login')
+          router.navigateByUrl('/login')
           return false;
         }
       return Guard.checkAuthStatus().pipe(
@@ -20,12 +20,12 @@ export const islogGuard: CanActivateFn = (route, state) => {
         }),
         tap(IsAuthenticated=>{
           if (!IsAuthenticated) {
-            router.navigateByUrl('SimplementeFlow/login')
+            router.navigateByUrl('/login')
           }
         }),
         catchError((error) => {
           localStorage.clear()
-          router.navigateByUrl('SimplementeFlow/Home')
+          router.navigateByUrl('/Home')
           return of(false)
           })
 
@@ -38,7 +38,7 @@ export const UserLogoutGuard: CanActivateFn = () => {
     return true
   }
 else{
-  router.navigateByUrl('SimplementeFlow/Home')
+  router.navigateByUrl('/Home')
   return false
 }
 };
